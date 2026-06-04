@@ -1,11 +1,9 @@
 from __future__ import annotations
 import pytest
 from findocretrieval.evaluate import (
-    tokenize,
     exact_match,
     f1_score_tokens,
     cost_per_f1_point,
-    marginal_gain,
     ablation_summary,
 )
 
@@ -44,12 +42,6 @@ def test_ablation_summary_structure() -> None:
     results = [
         {"technique": "baseline", "f1": 0.5, "cost_usd": 0.01},
         {"technique": "baseline", "f1": 0.6, "cost_usd": 0.01},
-        {"+reranking": "extra", "technique": "+reranking", "f1": 0.7, "cost_usd": 0.02},
-    ]
-    # Fix the extra key issue
-    results = [
-        {"technique": "baseline", "f1": 0.5, "cost_usd": 0.01},
-        {"technique": "baseline", "f1": 0.6, "cost_usd": 0.01},
         {"technique": "+reranking", "f1": 0.7, "cost_usd": 0.02},
     ]
     summary = ablation_summary(results)
@@ -57,5 +49,4 @@ def test_ablation_summary_structure() -> None:
     assert "+reranking" in summary
     assert "mean_f1" in summary["baseline"]
     assert "marginal_gain" in summary["+reranking"]
-    # baseline should have zero marginal gain
     assert summary["baseline"]["marginal_gain"] == pytest.approx(0.0)

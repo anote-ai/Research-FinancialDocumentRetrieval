@@ -1,5 +1,4 @@
 from __future__ import annotations
-import pytest
 from findocretrieval.data import (
     SAMPLE_10K_TEXT,
     ABLATION_TECHNIQUES,
