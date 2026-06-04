@@ -1,84 +1,144 @@
-"""Tests for findocretrieval.evaluate."""
-
+from __future__ import annotations
 import pytest
-
 from findocretrieval.evaluate import (
-    ExactMatchScore,
-    ablation_summary,
-    cost_per_f1_point,
+    tokenize,
     exact_match,
     f1_score_tokens,
-    marginal_gain,
+    answer_recall,
+    span_precision,
+    semantic_f1_score,
+    ablation_summary,
 )
 
 
-# --- exact_match ---
+# ---------------------------------------------------------------------------
+# tokenize
+# ---------------------------------------------------------------------------
 
-def test_exact_match_identical():
-    assert exact_match("Apple Inc.", "Apple Inc.") == 1.0
-
-
-def test_exact_match_normalised_whitespace():
-    assert exact_match("  Apple  Inc. ", "Apple Inc.") == 1.0
+def test_tokenize_basic() -> None:
+    assert tokenize("Hello, World!") == ["hello", "world"]
 
 
-def test_exact_match_different():
-    assert exact_match("Apple", "Google") == 0.0
+def test_tokenize_numbers() -> None:
+    tokens = tokenize("Revenue was $4.2 billion in 2025")
+    assert "4" in tokens
+    assert "2" in tokens
+    assert "2025" in tokens
 
 
-def test_exact_match_case_insensitive():
-    assert exact_match("APPLE INC", "apple inc") == 1.0
+# ---------------------------------------------------------------------------
+# exact_match
+# ---------------------------------------------------------------------------
+
+def test_exact_match_true() -> None:
+    assert exact_match("Yes", "yes") == 1.0
 
 
-# --- f1_score_tokens ---
-
-def test_f1_score_perfect():
-    assert f1_score_tokens("net income was 100", "net income was 100") == pytest.approx(1.0)
+def test_exact_match_false() -> None:
+    assert exact_match("Yes", "No") == 0.0
 
 
-def test_f1_score_partial():
-    score = f1_score_tokens("net income", "net income was 100")
+# ---------------------------------------------------------------------------
+# f1_score_tokens
+# ---------------------------------------------------------------------------
+
+def test_f1_perfect() -> None:
+    assert f1_score_tokens("hello world", "hello world") == pytest.approx(1.0)
+
+
+def test_f1_no_overlap() -> None:
+    assert f1_score_tokens("foo", "bar") == pytest.approx(0.0)
+
+
+def test_f1_empty() -> None:
+    assert f1_score_tokens("", "hello") == pytest.approx(0.0)
+
+
+# ---------------------------------------------------------------------------
+# answer_recall
+# ---------------------------------------------------------------------------
+
+def test_answer_recall_perfect() -> None:
+    spans = ["revenue increased 14%", "to 4 2 billion"]
+    predicted = "revenue increased 14 to 4 2 billion"
+    recall = answer_recall(predicted, spans)
+    assert 0.0 <= recall <= 1.0
+    assert recall > 0.5
+
+
+def test_answer_recall_no_overlap() -> None:
+    assert answer_recall("completely different text", ["operating income margin"]) == pytest.approx(0.0)
+
+
+def test_answer_recall_empty_spans() -> None:
+    assert answer_recall("some answer", []) == pytest.approx(0.0)
+
+
+def test_answer_recall_empty_predicted() -> None:
+    assert answer_recall("", ["revenue"]) == pytest.approx(0.0)
+
+
+# ---------------------------------------------------------------------------
+# span_precision
+# ---------------------------------------------------------------------------
+
+def test_span_precision_perfect() -> None:
+    spans = ["operating income"]
+    predicted = "operating income"
+    assert span_precision(predicted, spans) == pytest.approx(1.0)
+
+
+def test_span_precision_no_overlap() -> None:
+    assert span_precision("hallucinated text", ["revenue"]) == pytest.approx(0.0)
+
+
+def test_span_precision_empty_predicted() -> None:
+    assert span_precision("", ["revenue"]) == pytest.approx(0.0)
+
+
+def test_span_precision_empty_spans() -> None:
+    assert span_precision("some answer", []) == pytest.approx(0.0)
+
+
+# ---------------------------------------------------------------------------
+# semantic_f1_score
+# ---------------------------------------------------------------------------
+
+def test_semantic_f1_perfect() -> None:
+    spans = ["free cash flow 540 million"]
+    predicted = "free cash flow 540 million"
+    assert semantic_f1_score(predicted, spans) == pytest.approx(1.0)
+
+
+def test_semantic_f1_zero() -> None:
+    assert semantic_f1_score("abc", ["xyz"]) == pytest.approx(0.0)
+
+
+def test_semantic_f1_between_zero_and_one() -> None:
+    predicted = "revenue grew 31 percent to 2 8 billion"
+    spans = ["31% increase in Cloud Services revenue to $2.8 billion"]
+    score = semantic_f1_score(predicted, spans)
     assert 0.0 < score < 1.0
 
 
-def test_f1_score_no_overlap():
-    assert f1_score_tokens("apple orange", "banana grape") == pytest.approx(0.0)
+def test_semantic_f1_harmonic_mean() -> None:
+    predicted = "revenue income margin"
+    spans = ["revenue operating income"]
+    rec = answer_recall(predicted, spans)
+    prec = span_precision(predicted, spans)
+    expected = 2 * rec * prec / (rec + prec) if (rec + prec) > 0 else 0.0
+    assert semantic_f1_score(predicted, spans) == pytest.approx(expected)
 
 
-def test_f1_score_both_empty():
-    assert f1_score_tokens("", "") == pytest.approx(1.0)
+# ---------------------------------------------------------------------------
+# ablation_summary
+# ---------------------------------------------------------------------------
 
-
-# --- cost_per_f1_point ---
-
-def test_cost_per_f1_point_basic():
-    assert cost_per_f1_point(0.5, 1.0) == pytest.approx(2.0)
-
-
-def test_cost_per_f1_point_zero_f1():
-    assert cost_per_f1_point(0.0, 0.5) == float("inf")
-
-
-# --- marginal_gain ---
-
-def test_marginal_gain_positive():
-    assert marginal_gain(0.6, 0.75) == pytest.approx(0.15)
-
-
-def test_marginal_gain_negative():
-    assert marginal_gain(0.8, 0.7) == pytest.approx(-0.1)
-
-
-# --- ablation_summary ---
-
-def test_ablation_summary_groups_correctly():
+def test_ablation_summary_marginal_gain() -> None:
     results = [
-        {"technique": "reranking", "f1": 0.8, "cost_usd": 0.01},
-        {"technique": "reranking", "f1": 0.6, "cost_usd": 0.01},
-        {"technique": "metadata", "f1": 0.7, "cost_usd": 0.005},
+        {"technique": "baseline", "f1": 0.5, "cost_usd": 0.01},
+        {"technique": "+reranking", "f1": 0.6, "cost_usd": 0.02},
     ]
     summary = ablation_summary(results)
-    assert "reranking" in summary
-    assert "metadata" in summary
-    assert summary["reranking"]["mean_f1"] == pytest.approx(0.7)
-    assert summary["metadata"]["mean_f1"] == pytest.approx(0.7)
+    assert summary["baseline"]["marginal_gain"] == pytest.approx(0.0)
+    assert summary["+reranking"]["marginal_gain"] == pytest.approx(0.1)
