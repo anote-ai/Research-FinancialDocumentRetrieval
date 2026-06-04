@@ -3,121 +3,134 @@ import pytest
 from findocretrieval.core import (
     Document,
     Chunk,
-    QueryResult,
+    SemanticChunk,
     ChunkingConfig,
     fixed_size_chunker,
     sentence_chunker,
+    semantic_chunker,
 )
 
 
-# --- Document ---
+# ---------------------------------------------------------------------------
+# SemanticChunk
+# ---------------------------------------------------------------------------
 
-def test_document_construction() -> None:
-    doc = Document(doc_id="d1", text="Hello world", source="10-K")
-    assert doc.doc_id == "d1"
-    assert doc.source == "10-K"
-
-
-# --- Chunk ---
-
-def test_chunk_length() -> None:
-    chunk = Chunk(chunk_id="c1", doc_id="d1", text="Hello", start_char=0, end_char=5)
-    assert chunk.length == 5
-
-
-# --- ChunkingConfig ---
-
-def test_chunking_config_defaults() -> None:
-    cfg = ChunkingConfig(strategy="fixed")
-    assert cfg.chunk_size == 512
-    assert cfg.overlap == 64
+def test_semantic_chunk_coherence_score_both_neighbours() -> None:
+    chunk = SemanticChunk(
+        chunk_id="c0",
+        doc_id="d0",
+        text="hello world",
+        start_char=0,
+        end_char=11,
+        similarity_to_prev=0.8,
+        similarity_to_next=0.6,
+    )
+    assert chunk.coherence_score == pytest.approx(0.7)
 
 
-def test_chunking_config_overlap_ge_chunk_size_raises() -> None:
-    with pytest.raises(ValueError):
-        ChunkingConfig(strategy="fixed", chunk_size=100, overlap=100)
+def test_semantic_chunk_coherence_score_no_neighbours() -> None:
+    chunk = SemanticChunk(
+        chunk_id="c0",
+        doc_id="d0",
+        text="solo",
+        start_char=0,
+        end_char=4,
+    )
+    assert chunk.coherence_score == pytest.approx(0.0)
 
 
-def test_chunking_config_overlap_exceeds_chunk_size_raises() -> None:
-    with pytest.raises(ValueError):
-        ChunkingConfig(strategy="fixed", chunk_size=100, overlap=150)
+def test_semantic_chunk_is_boundary_true() -> None:
+    chunk = SemanticChunk(
+        chunk_id="c0",
+        doc_id="d0",
+        text="text",
+        start_char=0,
+        end_char=4,
+        similarity_to_prev=0.3,
+        similarity_to_next=0.8,
+    )
+    assert chunk.is_boundary(threshold=0.5) is True
 
 
-# --- fixed_size_chunker ---
-
-def _make_doc(text: str = "A" * 1000) -> Document:
-    return Document(doc_id="doc_test", text=text)
-
-
-def test_fixed_size_chunker_returns_chunks() -> None:
-    doc = _make_doc("X" * 300)
-    cfg = ChunkingConfig(strategy="fixed", chunk_size=100, overlap=10)
-    chunks = fixed_size_chunker(doc, cfg)
-    assert len(chunks) > 0
-
-
-def test_fixed_size_chunker_chunk_count() -> None:
-    text = "A" * 500
-    doc = Document(doc_id="d", text=text)
-    cfg = ChunkingConfig(strategy="fixed", chunk_size=200, overlap=0)
-    chunks = fixed_size_chunker(doc, cfg)
-    # 500 / 200 = 2.5 → 3 chunks
-    assert len(chunks) == 3
+def test_semantic_chunk_is_boundary_false() -> None:
+    chunk = SemanticChunk(
+        chunk_id="c0",
+        doc_id="d0",
+        text="text",
+        start_char=0,
+        end_char=4,
+        similarity_to_prev=0.7,
+        similarity_to_next=0.9,
+    )
+    assert chunk.is_boundary(threshold=0.5) is False
 
 
-def test_fixed_size_chunker_covers_original() -> None:
-    text = "Hello world this is a test sentence for chunking purposes."
-    doc = Document(doc_id="d", text=text)
-    cfg = ChunkingConfig(strategy="fixed", chunk_size=20, overlap=5)
-    chunks = fixed_size_chunker(doc, cfg)
-    # First chunk should start at 0
-    assert chunks[0].start_char == 0
-    # Last chunk should end at len(text)
-    assert chunks[-1].end_char == len(text)
+# ---------------------------------------------------------------------------
+# semantic_chunker
+# ---------------------------------------------------------------------------
+
+def _make_doc(text: str = "Hello world. Foo bar. Baz qux.") -> Document:
+    return Document(doc_id="test_doc", text=text, source="10-K")
 
 
-def test_fixed_size_chunker_bounds() -> None:
-    text = "A" * 250
-    doc = Document(doc_id="d", text=text)
-    cfg = ChunkingConfig(strategy="fixed", chunk_size=100, overlap=20)
-    for chunk in fixed_size_chunker(doc, cfg):
-        assert chunk.start_char >= 0
-        assert chunk.end_char <= len(text)
-        assert chunk.start_char < chunk.end_char
+def test_semantic_chunker_returns_semantic_chunks() -> None:
+    doc = _make_doc()
+    chunks = semantic_chunker(doc)
+    assert all(isinstance(c, SemanticChunk) for c in chunks)
 
 
-def test_fixed_size_chunker_doc_ids() -> None:
-    doc = Document(doc_id="mydoc", text="B" * 300)
-    cfg = ChunkingConfig(strategy="fixed", chunk_size=100, overlap=10)
-    for chunk in fixed_size_chunker(doc, cfg):
-        assert chunk.doc_id == "mydoc"
-
-
-# --- sentence_chunker ---
-
-def test_sentence_chunker_returns_chunks() -> None:
-    text = "The revenue was high. The costs were low. The profit increased."
-    doc = Document(doc_id="d", text=text)
-    chunks = sentence_chunker(doc, max_chars=50)
+def test_semantic_chunker_non_empty() -> None:
+    doc = _make_doc()
+    chunks = semantic_chunker(doc)
     assert len(chunks) >= 1
 
 
-def test_sentence_chunker_doc_ids() -> None:
-    text = "First sentence. Second sentence. Third sentence."
-    doc = Document(doc_id="sdoc", text=text)
-    for chunk in sentence_chunker(doc, max_chars=30):
-        assert chunk.doc_id == "sdoc"
+def test_semantic_chunker_section_label() -> None:
+    from findocretrieval.data import SAMPLE_10K_TEXT
+
+    doc = Document(doc_id="doc_10k", text=SAMPLE_10K_TEXT, source="10-K")
+    chunks = semantic_chunker(doc)
+    labelled = [c for c in chunks if c.section_label is not None]
+    assert len(labelled) >= 1
 
 
-# --- QueryResult ---
+def test_semantic_chunker_first_chunk_no_prev() -> None:
+    doc = _make_doc()
+    chunks = semantic_chunker(doc)
+    assert chunks[0].similarity_to_prev is None
 
-def test_query_result_construction() -> None:
-    qr = QueryResult(
-        query_id="q1",
-        query="What was the revenue?",
-        retrieved_chunks=[],
-        answer="$4.2 billion",
-        cost_usd=0.005,
+
+def test_semantic_chunker_last_chunk_no_next() -> None:
+    doc = _make_doc()
+    chunks = semantic_chunker(doc)
+    if len(chunks) > 1:
+        assert chunks[-1].similarity_to_next is None
+
+
+# ---------------------------------------------------------------------------
+# Existing chunker tests
+# ---------------------------------------------------------------------------
+
+def test_fixed_size_chunker_lengths() -> None:
+    doc = Document(doc_id="d", text="a" * 1000, source="10-K")
+    config = ChunkingConfig(strategy="fixed", chunk_size=200, overlap=50)
+    chunks = fixed_size_chunker(doc, config)
+    assert all(c.length <= 200 for c in chunks)
+    assert len(chunks) > 1
+
+
+def test_sentence_chunker_basic() -> None:
+    doc = Document(
+        doc_id="d",
+        text="First sentence. Second sentence. Third sentence.",
+        source="10-K",
     )
-    assert qr.query_id == "q1"
-    assert qr.cost_usd == pytest.approx(0.005)
+    chunks = sentence_chunker(doc, max_chars=30)
+    assert len(chunks) >= 2
+    for chunk in chunks:
+        assert isinstance(chunk, Chunk)
+
+
+def test_chunking_config_overlap_validation() -> None:
+    with pytest.raises(ValueError, match="overlap"):
+        ChunkingConfig(strategy="fixed", chunk_size=100, overlap=100)

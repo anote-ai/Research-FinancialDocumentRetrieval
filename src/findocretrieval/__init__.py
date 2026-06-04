@@ -2,15 +2,20 @@
 from .core import (
     Document,
     Chunk,
+    SemanticChunk,
     QueryResult,
     ChunkingConfig,
     fixed_size_chunker,
     sentence_chunker,
+    semantic_chunker,
 )
 from .evaluate import (
     tokenize,
     exact_match,
     f1_score_tokens,
+    answer_recall,
+    span_precision,
+    semantic_f1_score,
     cost_per_f1_point,
     marginal_gain,
     ablation_summary,
@@ -19,15 +24,20 @@ from .evaluate import (
 __all__ = [
     "Document",
     "Chunk",
+    "SemanticChunk",
     "QueryResult",
     "ChunkingConfig",
     "fixed_size_chunker",
     "sentence_chunker",
+    "semantic_chunker",
     "tokenize",
     "exact_match",
     "f1_score_tokens",
+    "answer_recall",
+    "span_precision",
+    "semantic_f1_score",
     "cost_per_f1_point",
     "marginal_gain",
     "ablation_summary",
 ]
-__version__ = "0.1.0"
+__version__ = "0.2.0"

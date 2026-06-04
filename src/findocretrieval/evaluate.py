@@ -30,6 +30,93 @@ def f1_score_tokens(predicted: str, reference: str) -> float:
     return 2 * precision * recall / (precision + recall)
 
 
+def answer_recall(
+    predicted: str,
+    reference_spans: list[str],
+) -> float:
+    """Fraction of reference-span tokens found anywhere in the predicted answer.
+
+    Useful for extractive or abstractive QA where the answer must cover
+    specific key facts expressed in *reference_spans*.
+
+    Args:
+        predicted: The generated answer text.
+        reference_spans: List of gold-standard answer span strings.
+
+    Returns:
+        Token-level recall of the union of reference span tokens against the
+        predicted answer tokens.  Returns 0.0 if *reference_spans* is empty
+        or contains no tokens.
+    """
+    ref_tokens = [
+        tok for span in reference_spans for tok in tokenize(span)
+    ]
+    if not ref_tokens:
+        return 0.0
+    pred_tokens = tokenize(predicted)
+    if not pred_tokens:
+        return 0.0
+    pred_set = Counter(pred_tokens)
+    ref_counter = Counter(ref_tokens)
+    common = pred_set & ref_counter
+    return sum(common.values()) / len(ref_tokens)
+
+
+def span_precision(
+    predicted: str,
+    reference_spans: list[str],
+) -> float:
+    """Fraction of predicted tokens that appear in the union of reference spans.
+
+    High span precision means the model does not hallucinate tokens that are
+    absent from any of the gold answer spans.
+
+    Args:
+        predicted: The generated answer text.
+        reference_spans: List of gold-standard answer span strings.
+
+    Returns:
+        Token-level precision of the predicted answer against the union of
+        reference span tokens.  Returns 0.0 if *predicted* is empty.
+    """
+    pred_tokens = tokenize(predicted)
+    if not pred_tokens:
+        return 0.0
+    ref_tokens = [
+        tok for span in reference_spans for tok in tokenize(span)
+    ]
+    if not ref_tokens:
+        return 0.0
+    pred_counter = Counter(pred_tokens)
+    ref_counter = Counter(ref_tokens)
+    common = pred_counter & ref_counter
+    return sum(common.values()) / len(pred_tokens)
+
+
+def semantic_f1_score(
+    predicted: str,
+    reference_spans: list[str],
+) -> float:
+    """Harmonic mean of :func:`answer_recall` and :func:`span_precision`.
+
+    This composite metric rewards answers that are both comprehensive
+    (high recall) and precise (low hallucination).  It mirrors the
+    SQuAD F1 formulation but aggregated across multiple reference spans.
+
+    Args:
+        predicted: The generated answer text.
+        reference_spans: List of gold-standard answer span strings.
+
+    Returns:
+        F1 score in [0, 1].
+    """
+    rec = answer_recall(predicted, reference_spans)
+    prec = span_precision(predicted, reference_spans)
+    if rec + prec == 0:
+        return 0.0
+    return 2 * rec * prec / (rec + prec)
+
+
 def cost_per_f1_point(f1: float, cost_usd: float) -> float:
     """USD cost per F1 point (avoids division by zero)."""
     return cost_usd / max(f1, 1e-9)
