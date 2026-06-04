@@ -1,7 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
-import uuid
 
 
 @dataclass
@@ -23,7 +22,6 @@ class Chunk:
 
     @property
     def length(self) -> int:
-        """Number of characters in this chunk."""
         return self.end_char - self.start_char
 
 
