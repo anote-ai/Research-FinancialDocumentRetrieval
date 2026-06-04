@@ -34,20 +34,7 @@ def answer_recall(
     predicted: str,
     reference_spans: list[str],
 ) -> float:
-    """Fraction of reference-span tokens found anywhere in the predicted answer.
-
-    Useful for extractive or abstractive QA where the answer must cover
-    specific key facts expressed in *reference_spans*.
-
-    Args:
-        predicted: The generated answer text.
-        reference_spans: List of gold-standard answer span strings.
-
-    Returns:
-        Token-level recall of the union of reference span tokens against the
-        predicted answer tokens.  Returns 0.0 if *reference_spans* is empty
-        or contains no tokens.
-    """
+    """Fraction of reference-span tokens found anywhere in the predicted answer."""
     ref_tokens = [
         tok for span in reference_spans for tok in tokenize(span)
     ]
@@ -66,19 +53,7 @@ def span_precision(
     predicted: str,
     reference_spans: list[str],
 ) -> float:
-    """Fraction of predicted tokens that appear in the union of reference spans.
-
-    High span precision means the model does not hallucinate tokens that are
-    absent from any of the gold answer spans.
-
-    Args:
-        predicted: The generated answer text.
-        reference_spans: List of gold-standard answer span strings.
-
-    Returns:
-        Token-level precision of the predicted answer against the union of
-        reference span tokens.  Returns 0.0 if *predicted* is empty.
-    """
+    """Fraction of predicted tokens that appear in the union of reference spans."""
     pred_tokens = tokenize(predicted)
     if not pred_tokens:
         return 0.0
@@ -97,24 +72,52 @@ def semantic_f1_score(
     predicted: str,
     reference_spans: list[str],
 ) -> float:
-    """Harmonic mean of :func:`answer_recall` and :func:`span_precision`.
-
-    This composite metric rewards answers that are both comprehensive
-    (high recall) and precise (low hallucination).  It mirrors the
-    SQuAD F1 formulation but aggregated across multiple reference spans.
-
-    Args:
-        predicted: The generated answer text.
-        reference_spans: List of gold-standard answer span strings.
-
-    Returns:
-        F1 score in [0, 1].
-    """
+    """Harmonic mean of answer_recall and span_precision."""
     rec = answer_recall(predicted, reference_spans)
     prec = span_precision(predicted, reference_spans)
     if rec + prec == 0:
         return 0.0
     return 2 * rec * prec / (rec + prec)
+
+
+def numeric_accuracy(predicted: str, gold: str, tolerance: float = 0.02) -> float:
+    """Compare numeric values with a relative tolerance.
+
+    Returns 1.0 if both strings parse to numbers within *tolerance* of each
+    other (default 2 %), 0.0 if the values differ beyond that or cannot be
+    parsed.
+    """
+    def _extract_number(s: str) -> float | None:
+        s = s.replace(",", "").replace("%", "").replace("$", "").strip()
+        try:
+            return float(s)
+        except ValueError:
+            return None
+
+    pred_val = _extract_number(predicted)
+    gold_val = _extract_number(gold)
+    if pred_val is None or gold_val is None:
+        return 0.0
+    if gold_val == 0:
+        return 1.0 if pred_val == 0 else 0.0
+    return 1.0 if abs(pred_val - gold_val) / abs(gold_val) <= tolerance else 0.0
+
+
+def table_extraction_score(
+    predicted_cells: list[str],
+    gold_cells: list[str],
+) -> dict[str, float]:
+    """Evaluate tabular data extraction from financial documents.
+
+    Returns precision, recall, and F1 over cell-level exact matches.
+    """
+    pred_norm = {c.strip().lower() for c in predicted_cells}
+    gold_norm = {c.strip().lower() for c in gold_cells}
+    tp = len(pred_norm & gold_norm)
+    precision = tp / len(pred_norm) if pred_norm else 0.0
+    recall = tp / len(gold_norm) if gold_norm else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
+    return {"precision": precision, "recall": recall, "f1": f1}
 
 
 def cost_per_f1_point(f1: float, cost_usd: float) -> float:
@@ -128,19 +131,11 @@ def marginal_gain(baseline_f1: float, technique_f1: float) -> float:
 
 
 def ablation_summary(results: list[dict]) -> dict:
-    """Aggregate ablation results by technique.
-
-    Args:
-        results: List of dicts with keys 'technique', 'f1', 'cost_usd'.
-
-    Returns:
-        Dict mapping technique name to {mean_f1, mean_cost, marginal_gain}.
-    """
+    """Aggregate ablation results by technique."""
     by_technique: dict[str, list[dict]] = {}
     for r in results:
         by_technique.setdefault(r["technique"], []).append(r)
 
-    # Determine baseline F1
     baseline_rows = by_technique.get("baseline", [])
     baseline_f1 = (
         sum(r["f1"] for r in baseline_rows) / len(baseline_rows) if baseline_rows else 0.0
