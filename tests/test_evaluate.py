@@ -157,3 +157,20 @@ def test_ablation_summary_marginal_gain() -> None:
     summary = ablation_summary(results)
     assert summary["baseline"]["marginal_gain"] == pytest.approx(0.0)
     assert summary["+reranking"]["marginal_gain"] == pytest.approx(0.1)
+
+
+def test_marginal_gain_positive() -> None:
+    assert marginal_gain(0.52, 0.66) == pytest.approx(0.14)
+
+
+def test_marginal_gain_zero() -> None:
+    assert marginal_gain(0.52, 0.52) == pytest.approx(0.0)
+
+
+def test_cost_per_f1_point_basic() -> None:
+    assert cost_per_f1_point(0.5, 0.01) == pytest.approx(0.02)
+
+
+def test_cost_per_f1_point_zero_f1() -> None:
+    result = cost_per_f1_point(0.0, 0.01)
+    assert result > 0
