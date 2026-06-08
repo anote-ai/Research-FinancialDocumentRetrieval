@@ -148,6 +148,71 @@ def fixed_size_chunker(doc: Document, config: ChunkingConfig) -> list[Chunk]:
     return chunks
 
 
+def paragraph_chunker(doc: Document, max_chars: int = 2048) -> list[Chunk]:
+    """Split *doc.text* on paragraph boundaries (blank lines).
+
+    Falls back to the full text as a single chunk when no paragraph breaks
+    are present.  Consecutive paragraphs are merged until *max_chars* would
+    be exceeded, at which point a new chunk begins.
+
+    Args:
+        doc: Source document to split.
+        max_chars: Maximum characters per chunk before forcing a new chunk.
+
+    Returns:
+        List of :class:`Chunk` objects aligned to paragraph boundaries.
+    """
+    paragraphs = [p.strip() for p in doc.text.split("\n\n") if p.strip()]
+    if not paragraphs:
+        return []
+
+    chunks: list[Chunk] = []
+    current_text = ""
+    current_start = 0
+    idx = 0
+    char_pos = 0
+
+    for para in paragraphs:
+        separator = "\n\n" if current_text else ""
+        combined = current_text + separator + para if current_text else para
+        if current_text and len(combined) > max_chars:
+            end_char = current_start + len(current_text)
+            chunks.append(
+                Chunk(
+                    chunk_id=f"{doc.doc_id}_para_{idx:04d}",
+                    doc_id=doc.doc_id,
+                    text=current_text,
+                    start_char=current_start,
+                    end_char=end_char,
+                    metadata=dict(doc.metadata),
+                )
+            )
+            idx += 1
+            # advance past the separator
+            char_pos = end_char + len(separator)
+            current_start = char_pos
+            current_text = para
+        else:
+            current_text = combined
+
+        char_pos += len(para) + len(separator)
+
+    if current_text:
+        end_char = current_start + len(current_text)
+        chunks.append(
+            Chunk(
+                chunk_id=f"{doc.doc_id}_para_{idx:04d}",
+                doc_id=doc.doc_id,
+                text=current_text,
+                start_char=current_start,
+                end_char=end_char,
+                metadata=dict(doc.metadata),
+            )
+        )
+
+    return chunks
+
+
 def sentence_chunker(doc: Document, max_chars: int = 512) -> list[Chunk]:
     """Split *doc.text* on sentence boundaries ('. '), respecting *max_chars*."""
     text = doc.text

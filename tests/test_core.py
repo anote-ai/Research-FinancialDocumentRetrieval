@@ -6,6 +6,7 @@ from findocretrieval.core import (
     SemanticChunk,
     ChunkingConfig,
     fixed_size_chunker,
+    paragraph_chunker,
     sentence_chunker,
     semantic_chunker,
 )
@@ -134,3 +135,67 @@ def test_sentence_chunker_basic() -> None:
 def test_chunking_config_overlap_validation() -> None:
     with pytest.raises(ValueError, match="overlap"):
         ChunkingConfig(strategy="fixed", chunk_size=100, overlap=100)
+
+
+# ---------------------------------------------------------------------------
+# paragraph_chunker
+# ---------------------------------------------------------------------------
+
+def _make_para_doc(n_paragraphs: int = 3, words_per_para: int = 20) -> Document:
+    paras = [" ".join([f"word{i}" for i in range(words_per_para)]) for _ in range(n_paragraphs)]
+    return Document(doc_id="para_doc", text="\n\n".join(paras), source="10-K")
+
+
+def test_paragraph_chunker_returns_chunks() -> None:
+    doc = _make_para_doc(3)
+    chunks = paragraph_chunker(doc)
+    assert all(isinstance(c, Chunk) for c in chunks)
+
+
+def test_paragraph_chunker_non_empty() -> None:
+    doc = _make_para_doc(3)
+    chunks = paragraph_chunker(doc)
+    assert len(chunks) >= 1
+
+
+def test_paragraph_chunker_single_paragraph() -> None:
+    doc = Document(doc_id="d", text="No paragraph breaks here at all.", source="10-K")
+    chunks = paragraph_chunker(doc)
+    assert len(chunks) == 1
+    assert chunks[0].text == "No paragraph breaks here at all."
+
+
+def test_paragraph_chunker_respects_max_chars() -> None:
+    long_para = "x " * 600  # ~1200 chars each
+    doc = Document(doc_id="d", text=f"{long_para}\n\n{long_para}\n\n{long_para}", source="10-K")
+    chunks = paragraph_chunker(doc, max_chars=1500)
+    assert len(chunks) >= 2
+    for c in chunks:
+        assert len(c.text) <= 1500 + 10  # small tolerance for separator
+
+
+def test_paragraph_chunker_preserves_text() -> None:
+    doc = _make_para_doc(2)
+    chunks = paragraph_chunker(doc)
+    recovered = "\n\n".join(c.text for c in chunks)
+    assert recovered == doc.text
+
+
+def test_paragraph_chunker_chunk_ids_unique() -> None:
+    doc = _make_para_doc(4)
+    chunks = paragraph_chunker(doc)
+    ids = [c.chunk_id for c in chunks]
+    assert len(ids) == len(set(ids))
+
+
+def test_paragraph_chunker_empty_text() -> None:
+    doc = Document(doc_id="d", text="", source="10-K")
+    chunks = paragraph_chunker(doc)
+    assert chunks == []
+
+
+def test_paragraph_chunker_metadata_copied() -> None:
+    doc = Document(doc_id="d", text="Para one.\n\nPara two.", source="10-K", metadata={"fiscal_year": 2025})
+    chunks = paragraph_chunker(doc)
+    for c in chunks:
+        assert c.metadata.get("fiscal_year") == 2025
