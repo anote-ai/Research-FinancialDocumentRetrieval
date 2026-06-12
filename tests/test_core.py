@@ -8,7 +8,6 @@ from findocretrieval.core import (
     Document,
     QueryResult,
     fixed_size_chunker,
-    sentence_chunker,
 )
 
 
