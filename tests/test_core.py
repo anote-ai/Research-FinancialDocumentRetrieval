@@ -72,8 +72,8 @@ def test_fixed_size_chunker_overlap():
     doc = Document(doc_id="d", text=text, metadata={})
     cfg = ChunkingConfig(strategy="fixed", chunk_size=100, overlap=50)
     chunks = fixed_size_chunker(doc, cfg)
-    # step = 50, so chunks start at 0, 50, 100, 150, 200, 250
-    assert len(chunks) == 6
+    # step=50; chunks start at 0,50,100,150,200 (partial tail excluded)
+    assert len(chunks) == 5
     assert chunks[1].start_char == 50
 
 
