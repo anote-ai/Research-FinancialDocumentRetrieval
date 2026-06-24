@@ -28,7 +28,6 @@ python scripts/run_demo.py
 pytest tests/ -v
 ```
 
-Installation
 ```bash
 python -m pip install -e ".[dev]" #installation
 
