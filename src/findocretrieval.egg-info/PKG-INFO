@@ -1,3 +1,20 @@
+Metadata-Version: 2.4
+Name: findocretrieval
+Version: 0.1.0
+Summary: Financial document retrieval and QA evaluation with ablation support
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.24
+Requires-Dist: pandas>=2.0
+Requires-Dist: scikit-learn>=1.3
+Requires-Dist: rich>=13
+Requires-Dist: tqdm>=4.65
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4; extra == "dev"
+Requires-Dist: pytest-cov>=4.1; extra == "dev"
+Requires-Dist: ruff>=0.1; extra == "dev"
+Requires-Dist: mypy>=1.5; extra == "dev"
+
 # FinDocRetrieval
 
 > **Research question:** Do chunking strategy, reranking, and query expansion improve QA accuracy on financial filings (10-K, 10-Q, earnings transcripts) — and at what cost?
@@ -27,17 +44,6 @@ pip install -e ".[dev]"
 python scripts/run_demo.py
 pytest tests/ -v
 ```
-
-Installation
-```bash
-python -m pip install -e ".[dev]" #installation
-
-python scripts/run_demo.py #run demo
-
-python -m pytest tests/ -v #run tests
-```
-
-Note: Using python -m pytest is recommended because it ensures pytest runs from the currently active Python environment and avoids PATH-related issues on Windows.
 
 ## Target Venue
 

@@ -1,0 +1,14 @@
+README.md
+pyproject.toml
+src/findocretrieval/__init__.py
+src/findocretrieval/core.py
+src/findocretrieval/data.py
+src/findocretrieval/evaluate.py
+src/findocretrieval.egg-info/PKG-INFO
+src/findocretrieval.egg-info/SOURCES.txt
+src/findocretrieval.egg-info/dependency_links.txt
+src/findocretrieval.egg-info/requires.txt
+src/findocretrieval.egg-info/top_level.txt
+tests/test_core.py
+tests/test_data.py
+tests/test_evaluate.py
