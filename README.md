@@ -24,6 +24,15 @@ Each technique incurs incremental inference cost. We report **cost per F1 point*
 - LLM metadata annotation: ~$0.005–$0.02 / document (one-time pre-processing)
 - Query expansion (HyDE): ~$0.001–$0.005 / query
 
+> **Note on the numbers above:** the "Expected F1 Gain" and cost figures in
+> this README are projections, not measurements — there is currently no
+> BM25/reranker/HyDE implementation wired up to real FinanceBench data in
+> this repository, and `scripts/run_demo.py`'s ablation output is generated
+> from a synthetic noise model (`findocretrieval.data.make_query_results`),
+> not a real retrieval run. See `RESEARCH_GAP_ANALYSIS.md` for a full
+> breakdown of what is implemented vs. projected, `PAPER_DRAFT.md` for the
+> in-progress writeup, and `BLOG.md` for a plain-language summary.
+
 ## Quickstart
 
 ```bash
