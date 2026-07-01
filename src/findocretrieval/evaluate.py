@@ -245,6 +245,7 @@ def evaluate_condition(
                 )
                 predicted = chain.invoke(question)
             else:
+                assert _static_chain is not None
                 predicted = _static_chain.invoke(question)
         except Exception as exc:
             print(f"[warn] {condition_name} | failed: {exc}")
