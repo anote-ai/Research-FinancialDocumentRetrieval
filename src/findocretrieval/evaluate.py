@@ -1,6 +1,11 @@
 from __future__ import annotations
+
 import re
 from collections import Counter
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import pandas as pd
 
 
 def tokenize(text: str) -> list[str]:

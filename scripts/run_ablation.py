@@ -26,15 +26,15 @@ import pandas as pd
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from findocretrieval.chunking import (
+from findocretrieval.chunking import (  # noqa: E402
     build_index,
     fixed_chunking,
     recursive_chunking,
     semantic_chunking,
 )
-from findocretrieval.evaluate import evaluate_condition
-from findocretrieval.query_expansion import HyDERetriever
-from findocretrieval.retriever import (
+from findocretrieval.evaluate import evaluate_condition  # noqa: E402
+from findocretrieval.query_expansion import HyDERetriever  # noqa: E402
+from findocretrieval.retriever import (  # noqa: E402
     get_base_retriever,
     get_hybrid_retriever,
     get_metadata_retriever,
