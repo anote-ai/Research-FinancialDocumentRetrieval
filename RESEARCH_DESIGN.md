@@ -20,7 +20,7 @@
 2. [Setup Status](#2-setup-status)
 3. [Dataset](#3-dataset)
 4. [Methodology](#4-methodology)
-5. [Expected Results](#5-expected-results)
+5. [Preliminary Results](#5-preliminary-results)
 6. [Related Work](#6-related-work)
 7. [Paper Structure](#7-paper-structure)
 8. [Timeline](#8-timeline)
@@ -50,10 +50,12 @@ The central contribution is a **cost-aware analysis of RAG pipeline components**
 | ✅ | 75 of 84 source PDFs downloaded | `data/pdfs/` — 133/150 questions usable |
 | ✅ | OpenAI API key confirmed and set | Provided by Natan Vidra |
 | ✅ | Conda environment created | `findocretrieval`, Python 3.11, Windows (Anaconda) |
-| ⚠️ | 9 PDFs failed to download | Adobe 2015/16/17/22, J&J, MGM — 17 questions excluded, manual download pending |
-| ⏳ | OpenAI + LangChain libraries installing | `pip install openai langchain-openai` |
-| ⏳ | Document indexing (chunking + vector store) | Next step after install completes |
-| ⏳ | C0 baseline evaluation run | Next step |
+| ✅ | All pipeline dependencies installed | langchain, faiss-cpu, sentence-transformers, pypdf, rouge-score, rank_bm25, openai, langchain-openai |
+| ✅ | results/ directory created | Progress saves every 10 questions |
+| ✅ | End-to-end pipeline validated | test_pipeline.py ran successfully on 5 questions |
+| 🔄 | C0 baseline evaluation running | `run_c0.py` in progress — 133 questions, GPT-4o |
+| ⚠️ | 9 PDFs failed to download | Adobe 2015/16/17/22, J&J, MGM — 17 questions excluded |
+| ⏳ | C1–C6 ablation conditions | Pending C0 completion |
 
 ### Environment Details
 
@@ -63,12 +65,24 @@ The central contribution is a **cost-aware analysis of RAG pipeline components**
 | Python version | 3.11 (Anaconda) |
 | Conda environment | `findocretrieval` |
 | Working directory | `C:\Projects\Research-FinancialDocumentRetrieval` |
-| LLM provider | OpenAI (GPT-4o) |
-| Embedding model | `text-embedding-3-large` (OpenAI) or `all-MiniLM-L6-v2` (HuggingFace fallback) |
+| LLM provider | OpenAI (GPT-4o, temperature=0) |
+| Embedding model | `all-MiniLM-L6-v2` (HuggingFace, local, no API key) |
+| Vector store | FAISS (local) |
+| Chunking (C0) | TokenTextSplitter, chunk_size=512, chunk_overlap=50 |
+| Retrieval k | k=10 |
+
+### Key Import Fixes Applied
+
+During setup the following import changes were required due to LangChain version updates:
+
+| Old Import | New Import |
+|-----------|-----------|
+| `from langchain.text_splitter import TokenTextSplitter` | `from langchain_text_splitters import TokenTextSplitter` |
+| `from langchain_community.embeddings import HuggingFaceEmbeddings` | `from langchain_huggingface import HuggingFaceEmbeddings` |
 
 ### Failed PDF Downloads
 
-The following 9 documents failed due to blocked company investor pages. Need manual download from [SEC EDGAR](https://www.sec.gov/cgi-bin/browse-edgar):
+The following 9 documents need to be manually retrieved from [SEC EDGAR](https://www.sec.gov/cgi-bin/browse-edgar):
 
 - `ADOBE_2015_10K`
 - `ADOBE_2016_10K`
@@ -100,17 +114,13 @@ FinanceBench (Islam et al., 2023) is the primary evaluation benchmark. It compri
 | Document types | 10-K, 10-Q, Earnings, 8-K | 10-K, 10-Q, Earnings, 8-K | 10-K, 10-Q, Earnings, 8-K |
 | Failed downloads | — | 9 docs | 17 questions excluded |
 
-The 9 failed PDFs cover 17 questions. Experiments proceed with 133 questions. The final paper will note this exclusion explicitly.
-
 ### 3.3 Question Type Breakdown
 
-The dataset contains three main question types that stress different pipeline components:
-
-- **Metrics-generated** — multi-step numeric calculations (e.g. fixed asset turnover ratio, 3-year average capex %). Requires finding multiple numbers across the filing and computing a formula.
+- **Metrics-generated** — multi-step numeric calculations (e.g. fixed asset turnover ratio, 3-year average capex %). Requires finding multiple numbers and computing a formula.
 - **Novel-generated** — extractive and interpretive questions requiring locating specific passages.
 - **Boolean** — yes/no questions about company policies, dividends, etc.
 
-> **Secondary Research Question:** Is the primary failure mode on numeric questions a retrieval problem (correct chunk never retrieved) or a reasoning problem (correct chunk retrieved, model miscalculates)? A 50-question pilot will determine this before the full experiment suite runs.
+> **Secondary Research Question:** Is the primary failure mode on numeric questions a retrieval problem (correct chunk never retrieved) or a reasoning problem (correct chunk retrieved, model miscalculates)? Early C0 results suggest it is primarily a **retrieval failure** — the right passage is not making it into the top-k chunks.
 
 ---
 
@@ -138,16 +148,16 @@ Each condition run with **3 random seeds**. Results reported as mean ± standard
 
 | Strategy | Description |
 |----------|-------------|
-| **Fixed (C0)** | 512-token chunks, 50-token overlap, naive token boundary split |
+| **Fixed (C0)** | 512-token chunks, 50-token overlap — `TokenTextSplitter` from `langchain_text_splitters` |
 | **Semantic (C1)** | Split on semantic similarity boundaries using sentence embeddings; variable chunk size |
 | **Recursive (C2)** | Hierarchical split: section headers → paragraphs → sentences; treats tables as single units |
 
 #### Reranking (C3)
 
-After retrieving the top-20 chunks, a cross-encoder re-scores and reorders them, keeping the top-5 to pass to the generator.
+After retrieving the top-k chunks, a cross-encoder re-scores and reorders them, keeping the top-5 to pass to the generator.
 
 - Candidate models: Cohere Rerank v3, `BAAI/bge-reranker-v2-m3`
-- Final model choice: to be confirmed
+- Final model choice to be confirmed
 
 #### Metadata Enrichment (C4)
 
@@ -155,16 +165,16 @@ Each chunk tagged with: `company`, `fiscal_year`, `doc_type`, `section_header`, 
 
 #### Query Expansion (C5)
 
-- **HyDE:** Generate a hypothetical answer, embed it, retrieve against that embedding alongside the original query
-- **Multi-query:** Generate 3 paraphrases, retrieve against each, union results before reranking
+- **HyDE** — generate a hypothetical answer, embed it, retrieve against that embedding alongside the original query
+- **Multi-query** — generate 3 paraphrases, retrieve against each, union results before reranking
 
 ### 4.3 Evaluation Metrics
 
 | Metric | Description | Why It Matters |
 |--------|-------------|----------------|
-| **Token-level F1** | Overlap between predicted and gold answer spans | Primary accuracy signal |
-| **Exact Match (EM)** | Binary correctness — predicted matches gold exactly | Critical for numeric questions |
-| **Retrieval Recall@k** | Fraction of gold evidence passages in top-k retrieved | Isolates retrieval from generation |
+| **Token-level F1 (ROUGE-L)** | Overlap between predicted and gold answer spans | Primary accuracy signal |
+| **Exact Match (EM)** | Binary correctness — predicted contains gold answer | Critical for numeric questions |
+| **Retrieval Recall@k** | Fraction of gold evidence in top-k retrieved | Isolates retrieval from generation |
 | **Cost per Query (USD)** | Total API spend divided by number of questions | The cost-frontier differentiator |
 | **Latency (p50/p95)** | Query response time in seconds | Practical deployment constraint |
 
@@ -172,29 +182,60 @@ Each chunk tagged with: `company`, `fiscal_year`, `doc_type`, `section_header`, 
 
 | Component | Implementation |
 |-----------|---------------|
-| Embedding model | `text-embedding-3-large` (OpenAI) |
-| Generator model | GPT-4o (OpenAI) |
-| Vector store | FAISS (local dev) → Pinecone or Chroma (final runs) |
+| Embedding model | `all-MiniLM-L6-v2` (HuggingFace, local) |
+| Generator model | GPT-4o (OpenAI, temperature=0) |
+| Vector store | FAISS (local) |
 | Sparse retrieval | `rank_bm25` for BM25 in hybrid condition (C6) |
-| Framework | LangChain + LangChain-community |
-| Evaluation harness | Custom Python — ROUGE-L for F1, exact string match for EM |
+| Framework | LangChain + LangChain-community + LangChain-text-splitters |
+| Evaluation harness | `run_c0.py` — ROUGE-L F1 + exact match, saves to `results/` |
 | Source documents | 75 PDFs in `data/pdfs/` — 133 of 150 questions covered |
 
 ---
 
-## 5. Expected Results
+## 5. Preliminary Results
 
-| Condition | Expected F1 | Expected Cost/Query | Notes |
-|-----------|-------------|---------------------|-------|
-| C0 Baseline | ~0.50–0.55 | ~$0.008 | Floor — naive pipeline |
-| C1 Semantic | ~0.53–0.57 | ~$0.009 | Marginal improvement |
-| C2 Recursive | ~0.54–0.58 | ~$0.009 | Better on table questions |
-| C3 Reranking | ~0.59–0.63 | ~$0.018 | Best cost-efficiency ratio |
-| C4 Metadata | ~0.55–0.59 | ~$0.013 | Helps on year/company disambiguation |
-| C5 Query Exp. | ~0.56–0.60 | ~$0.015 | Limited benefit on numeric questions |
-| C6 Hybrid | ~0.64–0.68 | ~$0.035–0.040 | Highest F1; ~4–5x baseline cost |
+### 5.1 C0 Baseline — In Progress
 
-**Primary output:** A cost-frontier plot with F1 on the x-axis and cost per query on the y-axis, each condition as a labeled point.
+> **Status:** `run_c0.py` currently running on all 133 questions. Results save to `results/c0_baseline.csv`. Update this section when complete.
+
+**Final C0 results (fill in when run completes):**
+
+| Metric | C0 Baseline |
+|--------|-------------|
+| Mean ROUGE-L F1 | `[PENDING]` |
+| Mean Exact Match | `[PENDING]` |
+| Mean Latency | `[PENDING]` |
+| Mean Cost/Query | `[PENDING]` |
+| F1 — metrics-generated | `[PENDING]` |
+| F1 — novel-generated | `[PENDING]` |
+| F1 — boolean | `[PENDING]` |
+
+### 5.2 Early Signal from First 10 Questions
+
+The first 10 questions of the C0 run reveal a clear pattern before full results are in:
+
+| # | Company | Question Type | Gold Answer | ROUGE-L F1 | Exact Match | Observation |
+|---|---------|--------------|-------------|------------|-------------|-------------|
+| 1 | 3M | Numeric (capex) | $1577.00 | 0.000 | 0.0 | Retrieval failure — right chunk not in top-10 |
+| 2 | 3M | Numeric (PP&E) | $8.70 | 0.105 | 0.0 | Partial hit — related text retrieved |
+| 3 | 3M | Boolean | Multi-sentence | 0.101 | 0.0 | Wrong answer — model said Yes, gold says No |
+| 4 | 3M | Qualitative | Multi-sentence | 0.173 | 0.0 | Partial overlap on prose question |
+| 5 | 3M | Qualitative | Multi-sentence | 0.229 | 0.0 | Better on segment analysis question |
+| 6 | 3M | Qualitative | Multi-sentence | 0.105 | 0.0 | Retrieval miss on liquidity question |
+| 7 | 3M | Extractive | List of items | 0.200 | 0.0 | Partial — model said not found, gold is specific list |
+| 8 | 3M | Boolean | Multi-sentence | 0.275 | 0.0 | Best score so far — dividend question |
+| 9 | Activision | Calculated ratio | 24.26 | 0.036 | 1.0 | Model calculated correctly despite low F1 |
+| 10 | Activision | Calculated % | 1.9% | 0.000 | 0.0 | Context missing — cash flow not retrieved |
+
+### 5.3 Early Findings
+
+**Finding 1 — Retrieval failure is the primary bottleneck on numeric questions.** Questions 1 and 10 show F1 of 0.000 because the cash flow statement chunks were not in the top-10 retrieved. The model correctly said it couldn't find the answer rather than hallucinating. This confirms the secondary research question: the problem is retrieval, not generation.
+
+**Finding 2 — Qualitative questions perform better than numeric.** Questions 4, 5, and 8 (prose-based) score 0.173–0.275 F1, while pure numeric questions score 0.000–0.105. This split is expected and will be a key analytical finding in the paper.
+
+**Finding 3 — Exact match works for calculated ratios.** Question 9 has EM=1.0 despite low ROUGE-L F1 — the model found and calculated the right ratio (24.26) even though the answer phrasing didn't match. This suggests EM may be a better metric than F1 for metrics-generated questions.
+
+**Finding 4 — 512-token fixed chunking splits financial tables badly.** Retrieved chunks show partial table rows and disconnected numbers. This directly motivates C2 (recursive chunking with tables as single units).
 
 ---
 
@@ -202,8 +243,8 @@ Each chunk tagged with: `company`, `fiscal_year`, `doc_type`, `section_header`, 
 
 ### Direct Predecessors
 
-- **Vidra et al. (2024)** — [arXiv:2404.07221](https://arxiv.org/abs/2404.07221). Anote's prior work. Direct predecessor. This paper extends it with more rigorous ablation design, explicit cost measurement, and updated models.
-- **Islam et al. (2023)** — [FinanceBench, arXiv:2311.11944](https://arxiv.org/abs/2311.11944). Primary evaluation dataset. Core motivation.
+- **Vidra et al. (2024)** — [arXiv:2404.07221](https://arxiv.org/abs/2404.07221). Anote's prior work and direct predecessor. Tests chunking, query expansion, metadata, reranking, and embedding fine-tuning on FinanceBench. This paper extends it with more rigorous ablation design, explicit cost measurement, and updated models.
+- **Islam et al. (2023)** — [FinanceBench, arXiv:2311.11944](https://arxiv.org/abs/2311.11944). Primary evaluation dataset. GPT-4-Turbo fails 81% of questions with basic retrieval. Core motivation.
 
 ### Closest Competitor
 
@@ -242,9 +283,9 @@ Each chunk tagged with: `company`, `fiscal_year`, `doc_type`, `section_header`, 
 
 | Dates | Phase | Deliverable | Deadline |
 |-------|-------|-------------|----------|
-| Jun 9–23 | Setup & Scoping | Repo running, data downloaded, API key confirmed, lit review started, abstract drafted | **Jun 23 — Abstract due ✓** |
-| Jun 23–Jul 14 | Lit Review & Baseline | Full lit review complete; C0 baseline running with F1 + cost metrics | **Jul 14 — Methodology done** |
-| Jul 14–21 | Experiments | All 7 conditions run; results table and cost-frontier plot generated | **Jul 21 — Full draft due** |
+| Jun 9–23 | Setup & Scoping | Repo running, data downloaded, API key confirmed, abstract drafted, C0 running | **Jun 23 — Abstract due ✓** |
+| Jun 23–Jul 14 | Lit Review & Baseline | Full lit review; C0 results in; C1–C3 running | **Jul 14 — Methodology done** |
+| Jul 14–21 | Experiments | All 7 conditions complete; results table and cost-frontier plot generated | **Jul 21 — Full draft due** |
 | Jul 21–28 | Writing — Draft 1 | Full paper written and shared for peer review | **Jul 28 — Peer feedback** |
 | Jul 28–Aug 4 | Revision | Statistical rigor, reproducibility package, ethics statement | **Aug 4 — Final polish** |
 | Aug 5–10 | Submission Prep | ACM formatting; arXiv preprint submitted; fellowship presentation | **Aug 10 — arXiv live** |
@@ -257,11 +298,11 @@ Each chunk tagged with: `company`, `fiscal_year`, `doc_type`, `section_header`, 
 
 | Risk | Level | Mitigation |
 |------|-------|------------|
-| Experiments take longer than expected | 🔴 High | Parallelize conditions. Start C0 immediately — it unblocks all downstream runs. |
-| 9 missing PDFs remain unavailable | 🟡 Medium | Proceed with 133/150 questions. Note exclusion in paper. Try SEC EDGAR manually. |
-| Overlap with Patel et al. 2026 | 🟡 Medium | Emphasize cost measurement and chunking ablation — their explicit future work. |
-| Windows environment compatibility issues | 🟡 Medium | Use conda environment consistently. Fall back to HuggingFace embeddings if OpenAI issues arise. |
-| Table structure bottleneck is negligible | 🟢 Low | If pilot shows it's not the issue, drop that thread early and maintain focus. |
+| Experiments take longer than expected | 🔴 High | C0 already running. Parallelize C1–C6 once C0 finishes. |
+| 9 missing PDFs remain unavailable | 🟡 Medium | Proceeding with 133/150 questions. Will note exclusion in paper. |
+| Overlap with Patel et al. 2026 | 🟡 Medium | Cost measurement and chunking ablation are our explicit differentiators. |
+| Windows environment compatibility | 🟡 Medium | Resolved — import fixes applied and documented in Section 2. |
+| Table structure bottleneck is negligible | 🟢 Low | Early results suggest tables ARE a bottleneck (Finding 4). C2 well motivated. |
 | WSDM page limit conflict | 🟢 Low | Draft long, cut later. Keep full version on arXiv. |
 
 ---
@@ -270,12 +311,12 @@ Each chunk tagged with: `company`, `fiscal_year`, `doc_type`, `section_header`, 
 
 > Bring to next standup.
 
-1. **Retrieval vs. reasoning** — Is the primary failure on numeric questions a retrieval problem or a reasoning problem? Run 50-question pilot to determine.
-2. **Table chunking** — Should table-containing chunks be a separate ablation condition, or folded into recursive chunking (C2)?
-3. **Top-k value** — What is the right value of k for top-k retrieval? Must be fixed consistently across all 7 conditions.
-4. **Evaluation scope** — Full 133 questions or a stratified sample by question type for compute efficiency?
-5. **Missing PDFs** — Can the 9 failed PDFs be retrieved from SEC EDGAR before the first experiment run?
-6. **Reranker model** — Cohere Rerank v3 or `BAAI/bge-reranker-v2-m3` for C3? Confirm with Natan.
+1. **Full C0 results** — what is the final mean F1 across all 133 questions? What is the breakdown by question type?
+2. **Cost tracking** — need to add OpenAI API usage logging to measure cost per query. Check platform.openai.com usage dashboard after C0 run.
+3. **Top-k value** — k=10 is the current setting. Should this change for different conditions?
+4. **Reranker model** — Cohere Rerank v3 or `BAAI/bge-reranker-v2-m3` for C3?
+5. **Missing PDFs** — can the 9 failed PDFs be retrieved from SEC EDGAR to recover the 17 excluded questions?
+6. **Table chunking** — early results confirm tables are being split badly by fixed chunking. Should C2 explicitly treat every table as a single chunk unit?
 
 ---
 
