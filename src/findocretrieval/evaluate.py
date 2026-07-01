@@ -151,3 +151,109 @@ def ablation_summary(results: list[dict]) -> dict:
             "marginal_gain": marginal_gain(baseline_f1, mean_f1),
         }
     return summary
+
+
+# ---------------------------------------------------------------------------
+# LangChain end-to-end evaluation (LangChain imports are lazy so the
+# pure-Python metrics above remain importable without LangChain installed)
+# ---------------------------------------------------------------------------
+
+def evaluate_condition(
+    condition_name: str,
+    retriever,
+    llm,
+    df,
+) -> "pd.DataFrame":
+    """Run every row in *df* through retriever + LLM and return per-row metrics.
+
+    Args:
+        condition_name: Label for the ablation condition (e.g. "C0_fixed_base").
+        retriever: A LangChain BaseRetriever, **or** a callable(pd.Series) ->
+                   BaseRetriever for per-row retriever creation (needed for the
+                   metadata-filtered C2 condition).
+        llm: Any LangChain BaseLLM / BaseChatModel.
+        df: DataFrame with at least columns ``question`` and ``answer``.
+
+    Returns:
+        DataFrame with columns: condition, question, gold_answer,
+        predicted_answer, rouge_f1, exact_match, cost_usd, latency_s.
+    """
+    import time
+
+    import pandas as pd
+    from langchain_core.output_parsers import StrOutputParser
+    from langchain_core.prompts import PromptTemplate
+    from langchain_core.runnables import RunnableLambda, RunnablePassthrough
+
+    try:
+        from rouge_score import rouge_scorer as _rouge_scorer_mod
+        _scorer = _rouge_scorer_mod.RougeScorer(["rougeL"], use_stemmer=True)
+    except ImportError:
+        _scorer = None
+
+    _QA_PROMPT = PromptTemplate.from_template(
+        "You are a financial analyst. Answer the question using only the provided context.\n"
+        "Be concise. If the answer is a number or dollar amount, state it directly.\n\n"
+        "Context:\n{context}\n\n"
+        "Question: {question}\n\n"
+        "Answer:"
+    )
+
+    def _format_docs(docs):
+        return "\n\n".join(d.page_content for d in docs)
+
+    def _rouge_f1(pred: str, gold: str) -> float:
+        if _scorer is not None:
+            return _scorer.score(gold, pred)["rougeL"].fmeasure
+        return f1_score_tokens(pred, gold)
+
+    # Build a reusable chain when the retriever is fixed (not per-row).
+    _static_chain = None
+    if not callable(retriever):
+        _static_chain = (
+            {
+                "context": retriever | RunnableLambda(_format_docs),
+                "question": RunnablePassthrough(),
+            }
+            | _QA_PROMPT
+            | llm
+            | StrOutputParser()
+        )
+
+    rows = []
+    for _, row in df.iterrows():
+        question = str(row.get("question", ""))
+        gold = str(row.get("answer", ""))
+
+        t0 = time.perf_counter()
+        try:
+            if callable(retriever):
+                cur = retriever(row)
+                chain = (
+                    {
+                        "context": cur | RunnableLambda(_format_docs),
+                        "question": RunnablePassthrough(),
+                    }
+                    | _QA_PROMPT
+                    | llm
+                    | StrOutputParser()
+                )
+                predicted = chain.invoke(question)
+            else:
+                predicted = _static_chain.invoke(question)
+        except Exception as exc:
+            print(f"[warn] {condition_name} | failed: {exc}")
+            predicted = ""
+
+        rows.append({
+            "condition": condition_name,
+            "question": question,
+            "gold_answer": gold,
+            "predicted_answer": predicted,
+            "rouge_f1": _rouge_f1(predicted, gold),
+            "exact_match": exact_match(predicted, gold),
+            "cost_usd": 0.0,
+            "latency_s": round(time.perf_counter() - t0, 2),
+        })
+
+    return pd.DataFrame(rows)

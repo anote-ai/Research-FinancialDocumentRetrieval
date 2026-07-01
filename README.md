@@ -30,9 +30,7 @@ pytest tests/ -v
 
 ```bash
 python -m pip install -e ".[dev]" #installation
-
 python scripts/run_demo.py #run demo
-
 python -m pytest tests/ -v #run tests
 ```
 
