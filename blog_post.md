@@ -1,6 +1,6 @@
 # We Tested 6 Ways to Make AI Better at Reading Financial Documents. Here's What We Found.
 
-*By Elaine Hong — Anote AI Research Fellowship 2026*
+*Anote AI Research Fellowship 2026*
 
 ---
 
