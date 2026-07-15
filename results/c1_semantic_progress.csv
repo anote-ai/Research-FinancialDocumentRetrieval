@@ -1,0 +1,215 @@
+condition,question_num,company,doc_name,question_type,question,gold_answer,predicted_answer,rouge_f1,exact_match,latency_sec
+C1_semantic,1,3M,3M_2018_10K,metrics-generated,What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement.,$1577.00,"The FY2018 capital expenditure amount for 3M is not explicitly provided in the context given. The context mentions expected capital spending for 2019 but does not specify the actual capital expenditure for 2018. To find the exact amount, one would need to refer to the cash flow statement in 3M's financial documents for 2018.",0.0,0.0,154.2
+C1_semantic,2,3M,3M_2018_10K,metrics-generated,Assume that you are a public equities analyst. Answer the following question by primarily using information that is shown in the balance sheet: what is the year end FY2018 net PPNE for 3M? Answer in USD billions.,$8.70,"The year-end FY2018 net property, plant, and equipment (PPNE) for 3M is $8.738 billion.",0.1111,0.0,1.43
+C1_semantic,3,3M,3M_2022_10K,domain-relevant,Is 3M a capital-intensive business based on FY2022 data?,"No, the company is managing its CAPEX and Fixed Assets pretty efficiently, which is evident from below key metrics:
+CAPEX/Revenue Ratio: 5.1%
+Fixed assets/Total Assets: 20%
+Return on Assets= 12.4%","Yes, 3M is a capital-intensive business based on FY2022 data. The company reported significant investments in property, plant, and equipment, with capital spending amounting to $1.749 billion in 2022. These investments are crucial for enabling growth, meeting product demand, and increasing manufacturing efficiency, indicating a capital-intensive nature.",0.0952,0.0,218.59
+C1_semantic,4,3M,3M_2022_10K,domain-relevant,"What drove operating margin change as of FY2022 for 3M? If operating margin is not a useful metric for a company like this, then please state that and explain why.","Operating Margin for 3M in FY2022 has decreased by 1.7% primarily due to: 
+-Decrease in gross Margin
+-mostly one-off charges including Combat Arms Earplugs litigation, impairment related to exiting PFAS manufacturing, costs related to exiting Russia and divestiture-related restructuring
+charges","The operating margin change for 3M as of FY2022 was driven by several factors. Business segment operating income margins decreased year-on-year due to increases in raw materials, logistics, and outsourced hardgoods manufacturing costs, as well as manufacturing productivity impacts and increased compensation and benefit costs. These factors more than offset the leverage from sales growth and benefits from restructuring actions and lower related charges. Additionally, special item costs for significant litigation also impacted the operating margins. Despite these challenges, sales growth in various segments provided some leverage, but the overall impact led to a decrease in operating margins. Operating margin remains a useful metric for 3M as it reflects the company's ability to manage costs relative to its sales, despite the complexities of its diversified operations.",0.1628,0.0,1.79
+C1_semantic,5,3M,3M_2022_10K,novel-generated,"If we exclude the impact of M&A, which segment has dragged down 3M's overall growth in 2022?",The consumer segment shrunk by 0.9% organically.,"The Consumer segment has dragged down 3M's overall growth in 2022, with an organic sales decline of 0.9%.",0.3571,0.0,1.25
+C1_semantic,6,3M,3M_2023Q2_10Q,domain-relevant,"Does 3M have a reasonably healthy liquidity profile based on its quick ratio for Q2 of FY2023? If the quick ratio is not relevant to measure liquidity, please state that and explain why.","No. The quick ratio for 3M was 0.96 by Jun'23 close, which needs a bit of an improvement to touch the 1x mark","The quick ratio is a relevant measure to assess a company's liquidity profile as it evaluates the ability to meet short-term obligations with its most liquid assets. However, the provided context does not include specific figures for current assets and current liabilities needed to calculate the quick ratio for 3M in Q2 of FY2023. Therefore, based on the available information, we cannot directly assess 3M's liquidity profile using the quick ratio. Nonetheless, the context indicates that 3M maintains a strong liquidity profile, with access to cash on hand, commercial paper issuances, and capital markets, suggesting a reasonably healthy liquidity position.",0.1094,0.0,101.85
+C1_semantic,7,3M,3M_2023Q2_10Q,domain-relevant,Which debt securities are registered to trade on a national securities exchange under 3M's name as of Q2 of 2023?,"Following debt securities registered under 3M's name are listed to trade on the New York Stock Exchange:
+-1.500% Notes due 2026 (Trading Symbol: MMM26)
+-1.750% Notes due 2030 (Trading Symbol: MMM30)
+-1.500% Notes due 2031 (Trading Symbol: MMM31)",The document does not provide specific information about which debt securities are registered to trade on a national securities exchange under 3M's name as of Q2 of 2023.,0.1972,0.0,1.62
+C1_semantic,8,3M,3M_2023Q2_10Q,novel-generated,Does 3M maintain a stable trend of dividend distribution?,"Yes, not only they distribute the dividends on a routine basis, 3M has also been increasing the per share dividend for consecutive 65 years","Yes, 3M maintains a stable trend of dividend distribution, having increased its dividend for 65 consecutive years as of 2023.",0.3182,0.0,1.48
+C1_semantic,9,Activision Blizzard,ACTIVISIONBLIZZARD_2019_10K,metrics-generated,What is the FY2019 fixed asset turnover ratio for Activision Blizzard? Fixed asset turnover ratio is defined as: FY2019 revenue / (average PP&E between FY2018 and FY2019). Round your answer to two decimal places. Base your judgments on the information provided primarily in the statement of income and the statement of financial position.,24.26,"To calculate the fixed asset turnover ratio for FY2019, we need to determine the FY2019 revenue and the average property, plant, and equipment (PP&E) between FY2018 and FY2019.
+
+1. **FY2019 Revenue**: According to the consolidated net revenues for the year ended December 31, 2019, the total revenue is $6,489 million.
+
+2. **Average PP&E**:
+   - PP&E at December 31, 2018: $282 million
+   - PP&E at December 31, 2019: $253 million
+
+   Average PP&E = (PP&E at end of 2018 + PP&E at end of 2019) / 2
+   = ($282 million + $253 million) / 2
+   = $267.5 million
+
+3. **Fixed Asset Turnover Ratio**:
+   = FY2019 Revenue / Average PP&E
+   = $6,489 million / $267.5 million
+   ≈ 24.26
+
+Therefore, the fixed asset turnover ratio for FY2019 is approximately 24.26.",0.0312,1.0,160.06
+C1_semantic,10,Activision Blizzard,ACTIVISIONBLIZZARD_2019_10K,metrics-generated,What is the FY2017 - FY2019 3 year average of capex as a % of revenue for Activision Blizzard? Answer in units of percents and round to one decimal place. Calculate (or extract) the answer from the statement of income and the cash flow statement.,1.9%,"The provided context does not include specific information about capital expenditures (capex) or a cash flow statement, which are necessary to calculate capex as a percentage of revenue. Without this data, it is not possible to determine the 3-year average of capex as a percentage of revenue for Activision Blizzard from FY2017 to FY2019.",0.0,0.0,1.72
+C1_semantic,11,AES Corporation,AES_2022_10K,domain-relevant,What is the quantity of restructuring costs directly outlined in AES Corporation's income statements for FY2022? If restructuring costs are not explicitly outlined then state 0.,0,0,1.0,1.0,231.22
+C1_semantic,12,AES Corporation,AES_2022_10K,domain-relevant,Roughly how many times has AES Corporation sold its inventory in FY2022? Calculate inventory turnover ratio for the FY2022; if conventional inventory management is not meaningful for the company then state that and explain why.,AES has converted inventory 9.5 times in FY 2022.,"The inventory turnover ratio is calculated by dividing the cost of goods sold (COGS) by the average inventory. However, the provided context does not include specific figures for COGS or inventory levels, which are necessary to calculate the inventory turnover ratio. Additionally, AES Corporation is primarily an energy company, and conventional inventory management may not be meaningful for them as they deal more with energy production and distribution rather than physical inventory in the traditional sense. Therefore, inventory turnover ratio might not be a relevant metric for assessing AES Corporation's operational efficiency.",0.0583,0.0,1.89
+C1_semantic,13,AES Corporation,AES_2022_10K,metrics-generated,"Based on the information provided primarily in the statement of financial position and the statement of income, what is AES's FY2022 return on assets (ROA)? ROA is defined as: FY2022 net income / (average total assets between FY2021 and FY2022). Round your answer to two decimal places.",-0.02,"To calculate the return on assets (ROA) for AES in FY2022, we need to use the formula:
+
+\[ \text{ROA} = \frac{\text{FY2022 Net Income}}{\text{Average Total Assets}} \]
+
+From the provided data:
+- FY2022 Net Income = \(-546\) million USD
+- Total Assets at the end of FY2021 = 32,963 million USD
+- Total Assets at the end of FY2022 = 38,363 million USD
+
+First, calculate the average total assets:
+
+\[ \text{Average Total Assets} = \frac{32,963 + 38,363}{2} = \frac{71,326}{2} = 35,663 \text{ million USD} \]
+
+Now, calculate the ROA:
+
+\[ \text{ROA} = \frac{-546}{35,663} \approx -0.0153 \]
+
+Convert this to a percentage:
+
+\[ \text{ROA} \approx -1.53\% \]
+
+Therefore, AES's FY2022 return on assets (ROA) is approximately \(-1.53\%\).",0.0164,0.0,3.13
+C1_semantic,14,Amazon,AMAZON_2017_10K,metrics-generated,What is Amazon's FY2017 days payable outstanding (DPO)? DPO is defined as: 365 * (average accounts payable between FY2016 and FY2017) / (FY2017 COGS + change in inventory between FY2016 and FY2017). Round your answer to two decimal places. Address the question by using the line items and information shown within the balance sheet and the P&L statement.,93.86,"To calculate Amazon's FY2017 Days Payable Outstanding (DPO), we need to follow these steps:
+
+1. **Calculate the Average Accounts Payable:**
+   - Accounts Payable at the end of FY2016: $25,309 million
+   - Accounts Payable at the end of FY2017: $34,616 million
+   - Average Accounts Payable = (25,309 + 34,616) / 2 = $29,962.5 million
+
+2. **Determine the Cost of Goods Sold (COGS) for FY2017:**
+   - COGS for FY2017: $111,934 million
+
+3. **Calculate the Change in Inventory:**
+   - Inventory at the end of FY2016: $11,461 million
+   - Inventory at the end of FY2017: $16,047 million
+   - Change in Inventory = 16,047 - 11,461 = $4,586 million
+
+4. **Calculate DPO:**
+   - DPO = 365 * (Average Accounts Payable) / (COGS + Change in Inventory)
+   - DPO = 365 * 29,962.5 / (111,934 + 4,586)
+   - DPO = 365 * 29,962.5 / 116,520
+   - DPO ≈ 93.84
+
+Therefore, Amazon's FY2017 Days Payable Outstanding (DPO) is approximately 93.84 days.",0.0134,0.0,68.18
+C1_semantic,15,Amazon,AMAZON_2017_10K,metrics-generated,What is Amazon's year-over-year change in revenue from FY2016 to FY2017 (in units of percents and round to one decimal place)? Calculate what was asked by utilizing the line items clearly shown in the statement of income.,30.8%,Amazon's year-over-year change in revenue from FY2016 to FY2017 is 30.8%.,0.2353,1.0,1.06
+C1_semantic,16,Amazon,AMAZON_2019_10K,metrics-generated,"By drawing conclusions from the information stated only in the income statement, what is Amazon's FY2019 net income attributable to shareholders (in USD millions)?",$11588.00,"Amazon's FY2019 net income attributable to shareholders is $11,588 million.",0.0,0.0,62.05
+C1_semantic,17,Amcor,AMCOR_2020_10K,metrics-generated,What is Amcor's year end FY2020 net AR (in USD millions)? Address the question by adopting the perspective of a financial analyst who can only use the details shown within the balance sheet.,$1616.00,"Amcor's year-end FY2020 net accounts receivable (AR) is $1,615.9 million.",0.0,0.0,127.02
+C1_semantic,18,Amcor,AMCOR_2022_8K_dated-2022-07-01,novel-generated,What was the key agenda of the AMCOR's 8k filing dated 1st July 2022?,"Amcor Finance (USA), Inc. and Amcor Flexibles North America, Inc., entered into supplemental indentures relating to Guaranteed Senior Notes due 2026 and 2028. This involved the substitution of the Substitute Issuer (Amcor Flexibles North America) for the Former Issuer (Amcor Finance) and the assumption of covenants under the indentures. (In essence a novation agreement)","The key agenda of Amcor's 8-K filing dated July 1, 2022, was to report the execution of the First and Second Supplemental Indentures. These indentures involved the substitution of Amcor Flexibles North America, Inc. as the issuer in place of Amcor Finance (USA), Inc. for certain guaranteed senior notes, and the assumption of the covenants by the Substitute Issuer under the Indentures.",0.4068,0.0,9.87
+C1_semantic,19,Amcor,AMCOR_2023_10K,domain-relevant,"Has AMCOR's quick ratio improved or declined between FY2023 and FY2022? If the quick ratio is not something that a financial analyst would ask about a company like this, then state that and explain why.",The quick ratio has slightly improved from 0.67 times to 0.69 times between FY 2023 and FY 2022.(3.4% jump),"The quick ratio is a measure of a company's ability to meet its short-term obligations with its most liquid assets. It is calculated as (Current Assets - Inventories) / Current Liabilities.
+
+For Amcor plc:
+
+- **FY2023:**
+  - Current Assets = $5,308 million
+  - Inventories = $992 million (Raw materials and supplies) + $1,221 million (Work in process and finished goods) = $2,213 million
+  - Current Liabilities = $4,476 million
+  - Quick Ratio = ($5,308 million - $2,213 million) / $4,476 million = $3,095 million / $4,476 million ≈ 0.69
+
+- **FY2022:**
+  - Current Assets = $5,853 million
+  - Inventories = $1,114 million (Raw materials and supplies) + $1,325 million (Work in process and finished goods) = $2,439 million
+  - Current Liabilities = $5,103 million
+  - Quick Ratio = ($5,853 million - $2,439 million) / $5,103 million = $3,414 million / $5,103 million ≈ 0.67
+
+The quick ratio has improved slightly from approximately 0.67 in FY2022 to approximately 0.69 in FY2023. This indicates a marginal improvement in Amcor's ability to cover its short-term liabilities with its most liquid assets.",0.1134,0.0,99.68
+C1_semantic,20,Amcor,AMCOR_2023_10K,domain-relevant,"What are major acquisitions that AMCOR has done in FY2023, FY2022 and FY2021?","Amcor completed these acquisitions during FY2023:
+-100% equity interest of a flexibles manufacturing company in the Czech Republic
+- 100% equity interest in a medical device packaging manufacturing site in
+Shanghai, China.
+-acquisition of a New Zealand-based leading manufacturer of state-of-the-art, automated protein
+packaging machines.","In the fiscal years 2023, 2022, and 2021, Amcor plc's major acquisitions are not explicitly detailed in the provided context. However, the cash flow statement indicates business acquisitions of $121 million in FY2023. There are no specific mentions of major acquisitions in FY2022 and FY2021 within the provided data.",0.1633,0.0,1.55
+C1_semantic,21,Amcor,AMCOR_2023_10K,domain-relevant,What industry does AMCOR primarily operate in?,Amcor is a global leader in packaging production for various use cases.,Packaging industry.,0.1429,0.0,0.68
+C1_semantic,22,Amcor,AMCOR_2023_10K,domain-relevant,"Does AMCOR have an improving gross margin profile as of FY2023? If gross margin is not a useful metric for a company like this, then state that and explain why.",No. For AMCOR there has been a slight decline in gross margins by 0.8%.,"Yes, Amcor does have an improving gross margin profile as of FY2023. The gross margin is calculated as gross profit divided by net sales. For FY2023, the gross profit was $2,725 million, and net sales were $14,694 million, resulting in a gross margin of approximately 18.55%. In FY2022, the gross profit was $2,820 million, and net sales were $14,544 million, resulting in a gross margin of approximately 19.39%. Although the gross profit decreased slightly, the gross margin percentage remained relatively stable, indicating that Amcor has maintained its ability to manage costs relative to sales. Gross margin is a useful metric for a company like Amcor as it reflects the efficiency of production and the ability to manage costs in relation to sales, which is crucial in the packaging industry where material costs can significantly impact profitability.",0.0637,0.0,2.0
+C1_semantic,23,Amcor,AMCOR_2023Q2_10Q,novel-generated,What is the nature & purpose of AMCOR's restructuring liability as oF Q2 of FY2023 close?,87% of the total restructuring liability is related Employee liabilities.,"The restructuring liability of Amcor as of the close of Q2 FY2023 is related to costs associated with restructuring activities, including employee costs, fixed asset-related costs, and other costs. The purpose of this liability is to account for expenses incurred in restructuring efforts, which are expected to be paid within the next twelve months. The liability balance as of December 31, 2022, was $93 million, down from $118 million at June 30, 2022, due to net charges to earnings, cash payments, and reversals of unused amounts.",0.1443,0.0,31.76
+C1_semantic,24,Amcor,AMCOR_2023Q4_EARNINGS,novel-generated,What Was AMCOR's Adjusted Non GAAP EBITDA for FY 2023,"AMCOR's Adj. EBITDA was $2,018mn in FY 2023","Amcor's Adjusted Non-GAAP EBITDA for FY 2023 was $2,018 million.",0.4348,0.0,11.87
+C1_semantic,25,Amcor,AMCOR_2023Q4_EARNINGS,novel-generated,"How much was the Real change in Sales for AMCOR in FY 2023 vs FY 2022, if we exclude the impact of FX movement, passthrough costs and one-off items?",The Real Growth was flat in FY 2023 vs FY 2022.,"The real change in sales for Amcor in FY 2023 compared to FY 2022, excluding the impact of FX movement, passthrough costs, and one-off items, was 0% on a comparable constant currency basis.",0.3111,0.0,1.54
+C1_semantic,26,AMD,AMD_2015_10K,metrics-generated,"Answer the following question as if you are an equity research analyst and have lost internet connection so you do not have access to financial metric providers. According to the details clearly outlined within the P&L statement and the statement of cash flows, what is the FY2015 depreciation and amortization (D&A from cash flow statement) % margin for AMD?",4.2%,ERROR: Stream has ended unexpectedly,0.0,0.0,0.0
+C1_semantic,27,AMD,AMD_2022_10K,domain-relevant,"Does AMD have a reasonably healthy liquidity profile based on its quick ratio for FY22? If the quick ratio is not relevant to measure liquidity, please state that and explain why.","Yes. The quick ratio is 1.57, calculated as (cash and cash equivalents+Short term investments+Accounts receivable, net+receivables from related parties)/ (current liabilities).","The quick ratio is a relevant measure to assess AMD's liquidity profile for FY22. The quick ratio is calculated as (current assets - inventories) / current liabilities. Based on the provided information, AMD's cash, cash equivalents, and short-term investments were $5.9 billion as of December 31, 2022. Without specific data on inventories and current liabilities, we cannot calculate the exact quick ratio. However, the substantial increase in cash and equivalents from $3.6 billion in the previous year to $5.9 billion, along with positive cash flows from operations, suggests a reasonably healthy liquidity profile.",0.2295,0.0,114.49
+C1_semantic,28,AMD,AMD_2022_10K,domain-relevant,What are the major products and services that AMD sells as of FY22?,"AMD sells server microprocessors (CPUs) and graphics processing units (GPUs), data processing units (DPUs), Field Programmable Gate Arrays (FPGAs), and Adaptive System-on-Chip (SoC) products for data centers; CPUs, accelerated processing units (APUs) that integrate CPUs and GPUs, and chipsets for desktop and notebook personal computers; discrete GPUs, and semi-custom SoC products and development services; and embedded CPUs, GPUs, APUs, FPGAs, and Adaptive SoC products.","As of FY22, AMD primarily sells the following major products and services:
+
+1. **Microprocessors (CPUs)**: Including AMD Ryzen, AMD EPYC, and AMD Athlon processors for various applications such as desktops, notebooks, servers, and embedded systems.
+
+2. **Graphics Processing Units (GPUs)**: Including AMD Radeon graphics for consumer markets, AMD Radeon PRO for professional graphics, and AMD Instinct accelerators for data centers.
+
+3. **Accelerated Processing Units (APUs)**: Integrating CPUs and GPUs for enhanced performance in personal computers.
+
+4. **Chipsets**: For desktop and notebook personal computers.
+
+5. **Data Processing Units (DPUs)**: For data center applications.
+
+6. **Field Programmable Gate Arrays (FPGAs)**: Including brands like Virtex, Kintex, Artix, and Spartan for various markets.
+
+7. **Adaptive System-on-Chip (SoC) Products**: Including Zynq and Versal series for data centers and embedded applications.
+
+8. **Semi-Custom SoC Products**: For gaming consoles and other applications.
+
+9. **Embedded Processors**: Including AMD Embedded EPYC, Ryzen, and R-Series for industrial and automotive applications.
+
+10. **Software Platforms**: Development tools, compilers, and drivers for CPUs, GPUs, and FPGAs.
+
+11. **Intellectual Property (IP) Licensing**: Occasionally selling or licensing portions of its IP portfolio.
+
+12. **Development Services**: For custom solutions and semi-custom SoC products.",0.3243,0.0,3.8
+C1_semantic,29,AMD,AMD_2022_10K,domain-relevant,What drove revenue change as of the FY22 for AMD?,"In 2022, AMD reported Higher sales of their EPYC server processors, higher semi-custom product sales, and the inclusion of Xilinx embedded product sales","The revenue change for AMD in FY22 was primarily driven by a 64% increase in Data Center segment revenue due to higher sales of EPYC server processors, a 21% increase in Gaming segment revenue due to higher semi-custom product sales, and a significant increase in Embedded segment revenue driven by the inclusion of Xilinx embedded product sales. This growth was partially offset by a 10% decrease in Client segment revenue due to lower processor shipments caused by a weak PC market and significant inventory corrections across the PC supply chain.",0.3478,0.0,1.72
+C1_semantic,30,AMD,AMD_2022_10K,domain-relevant,"What drove operating margin change as of the FY22 for AMD? If operating margin is not a useful metric for a company like this, then please state that and explain why.",The decrease in AMD's operating income was primarily driven by amortization of intangible assets associated with the Xilinx acquisition,"The operating margin for AMD decreased in FY22 primarily due to the amortization of intangible assets associated with the acquisition of Xilinx. This amortization expense impacted the operating income, which decreased from $3.6 billion in 2021 to $1.3 billion in 2022, despite an increase in net revenue. Operating margin is a useful metric for AMD as it reflects the company's ability to manage its operating expenses relative to its revenue, providing insight into its operational efficiency and profitability.",0.2376,0.0,2.09
+C1_semantic,31,AMD,AMD_2022_10K,domain-relevant,"Among operations, investing, and financing activities, which brought in the most (or lost the least) cash flow for AMD in FY22?","In 2022, AMD brought in the most cashflow from Operations","Operating activities brought in the most cash flow for AMD in FY22, with net cash provided amounting to $3.6 billion.",0.2581,0.0,0.8
+C1_semantic,32,AMD,AMD_2022_10K,novel-generated,"From FY21 to FY22, excluding Embedded, in which AMD reporting segment did sales proportionally increase the most?",Data Center,"From FY21 to FY22, excluding Embedded, the AMD reporting segment in which sales proportionally increased the most was the Data Center segment, with a 64% increase in net revenue.",0.129,1.0,0.64
+C1_semantic,33,AMD,AMD_2022_10K,novel-generated,Did AMD report customer concentration in FY22?,"Yes, one customer accounted for 16% of consolidated net revenue",The provided context does not mention any specific details about customer concentration for AMD in FY22.,0.1538,0.0,0.9
+C1_semantic,34,American Express,AMERICANEXPRESS_2022_10K,domain-relevant,Which debt securities are registered to trade on a national securities exchange under American Express' name as of 2022?,There are none,"As of 2022, the debt securities registered to trade on a national securities exchange under American Express' name are the Common Shares with the trading symbol AXP on the New York Stock Exchange.",0.0556,0.0,208.63
+C1_semantic,35,American Express,AMERICANEXPRESS_2022_10K,domain-relevant,What are the geographies that American Express primarily operates in as of 2022?,"United States, EMEA, APAC, and LACC","As of 2022, American Express primarily operates in the United States, Canada, Mexico, Brazil, Chile, Argentina, the United Kingdom, Spain, France, Italy, Germany, the Netherlands, Sweden, Switzerland, Czech Republic, Ireland, Australia, New Zealand, Japan, China, Taiwan, Hong Kong, India, Malaysia, Indonesia, Thailand, and the Philippines.",0.1176,0.0,1.33
+C1_semantic,36,American Express,AMERICANEXPRESS_2022_10K,domain-relevant,"Does AMEX have an improving operating margin profile as of 2022? If operating margin is not a useful metric for a company like this, then state that and explain why.",Performance is not measured through operating margin,"Operating margin may not be the most useful metric for evaluating a company like American Express (AMEX), which operates primarily in the financial services sector. Companies in this sector often focus on metrics such as net income, return on equity (ROE), and revenue growth rather than traditional operating margins. This is because financial services companies have unique revenue and expense structures, including interest income and credit losses, which can significantly impact their financial performance. Instead, AMEX's performance can be better assessed by looking at its net income, revenue growth, and other financial metrics such as credit reserve changes and card member spending volumes.",0.0541,0.0,1.52
+C1_semantic,37,American Express,AMERICANEXPRESS_2022_10K,domain-relevant,"What drove gross margin change as of the FY2022 for American Express? If gross margin is not a useful metric for a company like this, then please state that and explain why.",Performance is not measured through gross margin,"Gross margin is not a particularly useful metric for a company like American Express, which operates primarily in the financial services sector. Instead, key performance indicators for such companies typically include metrics like net income, revenue growth, credit losses, and card member spending volumes. For American Express, the financial performance in FY2022 was driven by factors such as increased billed business, higher net interest income, and changes in provisions for credit losses. The company's revenue growth was supported by strong card member spending and increased service fees, while expenses were influenced by higher card member rewards and business development costs.",0.037,0.0,1.98
+C1_semantic,38,American Express,AMERICANEXPRESS_2022_10K,domain-relevant,How much has the effective tax rate of American Express changed between FY2021 and FY2022?,The effective tax rate for American Express has changed/dropped from 24.6% in FY 2021 to 21.6% in FY 2022.,"The effective tax rate of American Express decreased from 24.6% in FY2021 to 21.6% in FY2022, representing a change of 3.0 percentage points.",0.5833,0.0,0.85
+C1_semantic,39,American Express,AMERICANEXPRESS_2022_10K,novel-generated,What was the largest liability in American Express's Balance Sheet in 2022?,Customer deposits,"The largest liability in American Express's Balance Sheet in 2022 was the financial liabilities for which carrying values equal or approximate fair value, totaling $123 billion.",0.0,0.0,0.74
+C1_semantic,40,American Express,AMERICANEXPRESS_2022_10K,novel-generated,Was American Express able to retain card members during 2022?,Yes,The provided context does not explicitly state whether American Express was able to retain card members during 2022.,0.0,0.0,0.66
+C1_semantic,41,American Water Works,AMERICANWATERWORKS_2020_10K,metrics-generated,How much (in USD billions) did American Water Works pay out in cash dividends for FY2020? Compute or extract the answer by primarily using the details outlined in the statement of cash flows.,$0.40,American Water Works paid out $0.389 billion in cash dividends for FY2020.,0.1333,0.0,94.47
+C1_semantic,42,American Water Works,AMERICANWATERWORKS_2021_10K,metrics-generated,"Basing your judgments off of the cash flow statement and the income statement, what is American Water Works's FY2021 unadjusted operating income + depreciation and amortization from the cash flow statement (unadjusted EBITDA) in USD millions?",$1832.00,"American Water Works's FY2021 unadjusted operating income plus depreciation and amortization (unadjusted EBITDA) is $1,832 million. This is calculated by adding the operating income of $1,196 million to the depreciation and amortization of $636 million.",0.0,0.0,93.78
+C1_semantic,43,American Water Works,AMERICANWATERWORKS_2022_10K,domain-relevant,"Does American Water Works have positive working capital based on FY2022 data? If working capital is not a useful or relevant metric for this company, then please state that and explain why.","No, American Water Works had negative working capital of -$1561M in FY 2022.","American Water Works does not have positive working capital based on FY2022 data. Working capital is calculated as current assets minus current liabilities. The cash flow statement provided does not include specific details about current assets and current liabilities, which are necessary to calculate working capital. However, for utility companies like American Water Works, working capital is often not a useful or relevant metric. This is because utility companies typically have stable cash flows and can manage their operations with negative working capital due to their ability to generate consistent revenue and access to financing. Therefore, the focus is usually on cash flow and long-term financial stability rather than short-term liquidity.",0.0952,0.0,204.26
+C1_semantic,44,Best Buy,BESTBUY_2017_10K,metrics-generated,"In agreement with the information outlined in the income statement, what is the FY2015 - FY2017 3 year average net profit margin (as a %) for Best Buy? Answer in units of percents and round to one decimal place.",2.8%,"To calculate the average net profit margin for Best Buy from FY2015 to FY2017, we need to use the formula:
+
+\[ \text{Net Profit Margin} = \left( \frac{\text{Net Earnings}}{\text{Revenue}} \right) \times 100 \]
+
+Using the data provided:
+
+- FY2015: 
+  - Net Earnings = $1,235 million
+  - Revenue = $40,339 million
+  - Net Profit Margin = \( \left( \frac{1,235}{40,339} \right) \times 100 = 3.1\% \)
+
+- FY2016: 
+  - Net Earnings = $897 million
+  - Revenue = $39,528 million
+  - Net Profit Margin = \( \left( \frac{897}{39,528} \right) \times 100 = 2.3\% \)
+
+- FY2017: 
+  - Net Earnings = $1,228 million
+  - Revenue = $39,403 million
+  - Net Profit Margin = \( \left( \frac{1,228}{39,403} \right) \times 100 = 3.1\% \)
+
+Now, calculate the average net profit margin over the three years:
+
+\[ \text{Average Net Profit Margin} = \frac{3.1 + 2.3 + 3.1}{3} = 2.8\% \]
+
+Therefore, the FY2015 - FY2017 3-year average net profit margin for Best Buy is 2.8%.",0.0263,1.0,63.27
+C1_semantic,45,Best Buy,BESTBUY_2019_10K,metrics-generated,What is the year end FY2019 total amount of inventories for Best Buy? Answer in USD millions. Base your judgments on the information provided primarily in the balance sheet.,$5409.00,"The year-end FY2019 total amount of inventories for Best Buy is not explicitly provided in the context you shared. To find this information, you would typically need to refer to the balance sheet section of the financial statements in the Annual Report on Form 10-K. If you have access to the balance sheet, you can locate the inventories line item under current assets to find the exact figure.",0.0,0.0,67.43
+C1_semantic,46,Best Buy,BESTBUY_2023_10K,domain-relevant,"Are Best Buy's gross margins historically consistent (not fluctuating more than roughly 2% each year)? If gross margins are not a relevant metric for a company like this, then please state that and explain why.","Yes, the margins have been consistent, there has been a minor decline of 1.1% in gross margins between FY2022 and FY2023.","Yes, Best Buy's gross margins have been historically consistent, fluctuating by less than 2% each year. For fiscal years 2021, 2022, and 2023, the gross profit as a percentage of revenue was 22.4%, 22.5%, and 21.4%, respectively. This indicates a relatively stable gross margin over the three-year period. Gross margins are a relevant metric for a company like Best Buy as they reflect the efficiency of its core retail operations in managing costs relative to sales revenue.",0.1731,0.0,59.48
+C1_semantic,47,Best Buy,BESTBUY_2023_10K,domain-relevant,"What are major acquisitions that Best Buy has done in FY2023, FY2022 and FY2021?","Best Buy closed two acquisitions, both these companies were already partially owned by Best Buy, but Best Buy acquired all outstanding shares of these two companies during FY 2022: (1) Current Health Ltd and (2) Two Peaks, LLC d/b/a Yardbird Furniture","In fiscal 2022, Best Buy made two major acquisitions: Current Health Ltd., a care-at-home technology platform, and Two Peaks, LLC d/b/a Yardbird Furniture, a direct-to-consumer outdoor furniture company. There are no major acquisitions mentioned for fiscal 2023 or fiscal 2021 in the provided context.",0.3441,0.0,0.9
+C1_semantic,48,Best Buy,BESTBUY_2023_10K,domain-relevant,"Among operations, investing, and financing activities, which brought in the most (or lost the least) cash flow for Best Buy in FY2023?",Best Buy generated the most cash flow from operating activities in FY 2023 ($1.8 bn),Operating activities brought in the most cash flow for Best Buy in FY2023.,0.3448,0.0,0.68
+C1_semantic,49,Best Buy,BESTBUY_2024Q2_10Q,novel-generated,Was there any drop in Cash & Cash equivalents between FY 2023 and Q2 of FY2024?,"Yes, there was a decline of ~42% between FY2023 and Q2 of FY 2024.","Yes, there was a drop in cash, cash equivalents, and restricted cash between FY 2023 and Q2 of FY 2024. The cash, cash equivalents, and restricted cash decreased from $2,253 million at the beginning of the period to $1,491 million at the end of the period, resulting in a decrease of $762 million.",0.2899,0.0,19.09
+C1_semantic,50,Best Buy,BESTBUY_2024Q2_10Q,novel-generated,Was there any change in the number of Best Buy stores between Q2 of FY2024 and FY2023?,"Yes, there is decline in number stores by 1.32% from 982 stores in Q2 FY 2023 to 969 by the end of Q2 FY2024.","Yes, there was a decrease in the number of Best Buy stores. The total number of Best Buy stores at the end of the second quarter of fiscal 2024 was 907, compared to 930 at the end of the second quarter of fiscal 2023.",0.2899,0.0,1.01
+C1_semantic,51,Best Buy,BESTBUY_2024Q2_10Q,novel-generated,Which Best Buy product category performed the best (by top line) in the domestic (USA) Market during Q2 of FY2024?,"The entertainment segment experienced the highest growth of 9% during Q2 FY2024, primarily from gaming division.","The ""Computing and Mobile Phones"" category had the highest revenue mix percentage at 41% in the domestic market during Q2 of FY2024.",0.3158,0.0,0.79
+C1_semantic,52,Block,BLOCK_2016_10K,metrics-generated,"Considering the data in the balance sheet, what is Block's (formerly known as Square) FY2016 working capital ratio? Define working capital ratio as total current assets divided by total current liabilities. Round your answer to two decimal places.",1.73,"The working capital ratio for Block (formerly known as Square) for FY2016 is calculated as follows:
+
+Working Capital Ratio = Total Current Assets / Total Current Liabilities
+
+From the balance sheet data:
+- Total Current Assets for 2016 = $1,001,425,000
+- Total Current Liabilities for 2016 = $577,464,000
+
+Working Capital Ratio = $1,001,425,000 / $577,464,000 ≈ 1.73
+
+Therefore, the working capital ratio for FY2016 is 1.73.",0.0563,1.0,67.15
+C1_semantic,53,Block,BLOCK_2020_10K,metrics-generated,What is the FY2019 - FY2020 total revenue growth rate for Block (formerly known as Square)? Answer in units of percents and round to one decimal place. Approach the question asked by assuming the standpoint of an investment banking analyst who only has access to the statement of income.,101.5%,The total revenue growth rate for Block (formerly known as Square) from FY2019 to FY2020 is 101.4%.,0.1,0.0,86.54
+C1_semantic,54,Block,BLOCK_2020_10K,metrics-generated,"Using the cash flow statement, answer the following question to the best of your abilities: how much did Block (formerly known as Square) generate in cash flow from operating activities in FY2020? Answer in USD millions.",$382.00,Block (formerly known as Square) generated $381.6 million in cash flow from operating activities in FY2020.,0.0,0.0,2.34
+C1_semantic,55,Boeing,BOEING_2018_10K,metrics-generated,"We need to calculate a financial metric by using information only provided within the balance sheet. Please answer the following question: what is Boeing's year end FY2018 net property, plant, and equipment (in USD millions)?",$12645.00,"Boeing's year-end FY2018 net property, plant, and equipment is $12,645 million.",0.0,0.0,68.87
+C1_semantic,56,Boeing,BOEING_2022_10K,domain-relevant,Are there any product categories / service categories that represent more than 20% of Boeing's revenue for FY2022?,"Yes. Boeing has product and service categories that represent more than 20% of Boeing's revenue for FY2022. These categories are Commercial Airplanes which comprises 39% of total revenue, Defence which comprises 35% of total revenue and Services which comprises 26% of total revenue.","Yes, the Commercial Airplanes and Defense, Space & Security segments each represent more than 20% of Boeing's revenue for FY2022.",0.375,0.0,107.6
+C1_semantic,57,Boeing,BOEING_2022_10K,domain-relevant,Has Boeing reported any materially important ongoing legal battles from FY2022?,Yes. Multiple lawsuits have been filed against Boeing resulting from a 2018 Lion Air crash and a 2019 Ethiopian Airlines crash.,"Yes, Boeing has reported ongoing legal battles related to the accidents of Lion Air Flight 610 and Ethiopian Airlines Flight 302. Multiple legal actions have been filed against the company as a result of these accidents. Additionally, Boeing is involved in an arbitration dispute with Embraer S.A. regarding the termination of agreements to establish joint ventures. The outcomes of these legal matters are uncertain, and Boeing cannot reasonably estimate a range of potential losses that may result from them.",0.198,0.0,1.36
+C1_semantic,58,Boeing,BOEING_2022_10K,domain-relevant,"Does Boeing have an improving gross margin profile as of FY2022? If gross margin is not a useful metric for a company like this, then state that and explain why.","Yes. Boeing has an improving gross margin profile as of FY2022. Gross profit improved from $3,017 million in FY2021 to $3,502 million in FY2022. Gross margin % improved from 4.8% in FY2021 to 5.3% in FY2022.","Boeing's gross margin profile is not directly provided in the financial statements, but we can infer some insights from the available data. Gross margin is typically calculated as (Total Revenues - Cost of Goods Sold) / Total Revenues. For Boeing, the cost of products and services can be considered as the cost of goods sold.
+
+In 2022, Boeing's total revenues were $66,608 million, and the combined cost of products and services was $63,078 million ($53,969 million for products and $9,109 million for services). This results in a gross margin of approximately 5.3% for 2022. In comparison, the gross margin for 2021 was approximately 4.8% and for 2020 was approximately -9.8%.
+
+The improvement in gross margin from 2021 to 2022 suggests an improving gross margin profile, primarily due to increased revenues and relatively stable costs. However, it's important to note that Boeing's financial performance is heavily influenced by factors such as production rates, delivery volumes, and program-specific costs, which can cause significant fluctuations in margins.
+
+For a company like Boeing, gross margin might not be the most useful metric due to the complexity and long-term nature of its contracts and projects. Instead, operating margins and net income are often more indicative of overall financial health and performance.",0.1328,0.0,3.3
+C1_semantic,59,Boeing,BOEING_2022_10K,domain-relevant,Who are the primary customers of Boeing as of FY2022?,Boeing's primary customers as of FY2022 are a limited number of commercial airlines and the US government. The US government accounted for 40% of Boeing's total revenues in FY2022.,"The primary customers of Boeing as of FY2022 are commercial airlines, military organizations, and government agencies worldwide.",0.4167,0.0,1.71
+C1_semantic,60,Boeing,BOEING_2022_10K,novel-generated,Is Boeing's business subject to cyclicality?,"Yes, Boeing's business is subject to cyclicality due to its exposure to the airline industry which is a cyclical industry.","Yes, Boeing's business is subject to cyclicality, particularly in the commercial aviation sector, which is influenced by factors such as economic conditions, travel demand, and government regulations.",0.449,0.0,1.0
