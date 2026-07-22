@@ -653,3 +653,78 @@ C1_semantic,128,Verizon,VERIZON_2022_10K,domain-relevant,"Does Verizon have a re
 Without these figures, we cannot directly assess Verizon's liquidity profile based on the quick ratio. Additionally, the quick ratio might not be the most relevant measure for a company like Verizon, which may have significant non-liquid assets or specific industry-related financial structures. Instead, other liquidity measures or financial metrics, such as cash flow from operations or the current ratio, might provide a more comprehensive view of Verizon's liquidity. The context does mention that Verizon's sources of funds are sufficient to meet ongoing operating and investing requirements, suggesting a reasonably healthy liquidity profile.",0.1356,0.0,58.85
 C1_semantic,129,Verizon,VERIZON_2022_10K,domain-relevant,Is Verizon a capital intensive business based on FY 2022 data?,"Yes. Verizon's capital intensity ratio was approximately 2.774729. This means that it took approximately $2.77 of assets to generate $1 of revenue and thus, Verizon can be considered capital intensive.","Yes, Verizon is a capital-intensive business based on FY 2022 data. This is evidenced by their significant capital expenditures of $23.1 billion, which includes investments in wireless networks, high-speed fiber, and advanced technologies. Additionally, Verizon's substantial debt levels and related service obligations further indicate the capital-intensive nature of their operations.",0.25,0.0,1.76
 C1_semantic,130,Verizon,VERIZON_2022_10K,domain-relevant,Has Verizon increased its debt on balance sheet between 2022 and the 2021 fiscal period?,No. Verizon's debt decreased by $229 million.,"No, Verizon's total debt decreased slightly from $150,868 million in 2021 to $150,639 million in 2022.",0.4444,0.0,5.43
+C1_semantic,131,Walmart,WALMART_2018_10K,metrics-generated,What is FY2018 days payable outstanding (DPO) for Walmart? DPO is defined as: 365 * (average accounts payable between FY2017 and FY2018) / (FY2018 COGS + change in inventory between FY2017 and FY2018). Round your answer to two decimal places. Please base your judgments on the information provided primarily in the statement of financial position and the P&L statement.,42.69,"To calculate the Days Payable Outstanding (DPO) for Walmart for FY2018, we need to follow these steps:
+
+1. **Calculate the Average Accounts Payable:**
+   - Accounts Payable for FY2017: $41,433 million
+   - Accounts Payable for FY2018: $46,092 million
+   - Average Accounts Payable = (41,433 + 46,092) / 2 = $43,762.5 million
+
+2. **Determine the Change in Inventory:**
+   - Inventory for FY2017: $43,046 million
+   - Inventory for FY2018: $43,783 million
+   - Change in Inventory = 43,783 - 43,046 = $737 million
+
+3. **Calculate the Cost of Goods Sold (COGS) for FY2018:**
+   - COGS is not directly provided in the provided data. However, typically, COGS can be derived from the income statement, which is not included in the provided context. For this calculation, we will assume that the COGS is a known value or can be estimated from other financial data sources.
+
+4. **Calculate DPO:**
+   - DPO = 365 * (Average Accounts Payable) / (COGS + Change in Inventory)
+   - DPO = 365 * 43,762.5 / (COGS + 737)
+
+Since the COGS is not provided in the context, you would need to obtain this figure from Walmart's income statement for FY2018 to complete the calculation. Once you have the COGS, you can plug it into the formula to find the DPO.",0.0,0.0,102.55
+C1_semantic,132,Walmart,WALMART_2019_10K,metrics-generated,"Based on the information provided primarily in the statement of income, what is the FY2018 - FY2019 change in unadjusted operating income % margin for Walmart? Answer in units of percents and round to one decimal place.",0.2%,"The unadjusted operating income percentage margin for Walmart in FY2018 was calculated as follows:
+
+Operating income for FY2018: $20,437 million  
+Net sales for FY2018: $495,761 million  
+
+Operating income percentage margin for FY2018 = (Operating income / Net sales) * 100  
+= ($20,437 / $495,761) * 100  
+= 4.1%
+
+For FY2019:
+
+Operating income for FY2019: $21,957 million  
+Net sales for FY2019: $510,329 million  
+
+Operating income percentage margin for FY2019 = (Operating income / Net sales) * 100  
+= ($21,957 / $510,329) * 100  
+= 4.3%
+
+The change in unadjusted operating income percentage margin from FY2018 to FY2019 is:
+
+4.3% - 4.1% = 0.2%
+
+Therefore, the FY2018 - FY2019 change in unadjusted operating income percentage margin for Walmart is 0.2%.",0.0342,1.0,57.29
+C1_semantic,133,Walmart,WALMART_2020_10K,metrics-generated,What is the FY2018 - FY2020 3 year average unadjusted EBITDA % margin for Walmart? Define unadjusted EBITDA as unadjusted operating income + depreciation and amortization from the cash flow statement. Answer in units of percents and round to one decimal place. Calculate what was asked by utilizing the line items clearly shown in the P&L statement and the cash flow statement.,6.2%,"To calculate the 3-year average unadjusted EBITDA % margin for Walmart from FY2018 to FY2020, we need to follow these steps:
+
+1. **Calculate Unadjusted EBITDA for each year:**
+   - **FY2020:**
+     - Operating Income = $20,568 million
+     - Depreciation and Amortization = $10,987 million
+     - Unadjusted EBITDA = $20,568 + $10,987 = $31,555 million
+
+   - **FY2019:**
+     - Operating Income = $21,957 million
+     - Depreciation and Amortization = $10,678 million
+     - Unadjusted EBITDA = $21,957 + $10,678 = $32,635 million
+
+   - **FY2018:**
+     - Operating Income = $20,437 million
+     - Depreciation and Amortization = $10,529 million
+     - Unadjusted EBITDA = $20,437 + $10,529 = $30,966 million
+
+2. **Calculate Total Revenues for each year:**
+   - **FY2020:** Total Revenues = $523,964 million
+   - **FY2019:** Total Revenues = $514,405 million
+   - **FY2018:** Total Revenues = $500,343 million
+
+3. **Calculate Unadjusted EBITDA % Margin for each year:**
+   - **FY2020:** Unadjusted EBITDA % Margin = ($31,555 / $523,964) * 100 = 6.0%
+   - **FY2019:** Unadjusted EBITDA % Margin = ($32,635 / $514,405) * 100 = 6.3%
+   - **FY2018:** Unadjusted EBITDA % Margin = ($30,966 / $500,343) * 100 = 6.2%
+
+4. **Calculate the 3-year average Unadjusted EBITDA % Margin:**
+   - Average = (6.0% + 6.3% + 6.2%) / 3 = 6.2%
+
+The 3-year average unadjusted EBITDA % margin for Walmart from FY2018 to FY2020 is 6.2%.",0.0206,1.0,68.82

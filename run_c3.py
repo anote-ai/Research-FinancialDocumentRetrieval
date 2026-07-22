@@ -10,6 +10,9 @@ from langchain_classic.retrievers import ContextualCompressionRetriever
 from langchain_classic.retrievers.document_compressors import CrossEncoderReranker
 from langchain_community.cross_encoders import HuggingFaceCrossEncoder
 from rouge_score import rouge_scorer as rs
+from run_output import create_run_dir
+
+run_dir = create_run_dir("C3_reranking")
 
 df = pd.read_csv("financebench_sample.csv")
 missing = ['ADOBE_2015_10K','ADOBE_2016_10K','ADOBE_2017_10K','ADOBE_2022_10K',
@@ -86,12 +89,11 @@ for i, row in df.iterrows():
             "rouge_f1": 0.0, "exact_match": 0.0, "latency_sec": 0.0,
         })
     if (i + 1) % 10 == 0:
-        pd.DataFrame(results).to_csv("results/c3_reranking_progress.csv", index=False)
+        pd.DataFrame(results).to_csv(run_dir / "progress.csv", index=False)
         print(f"\n  Progress saved — {i+1}/{len(df)} done")
 
-os.makedirs("results", exist_ok=True)
 results_df = pd.DataFrame(results)
-results_df.to_csv("results/c3_reranking.csv", index=False)
+results_df.to_csv(run_dir / "results.csv", index=False)
 
 print("\n" + "="*50)
 print("C3 RERANKING RESULTS")
@@ -102,4 +104,4 @@ print(f"Mean Exact Match: {results_df['exact_match'].mean():.3f}")
 print(f"Mean Latency: {results_df['latency_sec'].mean():.1f}s")
 print(f"\nBy question type:")
 print(results_df.groupby('question_type')['rouge_f1'].mean().round(3))
-print(f"\nResults saved to results/c3_reranking.csv")
+print(f"\nResults saved to {run_dir / 'results.csv'}")

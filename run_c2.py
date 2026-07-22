@@ -2,14 +2,14 @@ import os
 import time
 import pandas as pd
 from langchain_community.document_loaders import PyPDFLoader
-from langchain_text_splitters import TokenTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_openai import ChatOpenAI
 from rouge_score import rouge_scorer as rs
+from run_output import create_run_dir
 
-# NEW: semantic chunker
-from langchain_experimental.text_splitter import SemanticChunker
+run_dir = create_run_dir("C2_recursive")
 
 # Load data
 df = pd.read_csv("financebench_sample.csv")
@@ -18,18 +18,26 @@ missing = ['ADOBE_2015_10K','ADOBE_2016_10K','ADOBE_2017_10K','ADOBE_2022_10K',
            'JOHNSON_JOHNSON_2023_8K_dated-2023-08-30','JOHNSON_JOHNSON_2023Q2_EARNINGS',
            'MGMRESORTS_2022Q4_EARNINGS']
 df = df[~df['doc_name'].isin(missing)].reset_index(drop=True)
-print(f"Running C1 on {len(df)} questions")
+print(f"Running C2 on {len(df)} questions")
 
 # Setup
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 llm = ChatOpenAI(model="gpt-4o", temperature=0)
 scorer = rs.RougeScorer(['rougeL'], use_stemmer=True)
 
-# NEW: semantic chunker instead of fixed token splitter
-splitter = SemanticChunker(
-    embeddings,
-    breakpoint_threshold_type="percentile",
-    breakpoint_threshold_amount=95
+# C2: recursive chunking — larger chunks, structure-aware separators
+# 2000 tokens to preserve table context, splits on structure first
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=2000,
+    chunk_overlap=200,
+    separators=[
+        "\n\n\n",    # section breaks
+        "\n\n",      # paragraph breaks
+        "\n",        # line breaks
+        ". ",        # sentence breaks
+        " ",         # word breaks
+        ""           # character fallback
+    ]
 )
 
 indexes = {}
@@ -60,7 +68,7 @@ for i, row in df.iterrows():
         f1 = score['rougeL'].fmeasure
         em = 1.0 if str(row['answer']).strip().lower() in predicted.strip().lower() else 0.0
         results.append({
-            "condition": "C1_semantic",
+            "condition": "C2_recursive",
             "question_num": i+1,
             "company": row['company'],
             "doc_name": row['doc_name'],
@@ -78,22 +86,21 @@ for i, row in df.iterrows():
     except Exception as e:
         print(f"  ERROR: {e}")
         results.append({
-            "condition": "C1_semantic", "question_num": i+1,
+            "condition": "C2_recursive", "question_num": i+1,
             "company": row['company'], "doc_name": row['doc_name'],
             "question_type": row['question_type'], "question": row['question'],
             "gold_answer": row['answer'], "predicted_answer": f"ERROR: {e}",
             "rouge_f1": 0.0, "exact_match": 0.0, "latency_sec": 0.0,
         })
     if (i + 1) % 10 == 0:
-        pd.DataFrame(results).to_csv("results/c1_semantic_progress.csv", index=False)
+        pd.DataFrame(results).to_csv(run_dir / "progress.csv", index=False)
         print(f"\n  Progress saved — {i+1}/{len(df)} done")
 
-os.makedirs("results", exist_ok=True)
 results_df = pd.DataFrame(results)
-results_df.to_csv("results/c1_semantic.csv", index=False)
+results_df.to_csv(run_dir / "results.csv", index=False)
 
 print("\n" + "="*50)
-print("C1 SEMANTIC CHUNKING RESULTS")
+print("C2 RECURSIVE CHUNKING RESULTS")
 print("="*50)
 print(f"Total questions: {len(results_df)}")
 print(f"Mean ROUGE-L F1: {results_df['rouge_f1'].mean():.3f}")
@@ -101,4 +108,4 @@ print(f"Mean Exact Match: {results_df['exact_match'].mean():.3f}")
 print(f"Mean Latency: {results_df['latency_sec'].mean():.1f}s")
 print(f"\nBy question type:")
 print(results_df.groupby('question_type')['rouge_f1'].mean().round(3))
-print(f"\nResults saved to results/c1_semantic.csv")
+print(f"\nResults saved to {run_dir / 'results.csv'}")

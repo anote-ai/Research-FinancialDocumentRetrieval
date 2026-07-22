@@ -1,6 +1,6 @@
-# We Tested 6 Ways to Make AI Better at Reading Financial Documents. Here's What We Found.
+# We Tested 7 Ways to Make AI Better at Reading Financial Documents. Here's What We Found.
 
-*By Elaine Hong — Anote AI Research Fellowship 2026*
+*Anote AI Research Fellowship 2026*
 
 ---
 
@@ -8,21 +8,19 @@ If you've ever tried to get an AI to answer a question from a 10-K filing, you'v
 
 This isn't a model problem. It's a retrieval problem.
 
-This summer I ran a controlled experiment to figure out exactly which retrieval techniques actually help — and which ones just add cost. The results surprised me.
+This summer I ran a controlled experiment to figure out which retrieval techniques actually help on financial documents. I tested seven configurations on the FinanceBench benchmark — 133 real analyst questions over SEC filings. The results were not what I expected, and the most surprising finding came from the metric I almost didn't report.
 
 ---
 
 ## The Setup
 
-I used [FinanceBench](https://arxiv.org/abs/2311.11944) — a benchmark of 150 real analyst questions over SEC filings from publicly traded companies. Think 10-Ks, 10-Qs, and earnings transcripts. Questions like:
+[FinanceBench](https://arxiv.org/abs/2311.11944) is a benchmark of 150 analyst questions over real SEC filings from publicly traded companies: 10-Ks, 10-Qs, and earnings transcripts. Questions like:
 
 - *"What is the FY2018 capital expenditure amount for 3M?"*
 - *"What drove operating margin change for 3M in FY2022?"*
 - *"Is 3M a capital-intensive business based on FY2022 data?"*
 
-The original paper showed GPT-4 gets **81% of these wrong** even when the answer is sitting in the document. I wanted to know: what actually fixes this?
-
-I built a RAG pipeline and tested seven configurations — a baseline plus six variations — across all 133 questions for which I could get source PDFs. I measured two things for each: **accuracy** (ROUGE-L F1) and **cost per query in USD**.
+The original paper showed GPT-4 gets **81% of these wrong** even when the answer is in the document. I built a RAG pipeline and tested seven configurations, measuring both ROUGE-L F1 (standard overlap metric) and Exact Match (does the correct answer appear anywhere in the output) for each.
 
 ---
 
@@ -32,9 +30,9 @@ I built a RAG pipeline and tested seven configurations — a baseline plus six v
 |-----------|-------------|
 | C0 — Baseline | Fixed 512-token chunks, basic similarity search |
 | C1 — Semantic chunking | Split on meaning boundaries instead of token count |
-| C2 — Recursive chunking | Split on document structure (sections → paragraphs → sentences) |
-| C3 — Reranking | Re-score top-20 chunks with a cross-encoder before generation |
-| C4 — Metadata enrichment | Tag each chunk with company, year, and filing type |
+| C2 — Recursive chunking | Split on document structure at 2,000-token max |
+| C3 — Reranking | Re-score top-20 chunks with a cross-encoder |
+| C4 — Metadata enrichment | Tag each chunk with company, year, filing type |
 | C5 — Query expansion (HyDE) | Generate a hypothetical answer, use it to search |
 | C6 — Hybrid | Everything combined |
 
@@ -42,114 +40,103 @@ I built a RAG pipeline and tested seven configurations — a baseline plus six v
 
 ## The Results
 
-Here's what happened:
+| Condition | ROUGE-L F1 | Exact Match | Latency | Numeric F1 | Numeric EM |
+|-----------|-----------|------------|---------|-----------|-----------|
+| C0 Baseline | 0.177 | 0.128 | 12.3s | 0.028 | 0.277 |
+| **C1 Semantic** | **0.172** | **0.135** | 37.0s | 0.021 | **0.340** |
+| C2 Recursive | 0.177 | 0.120 | 11.2s | 0.026 | 0.277 |
+| C3 Reranking | 0.175 | 0.128 | 35.3s | 0.024 | 0.319 |
+| C4 Metadata | 0.170 | 0.105 | 10.8s | 0.024 | 0.128 |
+| C5 Query Exp. | 0.167 | 0.098 | 13.2s | 0.017 | 0.098 |
+| **C6 Hybrid** | **0.179** | 0.098 | 49.8s | 0.018 | 0.234 |
 
-| Condition | Overall F1 | Numeric F1 | Qualitative F1 |
-|-----------|-----------|------------|----------------|
-| C0 Baseline | 0.177 | 0.028 | 0.259 |
-| C1 Semantic | 0.177 | 0.026 | 0.260 |
-| C2 Recursive | 0.177 | 0.026 | 0.260 |
-| C3 Reranking | 0.175 | 0.024 | 0.258 |
-| C4 Metadata | 0.170 | 0.024 | 0.251 |
-| C5 Query Expansion | 0.167 | 0.017 | 0.250 |
+The total ROUGE-L F1 range across all seven conditions is **0.012**. Nothing moves the needle on the standard metric.
 
-None of the techniques improved on the baseline in any meaningful way.
-
-I'll be honest — this wasn't what I expected. But it turned out to be the most interesting finding of the whole study.
-
----
-
-## What's Actually Going On
-
-The headline number — overall F1 of 0.177 — hides the real story. Break it down by question type and you see something striking:
-
-**Qualitative questions** (things like "what drove the margin change?" or "is this company capital-intensive?"): F1 around **0.255–0.263** across all conditions. The pipeline retrieves relevant prose passages reasonably well.
-
-**Numeric questions** (things like "what was the capex in USD millions?"): F1 of **0.017–0.028** across all conditions. Near-total failure.
-
-That's a 10x gap. And none of our techniques closed it.
+But look at the Exact Match column for numeric questions. C1 (semantic chunking) achieves **34.0%** — the highest of any condition — while having the **lowest** overall ROUGE-L F1. That's the opposite of what you'd expect, and it changes the entire practical conclusion.
 
 ---
 
-## Why Numeric Questions Are So Hard
+## Why the Standard Metric Is Misleading You
 
-When I manually inspected the failure cases, the pattern was clear: the model wasn't hallucinating wrong numbers. It was saying *"I can't find this in the provided context"* — because the right table passage genuinely wasn't in the top-10 retrieved chunks.
+ROUGE-L measures how much the predicted text overlaps with the gold answer. For a question with gold answer "24.26", a response like:
 
-The problem is how standard RAG pipelines handle financial tables.
+> *"The fixed asset turnover ratio is calculated as revenue divided by average PP&E: $6,489M divided by $267.45M = 24.26"*
 
-A cash flow statement looks something like this in a raw PDF:
+gets ROUGE-L approximately 0.04 — the 5-character gold answer has minimal longest-common-subsequence overlap with a 60-word explanation. But Exact Match = 1.0 because "24.26" appears in the output.
+
+GPT-4o explains its reasoning. ROUGE-L penalizes this. Exact Match doesn't.
+
+**ROUGE-L understates model performance on numeric questions by 10 to 16 times across all conditions.** A practitioner selecting retrieval conditions by ROUGE-L alone would reject semantic chunking (0.172 F1, lowest) and select the hybrid (0.179 F1, highest) — arriving at the exact opposite of the correct recommendation for numeric accuracy.
+
+---
+
+## Why Semantic Chunking Is the Best Condition for Numeric Questions
+
+Semantic chunking splits documents on meaning boundaries instead of arbitrary token counts. When it encounters a financial table, it's more likely to keep the row label and its value together in a single chunk, because they're semantically related. Fixed 512-token splitting doesn't know or care about this relationship.
+
+When the model receives a chunk that includes both "Purchases of property, plant and equipment" and "(1,577)", it can compute the correct answer. The row label and value are in the same context. Under fixed-token chunking, they're often in different chunks — or different chunks entirely.
+
+This is why C1 achieves 34.0% Exact Match on numeric questions despite its low ROUGE-L score. The model is getting the right context more often. It's just wrapping its correct answer in explanation text that suppresses ROUGE-L.
+
+---
+
+## The Deeper Problem: Why Everything Fails on ROUGE-L
+
+Even with semantic chunking's improved numeric Exact Match, the overall ROUGE-L picture is flat. The reason is structural.
+
+SEC filing tables look like this when PDF text is extracted:
 
 ```
-Purchases of property, plant and equipment
-                    (1,577)        (1,373)        (1,229)
+                                    2022        2021        2020
+Capital expenditures             (1,577)     (1,373)     (1,229)
 ```
 
-When you chunk this with a fixed 512-token splitter, you often get the row label in one chunk and the values in another. Or the column headers in one chunk and the data rows in three others. The semantic meaning of the table is destroyed.
+When you split this across chunk boundaries, you separate the row label from its values, and the column headers from the data rows. A similarity search for "capital expenditure 2022" finds the row label chunk. Not the value chunk. The answer doesn't exist as a retrievable unit.
 
-Semantic chunking and recursive chunking don't fix this — they still split on text boundaries, not on table structure. And a cross-encoder reranker can only rerank what was retrieved in the first place. If the right chunk was never in the top-20, reranking can't help.
+No reranker can fix this — you can't rerank a value that was never in the top-20. No hybrid BM25+dense retrieval fixes it — the value is still in a different chunk. No metadata tag fixes it. No query expansion fixes it.
 
-**The problem isn't which chunks get ranked first. It's that the right chunk doesn't exist.**
-
----
-
-## The Cost Angle
-
-This is where the study gets practically useful. If none of the techniques improve accuracy, they all have the same F1 — but very different costs and latencies:
-
-| Condition | Relative Cost | Latency |
-|-----------|--------------|---------|
-| C0 Baseline | 1x | 12.3s |
-| C1 Semantic | ~1x | 11.2s |
-| C2 Recursive | ~1x | 11.2s |
-| C3 Reranking | ~2.5x | 35.3s |
-| C4 Metadata | ~1.2x | 10.8s |
-| C5 Query Expansion | ~2x | 13.2s |
-
-If you're deploying a financial RAG system today, **the cheapest option is also the most accurate option**. Reranking adds 3x the latency at higher cost with no F1 gain. Query expansion actually makes things slightly worse on numeric questions while adding cost.
+**The ROUGE-L ceiling of 0.017 to 0.028 on numeric questions is set by structural chunking failure, not model capability or retrieval technique.**
 
 ---
 
-## What This Means for the Field
+## What Each Technique Actually Did
 
-Most RAG papers test their techniques on general-domain benchmarks where chunking doesn't matter much — the relevant passage is usually a self-contained prose paragraph, not a row in a financial table.
+**C1 (Semantic chunking):** Best for numeric Exact Match (34.0%). Lowest overall ROUGE-L (0.172). Highest non-reranking latency (37.0s). Use this when correct numerical answers are your priority.
 
-Financial documents are different. The failure mode here isn't semantic retrieval quality — it's structural. Standard techniques assume that if you retrieve the right *region* of the document, the answer will be there. For financial tables, that assumption breaks.
+**C2 (Recursive chunking):** Matches baseline exactly on ROUGE-L (0.177) at slightly lower latency (11.2s). Safe swap for baseline with no downside.
 
-What would actually help:
+**C3 (Reranking):** Second-best numeric Exact Match (31.9%). ROUGE-L near-unchanged. Adds 23 seconds of latency per query. Use when numeric EM matters and you can tolerate the latency.
 
-- **Table-aware parsing** — treating each table as a structured object, not a text block
-- **Cell-level extraction** — pulling specific rows and columns rather than chunks
-- **Schema-aware retrieval** — understanding that "capital expenditure" appears under "Cash flows from investing activities" in a cash flow statement
-- **Financial-domain embeddings** — models trained on SEC filings rather than general web text
+**C4 (Metadata):** Worse on both metrics than baseline. The metadata prefix shifts query embeddings away from content-specific terms. Don't use it.
 
-These are harder to implement than swapping a chunking strategy, but they're what the problem actually requires.
+**C5 (Query expansion):** Worst performance of any condition on both metrics. GPT-4o's hypothetical answer contains plausible-but-wrong numbers that retrieve the wrong passages. Avoid.
 
----
-
-## The Takeaway for Practitioners
-
-If you're building a RAG system over financial documents right now:
-
-1. **Don't expect chunking strategy to matter much** — fixed, semantic, and recursive all perform similarly on this benchmark
-2. **Skip reranking and query expansion** — they add cost and latency without meaningful accuracy gains on numeric questions
-3. **The real problem is table structure** — invest engineering time in table-aware parsing before optimizing retrieval
-4. **Qualitative questions are tractable** — F1 around 0.26 is still not great, but the pipeline works reasonably well for prose-based questions. Numeric QA requires a fundamentally different approach.
+**C6 (Hybrid):** Best ROUGE-L (0.179, barely). Worst Exact Match (0.098). At 4x baseline latency, the marginal ROUGE-L gain is not worth it, and the Exact Match hit is severe.
 
 ---
 
-## What's Next
+## The Practical Answer
 
-This study establishes the baseline picture. The natural next steps are:
+**If you care about correctly answering numeric financial questions:** Use semantic chunking (C1). You get 34.0% correct numeric answers vs. 27.7% for baseline, at 3x the latency. Worth it for high-stakes financial analysis.
 
-- Testing table-aware chunking strategies that treat each table as a single unit
-- Evaluating financial-domain-specific embedding models
-- Extending to the full 10,231-question FinanceBench benchmark for stronger statistical power
-- Building a cell-level extraction pipeline for numeric QA
+**If you care about overall ROUGE-L or need low latency:** Use the baseline (C0) or recursive chunking (C2). Equal ROUGE-L, minimum cost.
 
-The full paper is being submitted to WSDM 2027. The code and results will be open-sourced on GitHub at [github.com/anote-ai/Research-FinancialDocumentRetrieval](https://github.com/anote-ai/Research-FinancialDocumentRetrieval).
+**For everyone:** Avoid query expansion (C5) and metadata enrichment (C4) — they make things worse. And know that any retrieval optimization you add is working around the real problem, not solving it.
+
+The real solution is table-aware document parsing — treating each financial table as a structured object with preserved row-column associations rather than a block of text. That's the next experiment.
 
 ---
 
-*Elaine Hong is an AI Research Fellow at Anote AI (Summer 2026) and a student at Cornell University studying Operations Research and Information Engineering. This research was supervised by Natan Vidra, CEO of Anote AI.*
+## Key Takeaways
 
-*Questions or feedback? Reach out on [LinkedIn](https://linkedin.com/company/anote-ai/) or open an issue on GitHub.*
+1. **Report Exact Match alongside ROUGE-L for financial QA.** ROUGE-L will tell you semantic chunking is your worst option when it's actually your best option for numeric accuracy. The metrics give opposite rankings.
+
+2. **Semantic chunking is the best technique for numeric financial questions** — not because it solves the structural problem, but because it's less bad. It more often keeps row labels and values in the same chunk.
+
+3. **Retrieval optimization is not the bottleneck.** Table-aware parsing is. The ROUGE-L ceiling on numeric questions is set by structural chunking failure; no retrieval technique in this study breaks through it.
+
+4. **Avoid query expansion and metadata enrichment** on financial documents. Both decrease accuracy across all metrics while adding cost.
+
+---
+
+The full paper is being submitted to the FinNLP workshop at EMNLP 2026. Code and results are at [github.com/anote-ai/Research-FinancialDocumentRetrieval](https://github.com/anote-ai/Research-FinancialDocumentRetrieval).

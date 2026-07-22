@@ -7,6 +7,9 @@ from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_openai import ChatOpenAI
 from rouge_score import rouge_scorer as rs
+from run_output import create_run_dir
+
+run_dir = create_run_dir("C0_baseline")
 
 # Load data
 df = pd.read_csv("financebench_sample.csv")
@@ -97,13 +100,12 @@ for i, row in df.iterrows():
 
     # Save progress every 10 questions
     if (i + 1) % 10 == 0:
-        pd.DataFrame(results).to_csv("results/c0_baseline_progress.csv", index=False)
+        pd.DataFrame(results).to_csv(run_dir / "progress.csv", index=False)
         print(f"\n  Progress saved — {i+1}/{len(df)} done")
 
 # Save final results
-os.makedirs("results", exist_ok=True)
 results_df = pd.DataFrame(results)
-results_df.to_csv("results/c0_baseline.csv", index=False)
+results_df.to_csv(run_dir / "results.csv", index=False)
 
 # Print summary
 print("\n" + "="*50)
@@ -115,4 +117,4 @@ print(f"Mean Exact Match: {results_df['exact_match'].mean():.3f}")
 print(f"Mean Latency: {results_df['latency_sec'].mean():.1f}s")
 print(f"\nBy question type:")
 print(results_df.groupby('question_type')['rouge_f1'].mean().round(3))
-print(f"\nResults saved to results/c0_baseline.csv")
+print(f"\nResults saved to {run_dir / 'results.csv'}")
