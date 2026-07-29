@@ -36,10 +36,6 @@ python -m pytest tests/ -v #run tests
 
 Note: Using python -m pytest is recommended because it ensures pytest runs from the currently active Python environment and avoids PATH-related issues on Windows.
 
-## Target Venue
-
-- **EMNLP 2026 FinNLP Workshop** — Empirical Methods in NLP, Financial NLP track
-
 ## Citation
 
 ```bibtex
