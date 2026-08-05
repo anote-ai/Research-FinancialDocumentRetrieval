@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Demo script: financial document chunking and ablation evaluation."""
 from __future__ import annotations
-import sys
+
 import os
+import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 

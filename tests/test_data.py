@@ -1,11 +1,12 @@
 from __future__ import annotations
+
+from findocretrieval.core import Document
 from findocretrieval.data import (
-    SAMPLE_10K_TEXT,
     ABLATION_TECHNIQUES,
+    SAMPLE_10K_TEXT,
     make_document,
     make_query_results,
 )
-from findocretrieval.core import Document
 
 
 def test_sample_10k_text_non_empty() -> None:

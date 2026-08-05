@@ -2,14 +2,13 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Union
 
+from langchain.retrievers import ContextualCompressionRetriever, EnsembleRetriever
+from langchain.retrievers.document_compressors import CrossEncoderReranker
 from langchain_community.cross_encoders import HuggingFaceCrossEncoder
 from langchain_community.retrievers import BM25Retriever
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
-from langchain.retrievers import ContextualCompressionRetriever, EnsembleRetriever
-from langchain.retrievers.document_compressors import CrossEncoderReranker
 
 from .embeddings import get_embedder
 
@@ -17,20 +16,20 @@ _RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
 _INDEX_BASE = Path(__file__).resolve().parents[3] / "data" / "index"
 
 
-def _load_vectorstore(index_path: Union[str, Path]) -> FAISS:
+def _load_vectorstore(index_path: str | Path) -> FAISS:
     return FAISS.load_local(
         str(index_path), get_embedder(), allow_dangerous_deserialization=True
     )
 
 
-def get_base_retriever(index_path: Union[str, Path], k: int = 20):
+def get_base_retriever(index_path: str | Path, k: int = 20):
     """FAISS cosine-similarity retriever."""
     vs = _load_vectorstore(index_path)
     return vs.as_retriever(search_type="similarity", search_kwargs={"k": k})
 
 
 def get_reranking_retriever(
-    index_path: Union[str, Path], k: int = 20, top_n: int = 5
+    index_path: str | Path, k: int = 20, top_n: int = 5
 ):
     """FAISS retriever with BAAI/bge-reranker-v2-m3 CrossEncoder reranking."""
     base = get_base_retriever(index_path, k=k)
@@ -42,7 +41,7 @@ def get_reranking_retriever(
 
 
 def get_metadata_retriever(
-    index_path: Union[str, Path],
+    index_path: str | Path,
     company: str,
     doc_period: str,
     k: int = 20,
@@ -63,7 +62,7 @@ def get_metadata_retriever(
 
 def get_hybrid_retriever(
     chunks: list[Document],
-    index_path: Union[str, Path],
+    index_path: str | Path,
     k: int = 20,
     top_n: int = 5,
 ):

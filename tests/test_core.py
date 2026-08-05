@@ -1,16 +1,17 @@
 from __future__ import annotations
+
 import pytest
+
 from findocretrieval.core import (
-    Document,
     Chunk,
-    SemanticChunk,
     ChunkingConfig,
+    Document,
+    SemanticChunk,
     fixed_size_chunker,
     paragraph_chunker,
-    sentence_chunker,
     semantic_chunker,
+    sentence_chunker,
 )
-
 
 # ---------------------------------------------------------------------------
 # SemanticChunk

@@ -26,15 +26,15 @@ import pandas as pd
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from findocretrieval.chunking import (  # noqa: E402
+from findocretrieval.chunking import (
     build_index,
     fixed_chunking,
     recursive_chunking,
     semantic_chunking,
 )
-from findocretrieval.evaluate import evaluate_condition  # noqa: E402
-from findocretrieval.query_expansion import HyDERetriever  # noqa: E402
-from findocretrieval.retriever import (  # noqa: E402
+from findocretrieval.evaluate import evaluate_condition
+from findocretrieval.query_expansion import HyDERetriever
+from findocretrieval.retriever import (
     get_base_retriever,
     get_hybrid_retriever,
     get_metadata_retriever,
@@ -72,7 +72,7 @@ def load_pdfs(pdf_dir: Path) -> list:
                 p.metadata.update(meta)
             all_pages.extend(pages)
             print(f"[load] {pdf_path.name} → {len(pages)} pages")
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - keep loading remaining PDFs on any failure
             print(f"[warn] skipping {pdf_path.name}: {exc}")
     return all_pages
 
@@ -164,6 +164,7 @@ def run_ablation(
 
     # C3 — HyDE
     from langchain_community.vectorstores import FAISS
+
     from findocretrieval.embeddings import get_embedder
     vs = FAISS.load_local(
         str(indices["fixed"]), get_embedder(), allow_dangerous_deserialization=True

@@ -168,7 +168,7 @@ def evaluate_condition(
     retriever,
     llm,
     df,
-) -> "pd.DataFrame":
+) -> pd.DataFrame:
     """Run every row in *df* through retriever + LLM and return per-row metrics.
 
     Args:
@@ -247,7 +247,7 @@ def evaluate_condition(
             else:
                 assert _static_chain is not None
                 predicted = _static_chain.invoke(question)
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - continue the eval loop on any row failure
             print(f"[warn] {condition_name} | failed: {exc}")
             predicted = ""
 

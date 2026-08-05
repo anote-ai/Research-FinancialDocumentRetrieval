@@ -31,6 +31,11 @@ where = ["src"]
 line-length = 100
 target-version = "py310"
 
+[tool.ruff.lint.per-file-ignores]
+# N999: module name is derived from the repo's checkout directory name,
+# which varies across clones/CI and isn't something we control.
+"tests/__init__.py" = ["N999"]
+
 [tool.mypy]
 python_version = "3.10"
 strict = false
