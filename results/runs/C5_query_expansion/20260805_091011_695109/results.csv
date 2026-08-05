@@ -1,0 +1,671 @@
+condition,question_num,company,doc_name,question_type,question,gold_answer,predicted_answer,rouge_f1,exact_match,latency_sec
+C5_query_expansion,1,3M,3M_2018_10K,metrics-generated,What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement.,$1577.00,"The FY2018 capital expenditure amount for 3M is not explicitly stated in the provided context. However, it mentions that 3M expects 2019 capital spending to be approximately $1.7 billion to $1.9 billion. For the exact 2018 capital expenditure amount, one would need to refer to the detailed cash flow statement or the section entitled “Cash Flows from Investing Activities” in the full financial report.",0.0,0.0,38.62
+C5_query_expansion,2,3M,3M_2018_10K,metrics-generated,Assume that you are a public equities analyst. Answer the following question by primarily using information that is shown in the balance sheet: what is the year end FY2018 net PPNE for 3M? Answer in USD billions.,$8.70,"The year-end FY2018 net property, plant, and equipment (PP&E) for 3M is $8.738 billion.",0.1053,0.0,2.8
+C5_query_expansion,3,3M,3M_2022_10K,domain-relevant,Is 3M a capital-intensive business based on FY2022 data?,"No, the company is managing its CAPEX and Fixed Assets pretty efficiently, which is evident from below key metrics:
+CAPEX/Revenue Ratio: 5.1%
+Fixed assets/Total Assets: 20%
+Return on Assets= 12.4%","Yes, 3M is a capital-intensive business based on FY2022 data. This is evident from its significant investments in property, plant, and equipment, with capital spending amounting to $1.749 billion in 2022. Additionally, the net value of its property, plant, and equipment was $9.178 billion as of December 31, 2022. These figures indicate substantial capital investment to support its operations and growth.",0.102,0.0,47.36
+C5_query_expansion,4,3M,3M_2022_10K,domain-relevant,"What drove operating margin change as of FY2022 for 3M? If operating margin is not a useful metric for a company like this, then please state that and explain why.","Operating Margin for 3M in FY2022 has decreased by 1.7% primarily due to: 
+-Decrease in gross Margin
+-mostly one-off charges including Combat Arms Earplugs litigation, impairment related to exiting PFAS manufacturing, costs related to exiting Russia and divestiture-related restructuring
+charges","The operating margin for 3M as of FY2022 was impacted by several factors. The increase in costs related to raw materials, logistics, and manufacturing productivity headwinds, particularly due to the shutdown of certain operations in Belgium, contributed to a decrease in operating margin. Additionally, there were increased expenses related to litigation, specifically concerning PFAS-related matters and Combat Arms Earplugs litigation. These cost increases were partially offset by selling price actions, strong spending discipline, and restructuring actions. Therefore, the operating margin is a useful metric for 3M as it reflects the company's ability to manage costs and pricing in response to external pressures and internal restructuring efforts.",0.2649,0.0,5.65
+C5_query_expansion,5,3M,3M_2022_10K,novel-generated,"If we exclude the impact of M&A, which segment has dragged down 3M's overall growth in 2022?",The consumer segment shrunk by 0.9% organically.,The Consumer segment has dragged down 3M's overall growth in 2022.,0.3,0.0,2.68
+C5_query_expansion,6,3M,3M_2023Q2_10Q,domain-relevant,"Does 3M have a reasonably healthy liquidity profile based on its quick ratio for Q2 of FY2023? If the quick ratio is not relevant to measure liquidity, please state that and explain why.","No. The quick ratio for 3M was 0.96 by Jun'23 close, which needs a bit of an improvement to touch the 1x mark","The quick ratio is a measure of a company's short-term liquidity, calculated as (Current Assets - Inventory) / Current Liabilities. It assesses a company's ability to meet its short-term obligations with its most liquid assets.
+
+Based on the information provided for June 30, 2023, 3M's current assets are $15,754 million, and current liabilities are $10,936 million. However, the inventory figure is not provided, which is necessary to calculate the quick ratio accurately. Without the inventory data, the quick ratio cannot be calculated directly from the given information.
+
+Therefore, while the quick ratio is a relevant measure for assessing liquidity, the necessary data to compute it is not available in the provided context. Thus, we cannot determine 3M's liquidity profile based on the quick ratio for Q2 of FY2023.",0.1132,0.0,20.05
+C5_query_expansion,7,3M,3M_2023Q2_10Q,domain-relevant,Which debt securities are registered to trade on a national securities exchange under 3M's name as of Q2 of 2023?,"Following debt securities registered under 3M's name are listed to trade on the New York Stock Exchange:
+-1.500% Notes due 2026 (Trading Symbol: MMM26)
+-1.750% Notes due 2030 (Trading Symbol: MMM30)
+-1.500% Notes due 2031 (Trading Symbol: MMM31)","As of Q2 of 2023, 3M's fixed-rate registered notes are the debt securities registered to trade on a national securities exchange under 3M's name.",0.2029,0.0,3.44
+C5_query_expansion,8,3M,3M_2023Q2_10Q,novel-generated,Does 3M maintain a stable trend of dividend distribution?,"Yes, not only they distribute the dividends on a routine basis, 3M has also been increasing the per share dividend for consecutive 65 years","Yes, 3M maintains a stable trend of dividend distribution, having paid dividends since 1916 and marking the 65th consecutive year of dividend increases in 2023.",0.2449,0.0,3.38
+C5_query_expansion,9,Activision Blizzard,ACTIVISIONBLIZZARD_2019_10K,metrics-generated,What is the FY2019 fixed asset turnover ratio for Activision Blizzard? Fixed asset turnover ratio is defined as: FY2019 revenue / (average PP&E between FY2018 and FY2019). Round your answer to two decimal places. Base your judgments on the information provided primarily in the statement of income and the statement of financial position.,24.26,"To calculate the fixed asset turnover ratio for FY2019, we need to use the formula:
+
+\[ \text{Fixed Asset Turnover Ratio} = \frac{\text{FY2019 Revenue}}{\text{Average PP&E}} \]
+
+From the consolidated statements of operations, the FY2019 revenue is $6,489 million.
+
+To find the average property, plant, and equipment (PP&E) between FY2018 and FY2019, we use the PP&E values from the consolidated balance sheets:
+
+- PP&E at December 31, 2019: $253 million
+- PP&E at December 31, 2018: $282 million
+
+The average PP&E is calculated as:
+
+\[ \text{Average PP&E} = \frac{253 + 282}{2} = 267.5 \text{ million} \]
+
+Now, we can calculate the fixed asset turnover ratio:
+
+\[ \text{Fixed Asset Turnover Ratio} = \frac{6,489}{267.5} \approx 24.26 \]
+
+Therefore, the FY2019 fixed asset turnover ratio for Activision Blizzard is approximately 24.26.",0.0288,1.0,26.83
+C5_query_expansion,10,Activision Blizzard,ACTIVISIONBLIZZARD_2019_10K,metrics-generated,What is the FY2017 - FY2019 3 year average of capex as a % of revenue for Activision Blizzard? Answer in units of percents and round to one decimal place. Calculate (or extract) the answer from the statement of income and the cash flow statement.,1.9%,"To calculate the 3-year average of capital expenditures (capex) as a percentage of revenue for Activision Blizzard from FY2017 to FY2019, we need to extract the capex and revenue figures for each year. However, the provided context does not include the cash flow statement, which typically contains capex information. Therefore, we will assume that the depreciation expense can be used as a proxy for capex, given that the actual capex figures are not provided.
+
+From the context, the depreciation expenses for the years ended December 31 are:
+- 2017: $130 million
+- 2018: $138 million
+- 2019: $124 million
+
+The total net revenues for the years ended December 31 are:
+- 2017: $7,017 million
+- 2018: $7,500 million
+- 2019: $6,489 million
+
+Now, calculate the capex as a percentage of revenue for each year:
+
+2017: (130 / 7,017) * 100 = 1.9%
+2018: (138 / 7,500) * 100 = 1.8%
+2019: (124 / 6,489) * 100 = 1.9%
+
+Next, calculate the 3-year average:
+
+(1.9% + 1.8% + 1.9%) / 3 = 1.9%
+
+Therefore, the 3-year average of capex as a percentage of revenue for Activision Blizzard from FY2017 to FY2019 is 1.9%.",0.0208,1.0,4.34
+C5_query_expansion,11,AES Corporation,AES_2022_10K,domain-relevant,What is the quantity of restructuring costs directly outlined in AES Corporation's income statements for FY2022? If restructuring costs are not explicitly outlined then state 0.,0,0,1.0,1.0,40.21
+C5_query_expansion,12,AES Corporation,AES_2022_10K,domain-relevant,Roughly how many times has AES Corporation sold its inventory in FY2022? Calculate inventory turnover ratio for the FY2022; if conventional inventory management is not meaningful for the company then state that and explain why.,AES has converted inventory 9.5 times in FY 2022.,"The inventory turnover ratio is calculated by dividing the cost of goods sold (COGS) by the average inventory. However, the provided document does not include specific figures for COGS or inventory levels, which are necessary to calculate the inventory turnover ratio. 
+
+In the context of AES Corporation, which operates in the electricity generation and distribution sector, conventional inventory management may not be as meaningful. This is because the company primarily deals with electricity, which is not a physical inventory in the traditional sense. Instead, the company's ""inventory"" might consist of fuel supplies or spare parts for power plants, which do not follow the typical inventory turnover patterns seen in manufacturing or retail industries. Therefore, inventory turnover ratios may not provide significant insights into the company's operational efficiency.",0.0432,0.0,4.68
+C5_query_expansion,13,AES Corporation,AES_2022_10K,metrics-generated,"Based on the information provided primarily in the statement of financial position and the statement of income, what is AES's FY2022 return on assets (ROA)? ROA is defined as: FY2022 net income / (average total assets between FY2021 and FY2022). Round your answer to two decimal places.",-0.02,"To calculate the return on assets (ROA) for AES in FY2022, we need to determine the net income for FY2022 and the average total assets between FY2021 and FY2022.
+
+1. **Net Income for FY2022**: 
+   - The net income attributable to The AES Corporation for FY2022 is given as $(546) million.
+
+2. **Total Assets**:
+   - Total assets for FY2021: $7,525 million
+   - Total assets for FY2022: $7,575 million
+
+3. **Average Total Assets**:
+   \[
+   \text{Average Total Assets} = \frac{\text{Total Assets FY2021} + \text{Total Assets FY2022}}{2} = \frac{7,525 + 7,575}{2} = 7,550 \text{ million}
+   \]
+
+4. **ROA Calculation**:
+   \[
+   \text{ROA} = \frac{\text{Net Income FY2022}}{\text{Average Total Assets}} = \frac{-546}{7,550} \approx -0.0723
+   \]
+
+Therefore, the ROA for AES in FY2022 is approximately -7.23%.",0.0156,0.0,5.36
+C5_query_expansion,14,Amazon,AMAZON_2017_10K,metrics-generated,What is Amazon's FY2017 days payable outstanding (DPO)? DPO is defined as: 365 * (average accounts payable between FY2016 and FY2017) / (FY2017 COGS + change in inventory between FY2016 and FY2017). Round your answer to two decimal places. Address the question by using the line items and information shown within the balance sheet and the P&L statement.,93.86,"To calculate Amazon's FY2017 Days Payable Outstanding (DPO), we need to follow these steps:
+
+1. **Calculate the Average Accounts Payable:**
+   - Accounts Payable at the end of FY2016: $25,309 million
+   - Accounts Payable at the end of FY2017: $34,616 million
+   - Average Accounts Payable = (25,309 + 34,616) / 2 = $29,962.5 million
+
+2. **Calculate the Cost of Goods Sold (COGS) for FY2017:**
+   - COGS for FY2017: $111,934 million
+
+3. **Calculate the Change in Inventory:**
+   - Inventory at the end of FY2016: $11,461 million
+   - Inventory at the end of FY2017: $16,047 million
+   - Change in Inventory = 16,047 - 11,461 = $4,586 million
+
+4. **Calculate the DPO:**
+   - DPO = 365 * (Average Accounts Payable) / (COGS + Change in Inventory)
+   - DPO = 365 * 29,962.5 / (111,934 + 4,586)
+   - DPO = 365 * 29,962.5 / 116,520
+   - DPO ≈ 93.84
+
+Therefore, Amazon's FY2017 Days Payable Outstanding (DPO) is approximately 93.84 days.",0.0133,0.0,13.34
+C5_query_expansion,15,Amazon,AMAZON_2017_10K,metrics-generated,What is Amazon's year-over-year change in revenue from FY2016 to FY2017 (in units of percents and round to one decimal place)? Calculate what was asked by utilizing the line items clearly shown in the statement of income.,30.8%,"The year-over-year change in revenue for Amazon from FY2016 to FY2017 is calculated as follows:
+
+\[
+\text{Percentage Change} = \left( \frac{\text{Revenue in 2017} - \text{Revenue in 2016}}{\text{Revenue in 2016}} \right) \times 100
+\]
+
+Using the total net sales figures from the consolidated statements of operations:
+
+- Revenue in 2017 = $177,866 million
+- Revenue in 2016 = $135,987 million
+
+\[
+\text{Percentage Change} = \left( \frac{177,866 - 135,987}{135,987} \right) \times 100 \approx 30.8\%
+\]
+
+Therefore, Amazon's year-over-year change in revenue from FY2016 to FY2017 is approximately 30.8%.",0.0412,1.0,3.74
+C5_query_expansion,16,Amazon,AMAZON_2019_10K,metrics-generated,"By drawing conclusions from the information stated only in the income statement, what is Amazon's FY2019 net income attributable to shareholders (in USD millions)?",$11588.00,"Amazon's FY2019 net income attributable to shareholders is $11,588 million.",0.0,0.0,9.86
+C5_query_expansion,17,Amcor,AMCOR_2020_10K,metrics-generated,What is Amcor's year end FY2020 net AR (in USD millions)? Address the question by adopting the perspective of a financial analyst who can only use the details shown within the balance sheet.,$1616.00,"Amcor's year-end FY2020 net accounts receivable (AR) is $1,615.9 million.",0.0,0.0,16.05
+C5_query_expansion,18,Amcor,AMCOR_2022_8K_dated-2022-07-01,novel-generated,What was the key agenda of the AMCOR's 8k filing dated 1st July 2022?,"Amcor Finance (USA), Inc. and Amcor Flexibles North America, Inc., entered into supplemental indentures relating to Guaranteed Senior Notes due 2026 and 2028. This involved the substitution of the Substitute Issuer (Amcor Flexibles North America) for the Former Issuer (Amcor Finance) and the assumption of covenants under the indentures. (In essence a novation agreement)","The key agenda of Amcor's 8-K filing dated July 1, 2022, was to report the substitution of Amcor Flexibles North America, Inc. as the new issuer in place of Amcor Finance (USA), Inc. for the 3.625% Guaranteed Senior Notes due 2026 and the 4.500% Guaranteed Senior Notes due 2028. This substitution involved the assumption by the Substitute Issuer of the covenants of the Former Issuer under the relevant indentures.",0.3937,0.0,5.4
+C5_query_expansion,19,Amcor,AMCOR_2023_10K,domain-relevant,"Has AMCOR's quick ratio improved or declined between FY2023 and FY2022? If the quick ratio is not something that a financial analyst would ask about a company like this, then state that and explain why.",The quick ratio has slightly improved from 0.67 times to 0.69 times between FY 2023 and FY 2022.(3.4% jump),"The quick ratio, also known as the acid-test ratio, is a measure of a company's ability to meet its short-term obligations with its most liquid assets. It is calculated as:
+
+\[ \text{Quick Ratio} = \frac{\text{Cash and Cash Equivalents} + \text{Trade Receivables} + \text{Short-term Investments}}{\text{Current Liabilities}} \]
+
+For Amcor, based on the provided data:
+
+- **FY2023:**
+  - Cash and Cash Equivalents: $689 million
+  - Trade Receivables: $1,875 million
+  - Current Liabilities: $4,476 million
+
+\[ \text{Quick Ratio FY2023} = \frac{689 + 1,875}{4,476} = \frac{2,564}{4,476} \approx 0.57 \]
+
+- **FY2022:**
+  - Cash and Cash Equivalents: $775 million
+  - Trade Receivables: $1,935 million
+  - Current Liabilities: $5,103 million
+
+\[ \text{Quick Ratio FY2022} = \frac{775 + 1,935}{5,103} = \frac{2,710}{5,103} \approx 0.53 \]
+
+The quick ratio has improved slightly from approximately 0.53 in FY2022 to approximately 0.57 in FY2023. This indicates a marginal improvement in Amcor's ability to cover its short-term liabilities with its most liquid assets. 
+
+In the context of a company like Amcor, which operates in the packaging industry, the quick ratio might not be the primary focus for financial analysts. This is because such companies often have significant inventory levels, which are not included in the quick ratio calculation. Analysts might focus more on the current ratio or other metrics that consider inventory, given the nature of the business. However, the quick ratio can still provide useful insights into the company's liquidity position.",0.0667,0.0,29.8
+C5_query_expansion,20,Amcor,AMCOR_2023_10K,domain-relevant,"What are major acquisitions that AMCOR has done in FY2023, FY2022 and FY2021?","Amcor completed these acquisitions during FY2023:
+-100% equity interest of a flexibles manufacturing company in the Czech Republic
+- 100% equity interest in a medical device packaging manufacturing site in
+Shanghai, China.
+-acquisition of a New Zealand-based leading manufacturer of state-of-the-art, automated protein
+packaging machines.","In fiscal year 2023, Amcor signed an agreement to acquire a small manufacturer of flexible packaging for food, home care, and personal care applications in India. There is no specific mention of major acquisitions in fiscal years 2022 and 2021 in the provided context.",0.1522,0.0,3.69
+C5_query_expansion,21,Amcor,AMCOR_2023_10K,domain-relevant,What industry does AMCOR primarily operate in?,Amcor is a global leader in packaging production for various use cases.,Amcor primarily operates in the packaging industry.,0.3158,0.0,2.03
+C5_query_expansion,22,Amcor,AMCOR_2023_10K,domain-relevant,"Does AMCOR have an improving gross margin profile as of FY2023? If gross margin is not a useful metric for a company like this, then state that and explain why.",No. For AMCOR there has been a slight decline in gross margins by 0.8%.,"Yes, Amcor does have an improving gross margin profile as of FY2023. The gross profit for FY2023 was $2,725 million on net sales of $14,694 million, resulting in a gross margin of approximately 18.55%. In comparison, the gross margin for FY2022 was approximately 19.39% ($2,820 million gross profit on $14,544 million net sales), and for FY2021, it was approximately 21.24% ($2,732 million gross profit on $12,861 million net sales). Although the gross margin percentage has slightly decreased over the years, the gross profit in absolute terms has remained relatively stable, indicating that Amcor has managed to maintain its profitability despite fluctuations in sales and costs.",0.0775,0.0,4.67
+C5_query_expansion,23,Amcor,AMCOR_2023Q2_10Q,novel-generated,What is the nature & purpose of AMCOR's restructuring liability as oF Q2 of FY2023 close?,87% of the total restructuring liability is related Employee liabilities.,"As of the close of Q2 of FY2023, Amcor's restructuring liability primarily relates to activities associated with the Russia-Ukraine conflict and the integration of acquired Bemis operations. The liability includes costs for employee-related expenses, fixed asset-related costs, and other costs. The company expects the majority of this liability to be settled within the next twelve months.",0.2,0.0,9.51
+C5_query_expansion,24,Amcor,AMCOR_2023Q4_EARNINGS,novel-generated,What Was AMCOR's Adjusted Non GAAP EBITDA for FY 2023,"AMCOR's Adj. EBITDA was $2,018mn in FY 2023","Amcor's adjusted non-GAAP EBITDA for fiscal year 2023 was $2,018 million.",0.4167,0.0,3.98
+C5_query_expansion,25,Amcor,AMCOR_2023Q4_EARNINGS,novel-generated,"How much was the Real change in Sales for AMCOR in FY 2023 vs FY 2022, if we exclude the impact of FX movement, passthrough costs and one-off items?",The Real Growth was flat in FY 2023 vs FY 2022.,"The real change in sales for Amcor in FY 2023 compared to FY 2022, excluding the impact of foreign exchange movements, passthrough costs, and one-off items, was 0% on a comparable constant currency basis.",0.3043,0.0,2.34
+C5_query_expansion,26,AMD,AMD_2015_10K,metrics-generated,"Answer the following question as if you are an equity research analyst and have lost internet connection so you do not have access to financial metric providers. According to the details clearly outlined within the P&L statement and the statement of cash flows, what is the FY2015 depreciation and amortization (D&A from cash flow statement) % margin for AMD?",4.2%,ERROR: Stream has ended unexpectedly,0.0,0.0,0.0
+C5_query_expansion,27,AMD,AMD_2022_10K,domain-relevant,"Does AMD have a reasonably healthy liquidity profile based on its quick ratio for FY22? If the quick ratio is not relevant to measure liquidity, please state that and explain why.","Yes. The quick ratio is 1.57, calculated as (cash and cash equivalents+Short term investments+Accounts receivable, net+receivables from related parties)/ (current liabilities).","The quick ratio is a relevant measure to assess AMD's liquidity profile for FY22. The quick ratio is calculated as (Current Assets - Inventories) / Current Liabilities. It provides insight into a company's ability to meet its short-term obligations using its most liquid assets.
+
+Based on the information provided, AMD's cash, cash equivalents, and short-term investments were $5.9 billion as of December 31, 2022. However, to accurately calculate the quick ratio, we would need the total current liabilities and the inventory figures, which are not provided in the context. Assuming AMD's current liabilities are not excessively high relative to its liquid assets, the $5.9 billion in cash and equivalents suggests a reasonably healthy liquidity profile. However, without the exact figures for current liabilities and inventories, a precise quick ratio cannot be calculated.",0.1718,0.0,21.62
+C5_query_expansion,28,AMD,AMD_2022_10K,domain-relevant,What are the major products and services that AMD sells as of FY22?,"AMD sells server microprocessors (CPUs) and graphics processing units (GPUs), data processing units (DPUs), Field Programmable Gate Arrays (FPGAs), and Adaptive System-on-Chip (SoC) products for data centers; CPUs, accelerated processing units (APUs) that integrate CPUs and GPUs, and chipsets for desktop and notebook personal computers; discrete GPUs, and semi-custom SoC products and development services; and embedded CPUs, GPUs, APUs, FPGAs, and Adaptive SoC products.","As of FY22, AMD's major products and services include:
+
+1. **Data Center Products**: Server CPUs (AMD EPYC Series), GPUs (AMD Instinct family), DPUs, FPGAs, and Adaptive SoCs.
+
+2. **Client Products**: Desktop and notebook CPUs (AMD Ryzen and AMD Athlon series), APUs, and chipsets.
+
+3. **Gaming Products**: Discrete GPUs (AMD Radeon series), semi-custom SoC products for gaming consoles like Sony PlayStation 5 and Microsoft Xbox Series S and X.
+
+4. **Embedded Products**: Embedded CPUs, GPUs, APUs, FPGAs, and Adaptive SoCs for various markets including automotive, industrial, and communications.
+
+5. **Professional GPUs**: AMD Radeon PRO family for workstations, supporting demanding use cases like CAD and media production.
+
+6. **Software Platforms**: Development tools, compilers, and drivers for CPUs, GPUs, and FPGAs, including AMD ROCm and Vitis platforms.
+
+7. **Custom Solutions**: Semi-custom SoCs and tailored solutions for specific customer needs, leveraging AMD's core IP and technologies.",0.2911,0.0,5.44
+C5_query_expansion,29,AMD,AMD_2022_10K,domain-relevant,What drove revenue change as of the FY22 for AMD?,"In 2022, AMD reported Higher sales of their EPYC server processors, higher semi-custom product sales, and the inclusion of Xilinx embedded product sales","The revenue change for AMD in FY22 was driven by a 64% increase in Data Center segment revenue due to higher sales of EPYC™ server processors, a 21% increase in Gaming segment revenue primarily from higher semi-custom product sales, and a significant increase in Embedded segment revenue due to the inclusion of Xilinx embedded product sales. This growth was partially offset by a 10% decrease in Client segment revenue due to lower processor shipments amid a weak PC market and inventory corrections across the PC supply chain.",0.3571,0.0,3.86
+C5_query_expansion,30,AMD,AMD_2022_10K,domain-relevant,"What drove operating margin change as of the FY22 for AMD? If operating margin is not a useful metric for a company like this, then please state that and explain why.",The decrease in AMD's operating income was primarily driven by amortization of intangible assets associated with the Xilinx acquisition,"The change in operating margin for AMD in FY22 was primarily driven by the amortization of intangible assets associated with the Xilinx acquisition, which significantly impacted operating income. Additionally, higher operating expenses contributed to the decrease in operating margin. While operating margin is a useful metric for assessing profitability, in this case, it was notably affected by acquisition-related costs, which may not reflect the company's core operational performance.",0.3556,0.0,4.44
+C5_query_expansion,31,AMD,AMD_2022_10K,domain-relevant,"Among operations, investing, and financing activities, which brought in the most (or lost the least) cash flow for AMD in FY22?","In 2022, AMD brought in the most cashflow from Operations","Operating activities brought in the most cash flow for AMD in FY22, with net cash provided amounting to $3.565 billion.",0.2581,0.0,2.7
+C5_query_expansion,32,AMD,AMD_2022_10K,novel-generated,"From FY21 to FY22, excluding Embedded, in which AMD reporting segment did sales proportionally increase the most?",Data Center,"The Data Center segment experienced the most significant proportional increase in sales from FY21 to FY22, with a 64% increase in revenue.",0.1667,1.0,2.25
+C5_query_expansion,33,AMD,AMD_2022_10K,novel-generated,Did AMD report customer concentration in FY22?,"Yes, one customer accounted for 16% of consolidated net revenue","Yes, AMD reported customer concentration in FY22, indicating that a small number of customers accounted for a substantial part of its revenue.",0.375,0.0,2.82
+C5_query_expansion,34,American Express,AMERICANEXPRESS_2022_10K,domain-relevant,Which debt securities are registered to trade on a national securities exchange under American Express' name as of 2022?,There are none,"As of 2022, the debt securities registered to trade on a national securities exchange under American Express' name are not explicitly detailed in the provided context. However, the context mentions various types of debt securities issued by American Express, such as Fixed Rate Senior Notes, Floating Rate Senior Notes, and Fixed-to-Floating Rate Senior Notes, among others. For specific securities registered to trade on an exchange, one would typically refer to the company's filings with the SEC or the exchange's listings.",0.023,0.0,35.16
+C5_query_expansion,35,American Express,AMERICANEXPRESS_2022_10K,domain-relevant,What are the geographies that American Express primarily operates in as of 2022?,"United States, EMEA, APAC, and LACC","As of 2022, American Express primarily operates in the United States, United Kingdom, European Union, Australia, Japan, Canada, and Mexico.",0.2308,0.0,6.73
+C5_query_expansion,36,American Express,AMERICANEXPRESS_2022_10K,domain-relevant,"Does AMEX have an improving operating margin profile as of 2022? If operating margin is not a useful metric for a company like this, then state that and explain why.",Performance is not measured through operating margin,"Operating margin may not be the most useful metric for evaluating a company like American Express (AMEX) due to its unique business model. AMEX operates a ""spend-centric"" model, focusing on generating revenue primarily through card spending rather than traditional finance charges and fees. This model emphasizes high-spending card members and merchant relationships, which can lead to significant variability in operating expenses related to rewards, marketing, and customer acquisition efforts. Additionally, AMEX's financial performance is influenced by factors such as credit reserve builds/releases and strategic investments, which can impact net income and margins. Therefore, while operating margin can provide some insights, it may not fully capture the nuances of AMEX's business strategy and financial health. Instead, metrics like network volumes, billed business growth, and card member engagement might offer more relevant insights into the company's performance.",0.0541,0.0,5.13
+C5_query_expansion,37,American Express,AMERICANEXPRESS_2022_10K,domain-relevant,"What drove gross margin change as of the FY2022 for American Express? If gross margin is not a useful metric for a company like this, then please state that and explain why.",Performance is not measured through gross margin,"Gross margin is not a particularly useful metric for a company like American Express, which operates primarily in the financial services sector. Instead, key performance indicators for such companies typically include metrics like net interest income, total revenues net of interest expense, and provisions for credit losses. For American Express in FY2022, the financial performance was driven by factors such as increased discount revenue due to higher billed business, growth in net card fees from premium card portfolios, increased service fees and other revenue, and higher net interest income driven by increased Card Member loan balances and interest rates. Additionally, provisions for credit losses increased due to reserve builds and higher net write-offs. These factors collectively influenced the company's financial results rather than a traditional gross margin metric.",0.0584,0.0,8.06
+C5_query_expansion,38,American Express,AMERICANEXPRESS_2022_10K,domain-relevant,How much has the effective tax rate of American Express changed between FY2021 and FY2022?,The effective tax rate for American Express has changed/dropped from 24.6% in FY 2021 to 21.6% in FY 2022.,The effective tax rate of American Express decreased from 24.6 percent in FY2021 to 21.6 percent in FY2022.,0.6667,0.0,2.69
+C5_query_expansion,39,American Express,AMERICANEXPRESS_2022_10K,novel-generated,What was the largest liability in American Express's Balance Sheet in 2022?,Customer deposits,"The largest liability in American Express's Balance Sheet in 2022 was the financial liabilities for which carrying values equal or approximate fair value, amounting to $123 billion.",0.0,0.0,3.9
+C5_query_expansion,40,American Express,AMERICANEXPRESS_2022_10K,novel-generated,Was American Express able to retain card members during 2022?,Yes,"The provided context does not explicitly state whether American Express was able to retain card members during 2022. However, it mentions efforts to attract and retain high-spending, engaged, and creditworthy card members through innovative products, rewards, and services. For specific retention data, additional information or data from American Express's 2022 reports would be needed.",0.0,0.0,4.05
+C5_query_expansion,41,American Water Works,AMERICANWATERWORKS_2020_10K,metrics-generated,How much (in USD billions) did American Water Works pay out in cash dividends for FY2020? Compute or extract the answer by primarily using the details outlined in the statement of cash flows.,$0.40,"American Water Works paid out $391 million in cash dividends for FY2020. This can be extracted from the Consolidated Statements of Cash Flows under the financing activities section, where cash dividends paid are typically listed.",0.0,0.0,18.09
+C5_query_expansion,42,American Water Works,AMERICANWATERWORKS_2021_10K,metrics-generated,"Basing your judgments off of the cash flow statement and the income statement, what is American Water Works's FY2021 unadjusted operating income + depreciation and amortization from the cash flow statement (unadjusted EBITDA) in USD millions?",$1832.00,"American Water Works's FY2021 unadjusted operating income plus depreciation and amortization (unadjusted EBITDA) is $1,899 million.",0.0,0.0,17.86
+C5_query_expansion,43,American Water Works,AMERICANWATERWORKS_2022_10K,domain-relevant,"Does American Water Works have positive working capital based on FY2022 data? If working capital is not a useful or relevant metric for this company, then please state that and explain why.","No, American Water Works had negative working capital of -$1561M in FY 2022.","American Water Works does not have positive working capital based on FY2022 data. Working capital is calculated as current assets minus current liabilities. From the provided data, the total current assets are $1,250 million. However, the current liabilities are not explicitly provided in the excerpt, so we cannot directly calculate the working capital. 
+
+In utility companies like American Water Works, working capital might not be a particularly useful metric due to the nature of their operations. Utilities often have significant capital expenditures and long-term financing arrangements, which can result in negative working capital. These companies typically have stable cash flows and access to capital markets, allowing them to operate effectively even with negative working capital. Therefore, while working capital is a standard financial metric, it may not be as relevant for assessing the financial health of a utility company like American Water Works.",0.0886,0.0,39.33
+C5_query_expansion,44,Best Buy,BESTBUY_2017_10K,metrics-generated,"In agreement with the information outlined in the income statement, what is the FY2015 - FY2017 3 year average net profit margin (as a %) for Best Buy? Answer in units of percents and round to one decimal place.",2.8%,"To calculate the average net profit margin for Best Buy from FY2015 to FY2017, we need to use the formula:
+
+\[ \text{Net Profit Margin} = \left( \frac{\text{Net Earnings}}{\text{Revenue}} \right) \times 100 \]
+
+Using the data provided:
+
+- FY2015: 
+  - Net Earnings = $1,233 million
+  - Revenue = $40,339 million
+  - Net Profit Margin = \( \left( \frac{1,233}{40,339} \right) \times 100 \approx 3.1\% \)
+
+- FY2016: 
+  - Net Earnings = $897 million
+  - Revenue = $39,528 million
+  - Net Profit Margin = \( \left( \frac{897}{39,528} \right) \times 100 \approx 2.3\% \)
+
+- FY2017: 
+  - Net Earnings = $1,228 million
+  - Revenue = $39,403 million
+  - Net Profit Margin = \( \left( \frac{1,228}{39,403} \right) \times 100 \approx 3.1\% \)
+
+Now, calculate the average net profit margin over the three years:
+
+\[ \text{Average Net Profit Margin} = \frac{3.1 + 2.3 + 3.1}{3} \approx 2.8\% \]
+
+Therefore, the FY2015 - FY2017 3-year average net profit margin for Best Buy is approximately 2.8%.",0.0255,1.0,17.44
+C5_query_expansion,45,Best Buy,BESTBUY_2019_10K,metrics-generated,What is the year end FY2019 total amount of inventories for Best Buy? Answer in USD millions. Base your judgments on the information provided primarily in the balance sheet.,$5409.00,"The year-end FY2019 total amount of inventories for Best Buy is $5,400 million.",0.0,0.0,13.98
+C5_query_expansion,46,Best Buy,BESTBUY_2023_10K,domain-relevant,"Are Best Buy's gross margins historically consistent (not fluctuating more than roughly 2% each year)? If gross margins are not a relevant metric for a company like this, then please state that and explain why.","Yes, the margins have been consistent, there has been a minor decline of 1.1% in gross margins between FY2022 and FY2023.","Best Buy's gross margins have been relatively consistent over the past few years, fluctuating within a range of approximately 1% each year. Specifically, the gross profit as a percentage of revenue was 21.4% in 2023, 22.5% in 2022, and 22.4% in 2021. This indicates that gross margins are a relevant metric for Best Buy, as they provide insight into the company's ability to manage costs and pricing strategies effectively in a competitive retail environment.",0.2178,0.0,11.34
+C5_query_expansion,47,Best Buy,BESTBUY_2023_10K,domain-relevant,"What are major acquisitions that Best Buy has done in FY2023, FY2022 and FY2021?","Best Buy closed two acquisitions, both these companies were already partially owned by Best Buy, but Best Buy acquired all outstanding shares of these two companies during FY 2022: (1) Current Health Ltd and (2) Two Peaks, LLC d/b/a Yardbird Furniture","In fiscal 2022, Best Buy acquired all of the outstanding shares of Current Health Ltd. and Two Peaks, LLC, doing business as Yardbird Furniture. There are no major acquisitions mentioned for fiscal 2023 and fiscal 2021 in the provided context.",0.3855,0.0,3.86
+C5_query_expansion,48,Best Buy,BESTBUY_2023_10K,domain-relevant,"Among operations, investing, and financing activities, which brought in the most (or lost the least) cash flow for Best Buy in FY2023?",Best Buy generated the most cash flow from operating activities in FY 2023 ($1.8 bn),Operating activities brought in the most cash flow for Best Buy in FY2023.,0.3448,0.0,4.41
+C5_query_expansion,49,Best Buy,BESTBUY_2024Q2_10Q,novel-generated,Was there any drop in Cash & Cash equivalents between FY 2023 and Q2 of FY2024?,"Yes, there was a decline of ~42% between FY2023 and Q2 of FY 2024.","Yes, there was a drop in cash and cash equivalents from $1,874 million on January 28, 2023 (end of FY 2023), to $1,093 million on July 29, 2023 (Q2 of FY 2024).",0.375,0.0,6.14
+C5_query_expansion,50,Best Buy,BESTBUY_2024Q2_10Q,novel-generated,Was there any change in the number of Best Buy stores between Q2 of FY2024 and FY2023?,"Yes, there is decline in number stores by 1.32% from 982 stores in Q2 FY 2023 to 969 by the end of Q2 FY2024.","Yes, there was a change in the number of Best Buy stores between Q2 of FY2024 and FY2023. The number of Best Buy stores decreased from 930 at the end of Q2 FY2023 to 907 at the end of Q2 FY2024.",0.3939,0.0,2.66
+C5_query_expansion,51,Best Buy,BESTBUY_2024Q2_10Q,novel-generated,Which Best Buy product category performed the best (by top line) in the domestic (USA) Market during Q2 of FY2024?,"The entertainment segment experienced the highest growth of 9% during Q2 FY2024, primarily from gaming division.","The ""Computing and Mobile Phones"" category performed the best by top line in the domestic (USA) market during Q2 of FY2024, with revenue of $3,674 million.",0.2326,0.0,2.36
+C5_query_expansion,52,Block,BLOCK_2016_10K,metrics-generated,"Considering the data in the balance sheet, what is Block's (formerly known as Square) FY2016 working capital ratio? Define working capital ratio as total current assets divided by total current liabilities. Round your answer to two decimal places.",1.73,"Block's FY2016 working capital ratio is calculated as follows:
+
+Working Capital Ratio = Total Current Assets / Total Current Liabilities
+
+From the balance sheet data:
+- Total Current Assets for FY2016 = $1,001,425 thousand
+- Total Current Liabilities for FY2016 = $577,464 thousand
+
+Working Capital Ratio = $1,001,425 / $577,464 ≈ 1.73
+
+Therefore, Block's FY2016 working capital ratio is 1.73.",0.0635,1.0,15.82
+C5_query_expansion,53,Block,BLOCK_2020_10K,metrics-generated,What is the FY2019 - FY2020 total revenue growth rate for Block (formerly known as Square)? Answer in units of percents and round to one decimal place. Approach the question asked by assuming the standpoint of an investment banking analyst who only has access to the statement of income.,101.5%,The total revenue growth rate for Block (formerly known as Square) from FY2019 to FY2020 is 101.4%.,0.1,0.0,20.91
+C5_query_expansion,54,Block,BLOCK_2020_10K,metrics-generated,"Using the cash flow statement, answer the following question to the best of your abilities: how much did Block (formerly known as Square) generate in cash flow from operating activities in FY2020? Answer in USD millions.",$382.00,Block (formerly known as Square) generated $381.6 million in cash flow from operating activities in FY2020.,0.0,0.0,2.39
+C5_query_expansion,55,Boeing,BOEING_2018_10K,metrics-generated,"We need to calculate a financial metric by using information only provided within the balance sheet. Please answer the following question: what is Boeing's year end FY2018 net property, plant, and equipment (in USD millions)?",$12645.00,"Boeing's year-end FY2018 net property, plant, and equipment is $12,645 million.",0.0,0.0,14.24
+C5_query_expansion,56,Boeing,BOEING_2022_10K,domain-relevant,Are there any product categories / service categories that represent more than 20% of Boeing's revenue for FY2022?,"Yes. Boeing has product and service categories that represent more than 20% of Boeing's revenue for FY2022. These categories are Commercial Airplanes which comprises 39% of total revenue, Defence which comprises 35% of total revenue and Services which comprises 26% of total revenue.","Yes, the Commercial Airplanes and Defense, Space & Security segments each represent more than 20% of Boeing's revenue for FY2022.",0.375,0.0,23.15
+C5_query_expansion,57,Boeing,BOEING_2022_10K,domain-relevant,Has Boeing reported any materially important ongoing legal battles from FY2022?,Yes. Multiple lawsuits have been filed against Boeing resulting from a 2018 Lion Air crash and a 2019 Ethiopian Airlines crash.,"Yes, Boeing reported ongoing legal battles related to the October 29, 2018, accident of Lion Air Flight 610 and the March 10, 2019, accident of Ethiopian Airlines Flight 302. Additionally, there is an ongoing arbitration dispute with Embraer S.A. regarding the termination of joint venture agreements. Boeing cannot reasonably estimate a range of loss, if any, from these legal matters.",0.2195,0.0,5.56
+C5_query_expansion,58,Boeing,BOEING_2022_10K,domain-relevant,"Does Boeing have an improving gross margin profile as of FY2022? If gross margin is not a useful metric for a company like this, then state that and explain why.","Yes. Boeing has an improving gross margin profile as of FY2022. Gross profit improved from $3,017 million in FY2021 to $3,502 million in FY2022. Gross margin % improved from 4.8% in FY2021 to 5.3% in FY2022.","Gross margin is not a particularly useful metric for Boeing due to the nature of its business, which involves long-term contracts and program accounting. Boeing's financial performance is heavily influenced by its program accounting practices, which involve estimating costs and revenues over the life of an aircraft program. This can lead to significant fluctuations in reported margins based on changes in estimates, production rates, and delivery schedules. Additionally, Boeing's operations span multiple segments, including Commercial Airplanes, Defense, Space & Security, and Global Services, each with different cost structures and margin profiles. Therefore, analyzing operating margins or segment-specific performance might provide more meaningful insights into Boeing's financial health and operational efficiency.",0.0915,0.0,5.23
+C5_query_expansion,59,Boeing,BOEING_2022_10K,domain-relevant,Who are the primary customers of Boeing as of FY2022?,Boeing's primary customers as of FY2022 are a limited number of commercial airlines and the US government. The US government accounted for 40% of Boeing's total revenues in FY2022.,"The primary customers of Boeing as of FY2022 are commercial airlines, the U.S. Department of Defense, NASA, and various non-U.S. government defense agencies.",0.386,0.0,2.76
+C5_query_expansion,60,Boeing,BOEING_2022_10K,novel-generated,Is Boeing's business subject to cyclicality?,"Yes, Boeing's business is subject to cyclicality due to its exposure to the airline industry which is a cyclical industry.","Yes, Boeing's business is subject to cyclicality, as it is influenced by factors such as economic growth, airline financial performance, and global events that affect air travel demand and the aerospace industry.",0.3704,0.0,3.03
+C5_query_expansion,61,Boeing,BOEING_2022_10K,novel-generated,What production rate changes is Boeing forecasting for FY2023?,"Boeing forecasts an increase in the production rates for the 737, 777X and 787 aircrafts in 2023.","For FY2023, Boeing is forecasting the following production rate changes:
+
+1. The 787 program is expected to gradually increase production to 5 aircraft per month.
+2. Production of the 777X is currently paused and is expected to resume in 2023.
+3. The 737 program plans to gradually increase production rates based on market demand and supply chain capacity.",0.2667,0.0,3.74
+C5_query_expansion,62,Boeing,BOEING_2022_10K,novel-generated,How does Boeing's effective tax rate in FY2022 compare to FY2021?,"Effective tax rate in FY2022 was 0.62%, compared to  -14.76% in FY2021.","Boeing's effective tax rate in FY2022 was -0.6%, compared to 14.8% in FY2021.",0.8,0.0,2.75
+C5_query_expansion,63,Coca-Cola,COCACOLA_2017_10K,metrics-generated,What is the FY2017 return on assets (ROA) for Coca Cola? ROA is defined as: FY2017 net income / (average total assets between FY2016 and FY2017). Round your answer to two decimal places. Give a response to the question by relying on the details shown in the balance sheet and the P&L statement.,0.01,"To calculate the FY2017 return on assets (ROA) for Coca-Cola, we use the formula:
+
+\[ \text{ROA} = \frac{\text{Net Income}}{\text{Average Total Assets}} \]
+
+From the data provided:
+- FY2017 net income attributable to shareowners of The Coca-Cola Company is $1,248 million.
+- Total assets for FY2016 are $87,270 million.
+- Total assets for FY2017 are $87,896 million.
+
+First, calculate the average total assets:
+
+\[ \text{Average Total Assets} = \frac{87,270 + 87,896}{2} = 87,583 \text{ million} \]
+
+Now, calculate the ROA:
+
+\[ \text{ROA} = \frac{1,248}{87,583} \approx 0.01425 \]
+
+Convert this to a percentage:
+
+\[ \text{ROA} \approx 1.43\% \]
+
+Therefore, the FY2017 return on assets (ROA) for Coca-Cola is approximately 1.43%.",0.0167,1.0,45.05
+C5_query_expansion,64,Coca-Cola,COCACOLA_2021_10K,metrics-generated,What is Coca Cola's FY2021 COGS % margin? Calculate what was asked by utilizing the line items clearly shown in the income statement.,39.7%,"Coca-Cola's FY2021 Cost of Goods Sold (COGS) percentage margin is calculated by dividing the Cost of Goods Sold by the Net Operating Revenues and then multiplying by 100 to express it as a percentage.
+
+COGS % Margin = (Cost of Goods Sold / Net Operating Revenues) * 100
+
+For FY2021:
+COGS = $15,357 million
+Net Operating Revenues = $38,655 million
+
+COGS % Margin = ($15,357 / $38,655) * 100 ≈ 39.73%",0.029,0.0,30.14
+C5_query_expansion,65,Coca-Cola,COCACOLA_2022_10K,metrics-generated,What is Coca Cola's FY2022 dividend payout ratio (using total cash dividends paid and net income attributable to shareholders)? Round answer to two decimal places. Answer the question asked by assuming you only have access to information clearly displayed in the cash flow statement and the income statement.,0.8,"Coca-Cola's FY2022 dividend payout ratio is calculated by dividing the total cash dividends paid by the net income attributable to shareholders. From the cash flow statement, the total cash dividends paid in 2022 is $7,616 million. From the income statement, the net income attributable to shareholders in 2022 is $9,542 million.
+
+Dividend Payout Ratio = Total Dividends Paid / Net Income Attributable to Shareholders
+= $7,616 million / $9,542 million
+= 0.7978
+
+Rounded to two decimal places, the dividend payout ratio is 0.80.",0.0227,1.0,30.41
+C5_query_expansion,66,Corning,CORNING_2020_10K,metrics-generated,"Based on the information provided primarily in the balance sheet and the statement of income, what is FY2020 days payable outstanding (DPO) for Corning? DPO is defined as: 365 * (average accounts payable between FY2019 and FY2020) / (FY2020 COGS + change in inventory between FY2019 and FY2020). Round your answer to two decimal places.",63.86,"To calculate the Days Payable Outstanding (DPO) for Corning for FY2020, we need the following information:
+
+1. **Average Accounts Payable**: This is typically calculated as the average of the accounts payable at the beginning and end of the year. However, the provided context does not include specific accounts payable figures. If we assume that accounts payable figures are not directly provided, we cannot calculate the average accounts payable.
+
+2. **Cost of Goods Sold (COGS) for FY2020**: The context does not provide a direct figure for COGS. However, COGS typically includes expenses such as raw materials, salaries, depreciation, etc., which are mentioned but not quantified in the context.
+
+3. **Change in Inventory**: 
+   - Inventory at the end of FY2020: $2,438 million
+   - Inventory at the end of FY2019: $2,320 million
+   - Change in Inventory = $2,438 million - $2,320 million = $118 million
+
+Without the specific figures for accounts payable and COGS, we cannot accurately calculate the DPO. If you have access to the accounts payable and COGS figures from Corning's financial statements, you can use the formula:
+
+\[ \text{DPO} = 365 \times \left(\frac{\text{Average Accounts Payable}}{\text{COGS} + \text{Change in Inventory}}\right) \]
+
+Please provide the missing data or refer to Corning's financial statements for the necessary figures to complete the calculation.",0.0,0.0,23.02
+C5_query_expansion,67,Corning,CORNING_2021_10K,metrics-generated,"Taking into account the information outlined in the income statement, what is the FY2019 - FY2021 3 year average unadjusted operating income % margin for Corning? Answer in units of percents and round to one decimal place.",10.3%,"The unadjusted operating income % margin for each year is calculated as follows:
+
+- FY2019: Operating Income = $1,306 million, Net Sales = $11,503 million. Operating Income % Margin = ($1,306 / $11,503) * 100 = 11.4%
+- FY2020: Operating Income = $509 million, Net Sales = $11,303 million. Operating Income % Margin = ($509 / $11,303) * 100 = 4.5%
+- FY2021: Operating Income = $2,112 million, Net Sales = $14,082 million. Operating Income % Margin = ($2,112 / $14,082) * 100 = 15.0%
+
+The 3-year average unadjusted operating income % margin is:
+
+(11.4% + 4.5% + 15.0%) / 3 = 10.3%
+
+Therefore, the 3-year average unadjusted operating income % margin for Corning is 10.3%.",0.0374,1.0,20.26
+C5_query_expansion,68,Corning,CORNING_2022_10K,domain-relevant,How much has the effective tax rate of Corning changed between FY2021 and FY2022?,The effective tax rate of Corning has changed from 20% in FY2021 to 23% in FY 2022.,The effective tax rate of Corning increased from 20.2% in FY2021 to 22.9% in FY2022.,0.7059,0.0,22.74
+C5_query_expansion,69,Corning,CORNING_2022_10K,domain-relevant,"Does Corning have positive working capital based on FY2022 data? If working capital is not a useful or relevant metric for this company, then please state that and explain why.",Yes. Corning had a positive working capital amount of $831 million by FY 2022 close. This answer considers only operating current assets and current liabilities that were clearly shown in the balance sheet.,"Yes, Corning has positive working capital based on FY2022 data. Working capital is calculated as current assets minus current liabilities. For Corning in 2022, the current assets are $7,453 million, and the current liabilities are $5,175 million. Therefore, the working capital is $7,453 million - $5,175 million = $2,278 million, which is positive.",0.2697,0.0,2.89
+C5_query_expansion,70,Costco,COSTCO_2021_10K,metrics-generated,"Using only the information within the balance sheet, how much total assets did Costco have at the end of FY2021? Answer in USD millions.",$59268.00,"$59,268 million",0.0,0.0,11.88
+C5_query_expansion,71,CVS Health,CVSHEALTH_2018_10K,metrics-generated,What is the FY2018 fixed asset turnover ratio for CVS Health? Fixed asset turnover ratio is defined as: FY2018 revenue / (average PP&E between FY2017 and FY2018). Round your answer to two decimal places. Calculate what was asked by utilizing the line items clearly shown in the P&L statement and the balance sheet.,17.98,"To calculate the FY2018 fixed asset turnover ratio for CVS Health, we need to determine the FY2018 revenue and the average property, plant, and equipment (PP&E) between FY2017 and FY2018.
+
+1. **FY2018 Revenue**: From the provided data, the total revenue for FY2018 is $194,579 million.
+
+2. **Average PP&E**: The balance sheet data provided does not explicitly list PP&E. However, we can estimate the average PP&E using the total assets and other relevant information if available. Since the specific PP&E values are not provided, we cannot calculate the average PP&E directly from the given data.
+
+Without the specific PP&E values, we cannot compute the fixed asset turnover ratio accurately. If you have access to the PP&E values for FY2017 and FY2018, you can use the formula:
+
+\[ \text{Fixed Asset Turnover Ratio} = \frac{\text{FY2018 Revenue}}{\text{Average PP&E}} \]
+
+Please provide the PP&E values if available, or check the detailed financial statements for the necessary information.",0.0,0.0,45.29
+C5_query_expansion,72,CVS Health,CVSHEALTH_2022_10K,domain-relevant,Is CVS Health a capital-intensive business based on FY2022 data?,"Yes, CVS Health requires an extensive asset base to operate, which is evident from its ROA of only 1.82% in 2022 and 3.39% in 2021, though it should be noted that a significant portion of this asset base is goodwill, and CVS's fixed assets/total assets ratio is on the lower side of 5.6%.","Yes, CVS Health is a capital-intensive business based on FY2022 data. The company operates more than 9,000 retail locations, over 1,100 walk-in medical clinics, and has significant investments in information systems and community health destinations. Additionally, CVS Health's strategic initiatives, such as the closure of approximately 900 retail stores between 2022 and 2024 and the continuous assessment of its national footprint, indicate substantial capital requirements. The company's investments in digital presence and infrastructure further underscore its capital-intensive nature.",0.1958,0.0,40.54
+C5_query_expansion,73,CVS Health,CVSHEALTH_2022_10K,domain-relevant,"Has CVS Health reported any materially important ongoing legal battles from 2022, 2021 and 2020?","Yes, CVS Health has been involved in multiple ongoing legal battles. Some notable legal dispute areas for CVS are: (1) usual and customary pricing litigation: where it's claimed that CVSâs retail pharmacies overcharged for prescription drugs; (2) PBM litigation and investigations: where it's claimed that that rebate agreements between the drug manufacturers and PBMs caused inflated prices for certain drug products; and (3) controlled substances litigation: legal matters around opioids for which CVS has agreed to pay up to $4.3 billion to claimants in remediation and $625 million to attorneys and fees","Yes, CVS Health has reported ongoing legal battles related to opioid claims. These include consolidated multidistrict litigation in the U.S. District Court for the Northern District of Ohio, where numerous cases have been filed against CVS and other defendants concerning the impacts of widespread prescription opioid abuse. Additionally, CVS has been named as a defendant in similar cases brought by certain state Attorneys General and has received subpoenas and other requests for information regarding opioids from various state Attorneys General and regulators. The company is defending itself against these claims and has entered into settlement agreements with several states, including Florida, New Mexico, and West Virginia, to resolve opioid-related claims.",0.1827,0.0,4.52
+C5_query_expansion,74,CVS Health,CVSHEALTH_2022_10K,domain-relevant,Has CVS Health paid dividends to common shareholders in Q2 of FY2022?,"Yes, CVS paid a $ 0.55 dividend per share every quarter in FY2022","Yes, CVS Health paid dividends to common shareholders in Q2 of FY2022. The quarterly cash dividend during 2022 was $0.55 per share.",0.3889,0.0,3.19
+C5_query_expansion,75,Foot Locker,FOOTLOCKER_2022_8K_dated_2022-08-19,novel-generated,Does Foot Locker's new CEO have previous CEO experience in a similar company to Footlocker?,Yes. She was previous CEO of Ulta Beauty which means she had to manage a large retail company that has brick and mortar + online business. So yes she was a CEO in a similar company to Foot Locker before this.,"Yes, Foot Locker's new CEO, Mary N. Dillon, has previous CEO experience at Ulta Beauty, a company in the retail sector, similar to Foot Locker.",0.3636,0.0,6.29
+C5_query_expansion,76,Foot Locker,FOOTLOCKER_2022_8K_dated-2022-05-20,novel-generated,Were there any board member nominees who had substantially more votes against joining than the other nominees?,"Yes, his name is Richard A. Johnson","Yes, Richard A. Johnson had substantially more votes against his nomination, with 16,105,005 votes against, compared to the other nominees who had significantly fewer votes against them.",0.2222,0.0,2.7
+C5_query_expansion,77,General Mills,GENERALMILLS_2019_10K,metrics-generated,What is the FY2019 cash conversion cycle (CCC) for General Mills? CCC is defined as: DIO + DSO - DPO. DIO is defined as: 365 * (average inventory between FY2018 and FY2019) / (FY2019 COGS). DSO is defined as: 365 * (average accounts receivable between FY2018 and FY2019) / (FY2019 Revenue). DPO is defined as: 365 * (average accounts payable between FY2018 and FY2019) / (FY2019 COGS + change in inventory between FY2018 and FY2019). Round your answer to two decimal places. Address the question by using the line items and information shown within the income statement and the balance sheet.,-3.7,"To calculate the cash conversion cycle (CCC) for General Mills for FY2019, we need to determine the Days Inventory Outstanding (DIO), Days Sales Outstanding (DSO), and Days Payable Outstanding (DPO) using the provided formulas.
+
+1. **Days Inventory Outstanding (DIO):**
+   - Average Inventory = (FY2018 Inventory + FY2019 Inventory) / 2 = (1,642.2 + 1,559.3) / 2 = 1,600.75 million
+   - FY2019 COGS = FY2019 Revenue - FY2019 Operating Profit = 16,865.2 - 2,515.9 = 14,349.3 million
+   - DIO = 365 * (Average Inventory / FY2019 COGS) = 365 * (1,600.75 / 14,349.3) = 40.73 days
+
+2. **Days Sales Outstanding (DSO):**
+   - Average Accounts Receivable = (FY2018 Receivables + FY2019 Receivables) / 2 = (1,684.2 + 1,679.7) / 2 = 1,681.95 million
+   - DSO = 365 * (Average Accounts Receivable / FY2019 Revenue) = 365 * (1,681.95 / 16,865.2) = 36.43 days
+
+3. **Days Payable Outstanding (DPO):**
+   - Average Accounts Payable = (FY2018 Accounts Payable + FY2019 Accounts Payable) / 2 = (2,746.2 + 2,854.1) / 2 = 2,800.15 million
+   - Change in Inventory = FY2019 Inventory - FY2018 Inventory = 1,559.3 - 1,642.2 = -82.9 million
+   - DPO = 365 * (Average Accounts Payable / (FY2019 COGS + Change in Inventory)) = 365 * (2,800.15 / (14,349.3 - 82.9)) = 71.73 days
+
+Finally, calculate the CCC:
+- CCC = DIO + DSO - DPO = 40.73 + 36.43 - 71.73 = 5.43 days
+
+The FY2019 cash conversion cycle (CCC) for General Mills is 5.43 days.",0.0176,0.0,20.26
+C5_query_expansion,78,General Mills,GENERALMILLS_2020_10K,metrics-generated,"By drawing conclusions from the information stated only in the statement of financial position, what is General Mills's FY2020 working capital ratio? Define working capital ratio as total current assets divided by total current liabilities. Round your answer to two decimal places.",0.68,"The working capital ratio for General Mills in FY2020 is calculated as total current assets divided by total current liabilities. 
+
+Total current assets for FY2020: $5,121.3 million  
+Total current liabilities for FY2020: $7,491.5 million  
+
+Working capital ratio = Total current assets / Total current liabilities  
+Working capital ratio = $5,121.3 million / $7,491.5 million ≈ 0.68  
+
+Therefore, the working capital ratio for General Mills in FY2020 is approximately 0.68.",0.0526,1.0,18.4
+C5_query_expansion,79,General Mills,GENERALMILLS_2020_10K,metrics-generated,"According to the information provided in the statement of cash flows, what is the FY2020 free cash flow (FCF) for General Mills? FCF here is defined as: (cash from operations - capex). Answer in USD millions.",$3215.00,"The FY2020 free cash flow (FCF) for General Mills is $3,215.4 million.",0.0,0.0,2.2
+C5_query_expansion,80,General Mills,GENERALMILLS_2022_10K,metrics-generated,We want to calculate a financial metric. Please help us compute it by basing your answers off of the cash flow statement and the income statement. Here's the question: what is the FY2022 retention ratio (using total cash dividends paid and net income attributable to shareholders) for General Mills? Round answer to two decimal places.,0.54,"The retention ratio is calculated as the portion of net income that is retained in the company rather than paid out as dividends. It can be calculated using the formula:
+
+\[ \text{Retention Ratio} = 1 - \left(\frac{\text{Dividends Paid}}{\text{Net Income}}\right) \]
+
+From the provided data:
+- Total cash dividends paid in FY2022: $1,244.5 million
+- Net earnings attributable to General Mills (net income) in FY2022: $2,707.3 million
+
+Plugging these values into the formula:
+
+\[ \text{Retention Ratio} = 1 - \left(\frac{1,244.5}{2,707.3}\right) \]
+
+\[ \text{Retention Ratio} = 1 - 0.4596 \]
+
+\[ \text{Retention Ratio} = 0.5404 \]
+
+Therefore, the FY2022 retention ratio for General Mills is 0.54 (or 54.04% when expressed as a percentage).",0.0328,1.0,24.05
+C5_query_expansion,81,JPMorgan,JPMORGAN_2021Q1_10Q,novel-generated,Which of JPM's business segments had the lowest net revenue in 2021 Q1?,Corporate. Its net revenue was -$473 million.,"The Corporate segment had the lowest net revenue in 2021 Q1, with a total net revenue of -$473 million.",0.3846,0.0,20.73
+C5_query_expansion,82,JPMorgan,JPMORGAN_2021Q1_10Q,novel-generated,"If JPM went bankrupted by the end by 2021 Q1 and liquidated all of its assets to pay its shareholders, how much could each shareholder get?",They could receive $66.56 per share.,"If JPMorgan Chase went bankrupt by the end of Q1 2021 and liquidated all of its assets to pay its shareholders, the total assets available for distribution would be $3,689,336 million (or $3.689 trillion) as of March 31, 2021. However, liabilities must be settled first, which amount to $2,278,112 million (or $2.278 trillion) in deposits alone, not including other liabilities. After settling all liabilities, the remaining amount would be distributed to shareholders.
+
+The total common stockholders’ equity as of March 31, 2021, is $249.2 billion. This is the amount available for distribution to shareholders after liabilities are settled. The amount each shareholder would receive depends on the number of shares they hold. To determine the amount per share, you would divide the total equity by the number of outstanding shares. However, the exact number of outstanding shares is not provided in the context, so the per-share amount cannot be calculated without that information.",0.0357,0.0,3.98
+C5_query_expansion,83,JPMorgan,JPMORGAN_2022_10K,domain-relevant,"Are JPM's gross margins historically consistent (not fluctuating more than roughly 2% each year)? If gross margins are not a relevant metric for a company like this, then please state that and explain why.","Since JPM is a financial institution, gross margin is not a relevant metric.","Gross margins are not a relevant metric for a company like JPMorgan Chase, which operates in the financial services industry. Instead, financial institutions like JPMorgan Chase focus on metrics such as net interest income, noninterest revenue, return on equity, and efficiency ratios to assess financial performance. These metrics are more indicative of a bank's profitability and operational efficiency, given the nature of their business, which involves interest income from loans and investments, as well as fees from various financial services.",0.1277,0.0,44.88
+C5_query_expansion,84,JPMorgan,JPMORGAN_2022Q2_10Q,novel-generated,"In 2022 Q2, which of JPM's business segments had the highest net income?",Corporate & Investment Bank. Its net income was $3725 million.,"In 2022 Q2, JPMorgan Chase's Corporate & Investment Bank segment had the highest net income.",0.4167,0.0,21.7
+C5_query_expansion,85,JPMorgan,JPMORGAN_2023Q2_10Q,novel-generated,"Looking at VaR, did the risk that JPM faced in the second fiscal quarter of 2023 decrease compared to the same period in the prior year?",Yes. It decreased.,"Yes, the average total VaR decreased by $7 million for the three months ended June 30, 2023, compared to the same period in the prior year.",0.1379,0.0,25.75
+C5_query_expansion,86,Kraft Heinz,KRAFTHEINZ_2019_10K,metrics-generated,What is Kraft Heinz's FY2019 inventory turnover ratio? Inventory turnover ratio is defined as: (FY2019 COGS) / (average inventory between FY2018 and FY2019). Round your answer to two decimal places. Please base your judgments on the information provided primarily in the balance sheet and the P&L statement.,6.25,ERROR: Stream has ended unexpectedly,0.0,0.0,0.0
+C5_query_expansion,87,Lockheed Martin,LOCKHEEDMARTIN_2020_10K,metrics-generated,"We need to calculate a reasonable approximation (or exact number if possible) of a financial metric. Basing your judgment by information plainly provided in the balance sheet and the P&L statement, what is Lockheed Martin's FY2020 asset turnover ratio? Asset turnover ratio is defined as: FY2020 revenue / (average total assets between FY2019 and FY2020). Round your answer to two decimal places.",1.33,"To calculate the asset turnover ratio for Lockheed Martin for FY2020, we need to use the formula:
+
+\[ \text{Asset Turnover Ratio} = \frac{\text{FY2020 Revenue}}{\text{Average Total Assets}} \]
+
+1. **FY2020 Revenue**: From the Consolidated Statements of Earnings, the total net sales (revenue) for 2020 is $65,398 million.
+
+2. **Average Total Assets**: 
+   - Total assets for 2019: $47,528 million
+   - Total assets for 2020: $50,710 million
+   - Average Total Assets = \(\frac{47,528 + 50,710}{2} = 49,119\) million
+
+Now, plug these values into the formula:
+
+\[ \text{Asset Turnover Ratio} = \frac{65,398}{49,119} \approx 1.33 \]
+
+Therefore, Lockheed Martin's FY2020 asset turnover ratio is approximately 1.33.",0.0357,1.0,25.54
+C5_query_expansion,88,Lockheed Martin,LOCKHEEDMARTIN_2021_10K,metrics-generated,What is Lockheed Martin's FY2021 net working capital? Define net working capital as total current assets less total current liabilities. Answer in USD millions. Respond to the question by assuming the perspective of an investment analyst who can only use the details shown within the balance sheet.,$5818.00,"Lockheed Martin's FY2021 net working capital is calculated as total current assets minus total current liabilities. Based on the balance sheet provided:
+
+Total current assets (2021) = $19,815 million  
+Total current liabilities (2021) = $13,997 million  
+
+Net working capital = $19,815 million - $13,997 million = $5,818 million
+
+Therefore, Lockheed Martin's FY2021 net working capital is $5,818 million.",0.0,0.0,24.61
+C5_query_expansion,89,Lockheed Martin,LOCKHEEDMARTIN_2022_10K,metrics-generated,What is Lockheed Martin's 2 year total revenue CAGR from FY2020 to FY2022 (in units of percents and round to one decimal place)? Provide a response to the question by primarily using the statement of income.,0.4%,"To calculate the 2-year total revenue Compound Annual Growth Rate (CAGR) from FY2020 to FY2022 for Lockheed Martin, we use the formula:
+
+\[ \text{CAGR} = \left( \frac{\text{Ending Value}}{\text{Beginning Value}} \right)^{\frac{1}{n}} - 1 \]
+
+where:
+- Ending Value = Total net sales in 2022 = $65,984 million
+- Beginning Value = Total net sales in 2020 = $65,398 million
+- \( n = 2 \) years
+
+Plugging in the values:
+
+\[ \text{CAGR} = \left( \frac{65,984}{65,398} \right)^{\frac{1}{2}} - 1 \]
+
+\[ \text{CAGR} = (1.00896)^{0.5} - 1 \]
+
+\[ \text{CAGR} \approx 1.00448 - 1 \]
+
+\[ \text{CAGR} \approx 0.00448 \]
+
+Converting to percentage:
+
+\[ \text{CAGR} \approx 0.448\% \]
+
+Rounded to one decimal place, the 2-year total revenue CAGR from FY2020 to FY2022 is approximately 0.4%.",0.0317,1.0,18.13
+C5_query_expansion,90,MGM Resorts,MGMRESORTS_2018_10K,metrics-generated,"Basing your judgments off of the balance sheet, what is the year end FY2018 amount of accounts payable for MGM Resorts? Answer in USD millions.",$303.00,The year-end FY2018 amount of accounts payable for MGM Resorts is $302.578 million.,0.0,0.0,23.15
+C5_query_expansion,91,MGM Resorts,MGMRESORTS_2020_10K,metrics-generated,What is the FY2018 - FY2020 3 year average of capex as a % of revenue for MGM Resorts? Answer in units of percents and round to one decimal place. Please utilize information provided primarily within the statement of cash flows and the statement of income.,7.9%,"To calculate the 3-year average of capital expenditures (capex) as a percentage of revenue for MGM Resorts from FY2018 to FY2020, we first need to determine the capex and revenue for each year and then calculate the percentage for each year.
+
+1. **Capex for each year:**
+   - FY2018: $1,486,843 thousand
+   - FY2019: $739,006 thousand
+   - FY2020: $270,579 thousand
+
+2. **Revenue for each year:**
+   - FY2018: $11,763,096 thousand
+   - FY2019: $12,899,672 thousand
+   - FY2020: $5,162,082 thousand
+
+3. **Capex as a percentage of revenue for each year:**
+   - FY2018: ($1,486,843 / $11,763,096) * 100 = 12.6%
+   - FY2019: ($739,006 / $12,899,672) * 100 = 5.7%
+   - FY2020: ($270,579 / $5,162,082) * 100 = 5.2%
+
+4. **3-year average of capex as a percentage of revenue:**
+   - Average = (12.6% + 5.7% + 5.2%) / 3 = 7.8%
+
+Therefore, the 3-year average of capex as a percentage of revenue for MGM Resorts from FY2018 to FY2020 is 7.8%.",0.0123,0.0,23.9
+C5_query_expansion,92,MGM Resorts,MGMRESORTS_2022_10K,domain-relevant,Has MGM Resorts paid dividends to common shareholders in FY2022?,Yes. MGM maintained 0.01$ per share annual dividend through out FY 2022.,"No, MGM Resorts did not pay dividends to common shareholders in FY2022.",0.16,0.0,28.86
+C5_query_expansion,93,MGM Resorts,MGMRESORTS_2023Q2_10Q,novel-generated,Which type of debt received the largest investment among the short term investments for MGM in H1 FY2023?,the biggest short term investment is in corporate bonds (almost 82% of the total investment),"Corporate bonds received the largest investment among the short-term investments for MGM in H1 FY2023, with an investment of $416,420,000.",0.3158,0.0,9.68
+C5_query_expansion,94,Microsoft,MICROSOFT_2016_10K,metrics-generated,What is the FY2016 COGS for Microsoft? Please state answer in USD millions. Provide a response to the question by primarily using the statement of income.,$32780.00,"The FY2016 Cost of Goods Sold (COGS) for Microsoft is not explicitly stated in the provided context. However, the context mentions that the cost of revenue increased by $5.1 billion or 28% in FY2016. To determine the exact COGS, one would need to refer to Microsoft's detailed financial statements or income statement for FY2016, which is not included in the provided text.",0.0,0.0,12.15
+C5_query_expansion,95,Microsoft,MICROSOFT_2023_10K,domain-relevant,Has Microsoft increased its debt on balance sheet between FY2023 and the FY2022 period?,No. Microsoft decreased its debt by $2.5bn in FY 2023 vs FY 2022.,"Yes, Microsoft's total debt increased from $47,237 million in FY2022 to $49,781 million in FY2023.",0.1875,0.0,22.04
+C5_query_expansion,96,Netflix,NETFLIX_2015_10K,metrics-generated,We want to calculate a financial metric. Please help us compute it by basing your answers off of the statement of income and the statement of cash flows. Here's the question: what is the FY2015 unadjusted EBITDA % margin for Netflix? Calculate unadjusted EBITDA using unadjusted operating income and D&A (from cash flow statement).,5.4%,"To calculate the FY2015 unadjusted EBITDA % margin for Netflix, we need to determine the unadjusted EBITDA and then express it as a percentage of revenues.
+
+1. **Unadjusted EBITDA Calculation:**
+   - **Operating Income (2015):** $305,826 thousand
+   - **Depreciation and Amortization (D&A) (2015):** This includes:
+     - Amortization of streaming content assets: $3,405,382 thousand
+     - Amortization of DVD content assets: $79,380 thousand
+     - Depreciation and amortization of property, equipment, and intangibles: $62,283 thousand
+   - **Total D&A (2015):** $3,405,382 + $79,380 + $62,283 = $3,547,045 thousand
+
+   - **Unadjusted EBITDA (2015):** Operating Income + D&A
+     - $305,826 + $3,547,045 = $3,852,871 thousand
+
+2. **EBITDA % Margin Calculation:**
+   - **Revenues (2015):** $6,779,511 thousand
+   - **EBITDA % Margin:** (Unadjusted EBITDA / Revenues) * 100
+     - ($3,852,871 / $6,779,511) * 100 ≈ 56.83%
+
+Therefore, the FY2015 unadjusted EBITDA % margin for Netflix is approximately 56.83%.",0.0,0.0,12.05
+C5_query_expansion,97,Netflix,NETFLIX_2017_10K,metrics-generated,What is Netflix's year end FY2017 total current liabilities (in USD millions)? Base your judgments on the information provided primarily in the balance sheet.,$5466.00,"Netflix's total current liabilities as of December 31, 2017, were $5,466 million.",0.0,0.0,10.6
+C5_query_expansion,98,Nike,NIKE_2018_10K,metrics-generated,"We need to calculate a reasonable approximation (or exact number if possible) of a financial metric. Basing your judgment by information plainly provided in the statement of income, what is Nike's three year average of cost of goods sold as a % of revenue from FY2016 to FY2018? Answer in units of percents and round to one decimal place.",55.1%,"To calculate the three-year average of cost of goods sold (COGS) as a percentage of revenue for Nike from FY2016 to FY2018, we first need to determine the COGS for each year. This can be done by subtracting the gross profit from the total revenue for each fiscal year.
+
+1. **Fiscal 2016:**
+   - Revenue: $32,376 million
+   - Gross Profit: $14,971 million
+   - COGS = Revenue - Gross Profit = $32,376 million - $14,971 million = $17,405 million
+   - COGS as a % of Revenue = ($17,405 million / $32,376 million) * 100 = 53.8%
+
+2. **Fiscal 2017:**
+   - Revenue: $34,350 million
+   - Gross Profit: $15,312 million
+   - COGS = Revenue - Gross Profit = $34,350 million - $15,312 million = $19,038 million
+   - COGS as a % of Revenue = ($19,038 million / $34,350 million) * 100 = 55.4%
+
+3. **Fiscal 2018:**
+   - Revenue: $36,397 million
+   - Gross Profit: $15,956 million
+   - COGS = Revenue - Gross Profit = $36,397 million - $15,956 million = $20,441 million
+   - COGS as a % of Revenue = ($20,441 million / $36,397 million) * 100 = 56.2%
+
+Now, calculate the average COGS as a percentage of revenue over the three years:
+
+Average COGS % = (53.8% + 55.4% + 56.2%) / 3 = 55.1%
+
+Therefore, Nike's three-year average of cost of goods sold as a percentage of revenue from FY2016 to FY2018 is approximately 55.1%.",0.0183,1.0,20.93
+C5_query_expansion,99,Nike,NIKE_2019_10K,metrics-generated,"According to the details clearly outlined within the balance sheet, how much total current assets did Nike have at the end of FY2019? Answer in USD millions.",$16525.00,"Nike had total current assets of $16,525 million at the end of FY2019.",0.0,0.0,12.73
+C5_query_expansion,100,Nike,NIKE_2021_10K,metrics-generated,"When primarily referencing the income statement and the statement of financial position, what is the FY2021 inventory turnover ratio for Nike? Inventory turnover ratio is defined as: (FY2021 COGS) / (average inventory between FY2020 and FY2021). Round your answer to two decimal places.",3.46,"To calculate the inventory turnover ratio for FY2021, we need the Cost of Goods Sold (COGS) for FY2021 and the average inventory between FY2020 and FY2021. However, the provided context does not include specific figures for COGS or inventory levels. Without these figures, we cannot calculate the inventory turnover ratio. If you have access to the financial statements, you can find COGS in the income statement and inventory levels in the statement of financial position (balance sheet). Once you have those figures, you can use the formula:
+
+Inventory Turnover Ratio = COGS for FY2021 / [(Inventory at end of FY2020 + Inventory at end of FY2021) / 2]
+
+Please provide the necessary figures to proceed with the calculation.",0.0,0.0,12.69
+C5_query_expansion,101,Nike,NIKE_2023_10K,domain-relevant,"Among operations, investing, and financing activities, which brought in the most (or lost the least) cash flow for Nike in FY2023?","Among the three, cash flow from operations was the highest for Nike in FY2023.","In FY2023, operations brought in the most cash flow for Nike, with a cash inflow of $5,841 million.",0.303,0.0,10.22
+C5_query_expansion,102,Paypal,PAYPAL_2022_10K,domain-relevant,"Does Paypal have positive working capital based on FY2022 data? If working capital is not a useful or relevant metric for this company, then please state that and explain why.",Yes. Paypal has a positive working capital of $ 1.6Bn as of FY2022 end.,"Working capital is calculated as current assets minus current liabilities. However, the provided data does not include specific details about PayPal's current assets and current liabilities, which are necessary to calculate working capital. Additionally, for a company like PayPal, which operates in the financial services and digital payments industry, traditional working capital metrics may not be as relevant. This is because such companies often have significant amounts of cash and cash equivalents, customer accounts, and investments that can fluctuate significantly and are not necessarily indicative of operational liquidity or financial health in the same way they might be for a manufacturing or retail company. Therefore, working capital may not be a useful or relevant metric for PayPal.",0.0909,0.0,25.79
+C5_query_expansion,103,PepsiCo,PEPSICO_2021_10K,metrics-generated,What is the FY2021 capital expenditure amount (in USD billions) for PepsiCo? Respond to the question by assuming the perspective of an investment analyst who can only use the details shown within the statement of cash flows.,$4.60,The FY2021 capital expenditure amount for PepsiCo is $4.625 billion.,0.1538,0.0,26.16
+C5_query_expansion,104,PepsiCo,PEPSICO_2022_10K,domain-relevant,What are the geographies that Pepsico primarily operates in as of FY2022?,"As of FY2022, Pepsico primarily operates in the following geographies: North America, Latin America, Europe, Africa, Middle East, South Asia, Asia Pacific, Australia, New Zealand and China.","As of FY2022, PepsiCo primarily operates in the United States, Mexico, Russia, Canada, China, the United Kingdom, and South Africa.",0.383,0.0,29.21
+C5_query_expansion,105,PepsiCo,PEPSICO_2022_10K,domain-relevant,Has Pepsico reported any materially important ongoing legal battles from FY2022 and FY2021?,"No, Pepsico is not involved in material legal battles.",The provided text does not mention any specific ongoing legal battles from FY2022 and FY2021 that are materially important to PepsiCo.,0.2,0.0,3.1
+C5_query_expansion,106,PepsiCo,PEPSICO_2022_10K,domain-relevant,What is the quantity of restructuring costs directly outlined in Pepsico's income statements for FY2022? If restructuring costs are not explicitly outlined then state 0.,Pepsico's restructuring costs in FY2022 amounted to $411 million .,0,0.0,0.0,1.55
+C5_query_expansion,107,PepsiCo,PEPSICO_2022_10K,metrics-generated,What is the FY2022 unadjusted EBITDA less capex for PepsiCo? Define unadjusted EBITDA as unadjusted operating income + depreciation and amortization [from cash flow statement]. Answer in USD millions. Respond to the question by assuming the perspective of an investment analyst who can only use the details shown within the statement of cash flows and the income statement.,$9068.00,"To calculate the FY2022 unadjusted EBITDA less capex for PepsiCo, we need to follow these steps:
+
+1. **Unadjusted Operating Income (Operating Profit):** From the Consolidated Statement of Income, the operating profit for 2022 is $11,512 million.
+
+2. **Depreciation and Amortization:** From the Consolidated Statement of Cash Flows, the depreciation and amortization for 2022 is $2,763 million.
+
+3. **Unadjusted EBITDA:** This is calculated as the sum of operating profit and depreciation and amortization.
+   \[
+   \text{Unadjusted EBITDA} = \text{Operating Profit} + \text{Depreciation and Amortization} = 11,512 + 2,763 = 14,275 \text{ million USD}
+   \]
+
+4. **Capital Expenditures (Capex):** From the Consolidated Statement of Cash Flows, the capital spending for 2022 is $5,207 million.
+
+5. **Unadjusted EBITDA less Capex:** This is calculated by subtracting capex from unadjusted EBITDA.
+   \[
+   \text{Unadjusted EBITDA less Capex} = 14,275 - 5,207 = 9,068 \text{ million USD}
+   \]
+
+Therefore, the FY2022 unadjusted EBITDA less capex for PepsiCo is $9,068 million.",0.0,0.0,5.79
+C5_query_expansion,108,PepsiCo,PEPSICO_2022_10K,metrics-generated,What is the FY2022 unadjusted EBITDA % margin for PepsiCo? Calculate unadjusted EBITDA using unadjusted operating income and D&A (from cash flow statement). Give a response to the question by relying on the details shown in the statement of cash flows and the P&L statement.,16.5%,"To calculate the FY2022 unadjusted EBITDA % margin for PepsiCo, we need to determine the unadjusted EBITDA and then express it as a percentage of total revenue.
+
+1. **Unadjusted Operating Income**: This is not directly provided in the text, but it can be inferred from the net income and other details. However, since the exact operating income is not explicitly mentioned, we will assume it is the net income before interest, taxes, depreciation, and amortization adjustments.
+
+2. **Depreciation and Amortization (D&A)**: From the cash flow statement, the depreciation and amortization for 2022 is $2,763 million.
+
+3. **Net Income**: From the statement of comprehensive income, the net income for 2022 is $8,978 million.
+
+4. **Unadjusted EBITDA Calculation**:
+   - Unadjusted EBITDA = Net Income + Depreciation and Amortization
+   - Unadjusted EBITDA = $8,978 million + $2,763 million = $11,741 million
+
+5. **Total Revenue**: This is not directly provided in the text, but it is necessary to calculate the EBITDA margin. Assuming you have access to the total revenue figure, you would use it here. For the sake of this calculation, let's assume the total revenue is $86,392 million (a hypothetical figure for illustration).
+
+6. **Unadjusted EBITDA % Margin**:
+   - Unadjusted EBITDA % Margin = (Unadjusted EBITDA / Total Revenue) * 100
+   - Unadjusted EBITDA % Margin = ($11,741 million / $86,392 million) * 100 ≈ 13.59%
+
+Therefore, the FY2022 unadjusted EBITDA % margin for PepsiCo is approximately 13.59%, assuming the hypothetical total revenue figure provided. Adjust the calculation with the actual revenue figure if available.",0.0081,0.0,7.17
+C5_query_expansion,109,PepsiCo,PEPSICO_2023_8K_dated-2023-05-05,novel-generated,"At the Pepsico AGM held on May 3, 2023, what was the outcome of the shareholder vote on the shareholder proposal for a congruency report by Pepsico on net-zero emissions policies?",The shareholder proposal for a congruency report by Pepsico on net-zero emissions policies was defeated.,The shareholder proposal for a congruency report on net-zero emissions policies was defeated.,0.9333,0.0,3.05
+C5_query_expansion,110,PepsiCo,PEPSICO_2023_8K_dated-2023-05-30,novel-generated,"By how much did Pepsico increase its unsecured five year revolving credit agreement on May 26, 2023?","$400,000,000 increase.","PepsiCo increased its unsecured five year revolving credit agreement by $400,000,000 on May 26, 2023, from $3,800,000,000 to $4,200,000,000.",0.1935,0.0,25.3
+C5_query_expansion,111,PepsiCo,PEPSICO_2023_8K_dated-2023-05-30,novel-generated,"As of May 26, 2023, what is the total amount Pepsico may borrow under its unsecured revolving credit agreements?","Total amount Pepsico may borrow under unsecured revolving credit agreements = $8,400,000,000.","As of May 26, 2023, PepsiCo may borrow a total of $8,400,000,000 under its unsecured revolving credit agreements, which includes $4,200,000,000 from the 364-day credit agreement and $4,200,000,000 from the five-year credit agreement.",0.3448,0.0,2.35
+C5_query_expansion,112,PepsiCo,PEPSICO_2023Q1_EARNINGS,novel-generated,"As of FY2023Q1, why did Pepsico raise full year guidance for FY2023?",Pepsico experienced a strong start to FY2023.,ERROR: Stream has ended unexpectedly,0.0,0.0,0.0
+C5_query_expansion,113,PepsiCo,PEPSICO_2023Q1_EARNINGS,novel-generated,"As of FY2023Q1, by how many percentage points did Pepsico raise full year guidance in respect of core constant currency EPS growth?",Pepsico raised full year guidance in respect of core constant currency EPS growth by 1 percentage point.,ERROR: Stream has ended unexpectedly,0.0,0.0,0.0
+C5_query_expansion,114,Pfizer,PFIZER_2021_10K,novel-generated,Did Pfizer grow its PPNE between FY20 and FY21?,"Yes, change in PPNE was positive year over year","The provided context does not contain specific information about Pfizer's Property, Plant, and Equipment (PPNE) growth between FY20 and FY21. To determine whether Pfizer's PPNE grew during this period, one would need to refer to the company's financial statements or specific sections of the Form 10-K that detail changes in PPNE.",0.0938,0.0,19.62
+C5_query_expansion,115,Pfizer,PFIZER_2021_10K,novel-generated,Were there any potential events that are not in Pfizer's standard business operations that substantially increased net income in 2019?,"Yes, the gain on completion of Consumer Healthcare JV Transaction","Yes, in 2019, Pfizer recognized a substantial pre-tax gain of $8.1 billion ($5.4 billion net of tax) from the completion of the Consumer Healthcare JV transaction with GSK. This gain was a result of deconsolidating their Consumer Healthcare business and recognizing the difference in the fair value of their 32% equity stake in the new JV and the carrying value of their Consumer Healthcare business. This event was not part of Pfizer's standard business operations and significantly increased net income in 2019.",0.1667,0.0,3.27
+C5_query_expansion,116,Pfizer,PFIZER_2021_10K,novel-generated,What are three main companies acquired by Pfizer mentioned in this 10K report?,"Trillium, Array, and Therachon","The three main companies acquired by Pfizer mentioned in this 10K report are Arena, Medivation, and King Pharmaceuticals.",0.0909,0.0,3.44
+C5_query_expansion,117,Pfizer,Pfizer_2023Q2_10Q,novel-generated,How much does Pfizer expect to pay to spin off Upjohn in the future in USD million?,77.78,"Pfizer does not expect to pay any future amounts to spin off Upjohn, as the spin-off and combination with Mylan to form Viatris have already been completed. The financial statements mention net amounts due to Viatris related to the spin-off, but these are not future expected payments for the spin-off itself.",0.0,0.0,14.29
+C5_query_expansion,118,Pfizer,Pfizer_2023Q2_10Q,novel-generated,"For Pfizer, which geographic region had the biggest drop in Q22023 year over year revenues (on a percentage basis)?",Developed Rest of the World,"The ""Developed Rest of World"" region had the biggest drop in Q2 2023 year-over-year revenues, with a decline of 74%.",0.2963,0.0,3.21
+C5_query_expansion,119,Pfizer,Pfizer_2023Q2_10Q,novel-generated,"As of Q2'2023, is Pfizer spinning off any large business segments?","Yes, it's spinning off Upjohn.","No, as of Q2 2023, Pfizer is not spinning off any large business segments.",0.2,0.0,2.47
+C5_query_expansion,120,Ulta Beauty,ULTABEAUTY_2023_10K,domain-relevant,Which debt securities are registered to trade on a national securities exchange under Ulta Beauty's name as of FY2023?,There are none,"The document does not provide specific information about any debt securities registered to trade on a national securities exchange under Ulta Beauty's name as of FY2023. It primarily discusses the company's financial statements, accounting policies, and other related disclosures.",0.0,0.0,16.69
+C5_query_expansion,121,Ulta Beauty,ULTABEAUTY_2023_10K,domain-relevant,What are major acquisitions that Ulta Beauty has done in FY2023 and FY2022?,Ulta Beauty did not make any acquisitions in FY2023 and FY2022.,The provided context does not mention any major acquisitions by Ulta Beauty in FY2023 or FY2022.,0.4444,0.0,3.07
+C5_query_expansion,122,Ulta Beauty,ULTABEAUTY_2023Q4_EARNINGS,novel-generated,What drove the reduction in SG&A expense as a percent of net sales in FY2023?,"Lower marketing expenses and leverage of incentive compensation due to higher sales. The answer here assumes FY2023 refers to the 12 months ended on January 28, 2023 (although the company refers to this period as its fiscal 2022.",The reduction in SG&A expense as a percent of net sales in FY2023 was primarily due to the leverage of marketing expenses and incentive compensation resulting from higher sales.,0.2059,0.0,4.18
+C5_query_expansion,123,Ulta Beauty,ULTABEAUTY_2023Q4_EARNINGS,novel-generated,What drove the increase in Ulta Beauty's merchandise inventories balance at end of FY2023?,"Increase in Merchandise inventories balance was driven by the opening of 47 new stores. The answer here assumes FY2023 refers to the 12 months ended on January 28, 2023 (although the company refers to this period as its fiscal 2022.","The increase in Ulta Beauty's merchandise inventories balance at the end of FY2023 was primarily driven by the favorable impact from the continued resilience of the beauty category, retail price increases, the impact of new brands and product innovation, increased social occasions, and fewer COVID-19 limitations compared to fiscal 2021.",0.3043,0.0,4.36
+C5_query_expansion,124,Ulta Beauty,ULTABEAUTY_2023Q4_EARNINGS,novel-generated,What percent of Ulta Beauty's total spend on stock repurchases for FY 2023 occurred in Q4 of FY2023?,"36%. The answer here assumes FY2023 refers to the 12 months ended on January 28, 2023 (although the company refers to this period as its fiscal 2022.","In fiscal year 2022, Ulta Beauty repurchased shares of its common stock at a total cost of $900.0 million. During the fourth quarter of fiscal 2022, the company repurchased shares at a cost of $328.1 million. To find the percentage of the total spend on stock repurchases that occurred in Q4, you can use the following calculation:
+
+\[
+\text{Percentage} = \left( \frac{\text{Q4 Repurchase Cost}}{\text{Total FY Repurchase Cost}} \right) \times 100
+\]
+
+\[
+\text{Percentage} = \left( \frac{328.1}{900.0} \right) \times 100 \approx 36.46\%
+\]
+
+Therefore, approximately 36.46% of Ulta Beauty's total spend on stock repurchases for fiscal year 2022 occurred in the fourth quarter.",0.1014,0.0,3.72
+C5_query_expansion,125,Ulta Beauty,ULTABEAUTY_2023Q4_EARNINGS,novel-generated,Did Ulta Beauty's wages expense as a percent of net sales increase or decrease in FY2023?,"Wages expense as a percent of net sales increased in FY2023. The answer here assumes FY2023 refers to the 12 months ended on January 28, 2023 (although the company refers to this period as its fiscal 2022.",Ulta Beauty's wages expense as a percent of net sales decreased in FY2023.,0.3922,0.0,2.34
+C5_query_expansion,126,Verizon,VERIZON_2021_10K,novel-generated,"Among all of the derivative instruments that Verizon used to manage the exposure to fluctuations of foreign currencies exchange rates or interest rates, which one had the highest notional value in FY 2021?","Cross currency swaps. Its notional value was $32,502 million.","Cross currency swaps had the highest notional value in FY 2021, with a total notional amount of $32.5 billion.",0.4,0.0,10.57
+C5_query_expansion,127,Verizon,VERIZON_2021_10K,novel-generated,"As of FY 2021, how much did Verizon expect to pay for its retirees in 2024?","The estimated pension benefits were $1097 million, and the estimated health care and life insurance benefits were $862 million.","Verizon did not specify an exact amount it expected to pay for its retirees in 2024 in the provided context. However, it mentioned that due to prior discretionary contributions and higher-than-expected asset returns, there would be no required pension funding through 2031, subject to changes in market conditions.",0.058,0.0,3.05
+C5_query_expansion,128,Verizon,VERIZON_2022_10K,domain-relevant,"Does Verizon have a reasonably healthy liquidity profile based on its quick ratio for FY 2022? If the quick ratio is not relevant to measure liquidity, please state that and explain why.",No. The quick ratio was approximately 0.54 for Verizon. It indicated that Verizon does not have a healthy liquidity profile.,"The quick ratio is not directly provided in the context, but it can be calculated using the available data. The quick ratio is a measure of a company's ability to meet its short-term obligations with its most liquid assets, excluding inventory. It is calculated as:
+
+Quick Ratio = (Cash and Cash Equivalents + Accounts Receivable) / Current Liabilities
+
+From the context, we know:
+- Cash and Cash Equivalents: $2.6 billion
+- Accounts Receivable: Not directly provided, but changes in accounts receivable are mentioned.
+- Current Liabilities: Not directly provided, but long-term debt maturing within one year is $9.813 billion.
+
+Without the exact figure for accounts receivable and total current liabilities, we cannot calculate the precise quick ratio. However, given the cash and cash equivalents of $2.6 billion and the long-term debt maturing within one year of $9.813 billion, Verizon may face challenges in covering its short-term obligations solely with its most liquid assets. Therefore, the quick ratio might suggest a less favorable liquidity position unless other current assets (like accounts receivable) significantly contribute to liquidity.
+
+In conclusion, while the quick ratio is relevant for assessing liquidity, the lack of complete data prevents a definitive assessment of Verizon's liquidity profile for FY 2022 based solely on this metric.",0.069,0.0,14.88
+C5_query_expansion,129,Verizon,VERIZON_2022_10K,domain-relevant,Is Verizon a capital intensive business based on FY 2022 data?,"Yes. Verizon's capital intensity ratio was approximately 2.774729. This means that it took approximately $2.77 of assets to generate $1 of revenue and thus, Verizon can be considered capital intensive.","Yes, Verizon is a capital-intensive business based on FY 2022 data. The company invested $23.1 billion in capital expenditures during the year, primarily to expand and maintain its wireless networks, high-speed fiber, and other advanced technologies. This significant level of investment indicates the capital-intensive nature of its operations.",0.1882,0.0,3.71
+C5_query_expansion,130,Verizon,VERIZON_2022_10K,domain-relevant,Has Verizon increased its debt on balance sheet between 2022 and the 2021 fiscal period?,No. Verizon's debt decreased by $229 million.,"No, Verizon's total debt decreased slightly from $150.9 billion in 2021 to $150.6 billion in 2022.",0.3704,0.0,2.59
+C5_query_expansion,131,Walmart,WALMART_2018_10K,metrics-generated,What is FY2018 days payable outstanding (DPO) for Walmart? DPO is defined as: 365 * (average accounts payable between FY2017 and FY2018) / (FY2018 COGS + change in inventory between FY2017 and FY2018). Round your answer to two decimal places. Please base your judgments on the information provided primarily in the statement of financial position and the P&L statement.,42.69,"To calculate the Days Payable Outstanding (DPO) for Walmart for FY2018, we need to follow these steps:
+
+1. **Calculate the Average Accounts Payable:**
+   - Accounts Payable FY2018 = $46,092 million
+   - Accounts Payable FY2017 = $41,433 million
+   - Average Accounts Payable = (46,092 + 41,433) / 2 = $43,762.5 million
+
+2. **Determine the Cost of Goods Sold (COGS) for FY2018:**
+   - COGS FY2018 = $373,396 million
+
+3. **Calculate the Change in Inventory:**
+   - Inventory FY2018 = $43,783 million
+   - Inventory FY2017 = $43,046 million
+   - Change in Inventory = 43,783 - 43,046 = $737 million
+
+4. **Calculate DPO:**
+   - DPO = 365 * (Average Accounts Payable) / (COGS + Change in Inventory)
+   - DPO = 365 * 43,762.5 / (373,396 + 737)
+   - DPO = 365 * 43,762.5 / 374,133
+   - DPO ≈ 42.72
+
+Therefore, the Days Payable Outstanding (DPO) for Walmart in FY2018 is approximately 42.72 days.",0.0149,0.0,25.77
+C5_query_expansion,132,Walmart,WALMART_2019_10K,metrics-generated,"Based on the information provided primarily in the statement of income, what is the FY2018 - FY2019 change in unadjusted operating income % margin for Walmart? Answer in units of percents and round to one decimal place.",0.2%,"The unadjusted operating income percentage margin for Walmart in FY2018 was 4.1% ($20,437 million operating income / $500,343 million total revenues) and in FY2019 was 4.3% ($21,957 million operating income / $514,405 million total revenues). The change in unadjusted operating income percentage margin from FY2018 to FY2019 is 0.2 percentage points.",0.069,0.0,16.05
+C5_query_expansion,133,Walmart,WALMART_2020_10K,metrics-generated,What is the FY2018 - FY2020 3 year average unadjusted EBITDA % margin for Walmart? Define unadjusted EBITDA as unadjusted operating income + depreciation and amortization from the cash flow statement. Answer in units of percents and round to one decimal place. Calculate what was asked by utilizing the line items clearly shown in the P&L statement and the cash flow statement.,6.2%,"To calculate the 3-year average unadjusted EBITDA % margin for Walmart from FY2018 to FY2020, we need to follow these steps:
+
+1. **Calculate Unadjusted EBITDA for each year:**
+   - Unadjusted EBITDA = Operating Income + Depreciation and Amortization
+
+   For FY2020:
+   - Operating Income = $20,568 million
+   - Depreciation and Amortization = $10,987 million
+   - Unadjusted EBITDA = $20,568 + $10,987 = $31,555 million
+
+   For FY2019:
+   - Operating Income = $21,957 million
+   - Depreciation and Amortization = $10,678 million
+   - Unadjusted EBITDA = $21,957 + $10,678 = $32,635 million
+
+   For FY2018:
+   - Operating Income = $20,437 million
+   - Depreciation and Amortization = $10,529 million
+   - Unadjusted EBITDA = $20,437 + $10,529 = $30,966 million
+
+2. **Calculate EBITDA % Margin for each year:**
+   - EBITDA % Margin = (Unadjusted EBITDA / Total Revenues) * 100
+
+   For FY2020:
+   - Total Revenues = $523,964 million
+   - EBITDA % Margin = ($31,555 / $523,964) * 100 ≈ 6.0%
+
+   For FY2019:
+   - Total Revenues = $514,405 million
+   - EBITDA % Margin = ($32,635 / $514,405) * 100 ≈ 6.3%
+
+   For FY2018:
+   - Total Revenues = $500,343 million
+   - EBITDA % Margin = ($30,966 / $500,343) * 100 ≈ 6.2%
+
+3. **Calculate the 3-year average EBITDA % Margin:**
+   - Average EBITDA % Margin = (6.0% + 6.3% + 6.2%) / 3 ≈ 6.2%
+
+Therefore, the 3-year average unadjusted EBITDA % margin for Walmart from FY2018 to FY2020 is approximately 6.2%.",0.0197,1.0,24.34
